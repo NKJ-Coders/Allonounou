@@ -23,3 +23,31 @@ Route::get('/', function () {
 // Route::patch('/annonce-recruteur/{annonce}', 'Annonce_recruteurController@update');
 
 Route::resource('annonce-recruteur', 'Annonce_recruteurController');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::get('/profil/create', 'ProfilController@create');
+Route::post('/profil', 'ProfilController@store');
