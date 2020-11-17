@@ -3,6 +3,8 @@
 @section('content')
     <h1 class="my-3">Mes annonces:</h1>
 
+    <a class="btn btn-success my-2" href="{{ route('annonce-recruteur.create') }}">Publier une annonce recrutement</a>
+
     @foreach($myAnnonces as $key => $myAnnonce)
         <div>
             <p><span class="text-bold">Je recherche une: </span>{{ $myAnnonce->poste->nom }} @if($myAnnonce->residente == 1) , résidente @endif</p>

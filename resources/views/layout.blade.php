@@ -97,7 +97,7 @@
                       <a class="nav-link" href="/">Accueil <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="{{ route('annonce-recruteur.create') }}">Publier une annonce recrutement</a>
+                      {{-- <a class="nav-link" href="{{ route('annonce-recruteur.create') }}">Publier une annonce recrutement</a> --}}
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('annonce-recruteur.index') }}">Voir mes annonces</a>
