@@ -35,11 +35,11 @@ class ProfilController extends Controller
     private function validator()
     {
         return request()->validate([
-            // 'cni' => 'sometimes',
-            'photo' => 'sometimes|image|max:5000',
-            'plan_localisation' => 'sometimes',
-            'certificat_medical' => 'sometimes',
-            'casier_judiciaire' => 'sometimes',
+            'cni' => 'required',
+            'photo' => 'required|image|max:5000',
+            'plan_localisation' => 'required',
+            // 'certificat_medical' => 'required',
+            // 'casier_judiciaire' => 'required',
             'nom_pere' => 'string',
             'nom_mere' => 'required',
             'date_nais' => 'required',
@@ -69,22 +69,22 @@ class ProfilController extends Controller
         }
         if (request('cni')) {
             $profil->update([
-                'cni' => request('cni')->store('documents/cni', 'public')
+                'cni' => request('cni')->storeAs('documents/cni', 'cni' . $id . '.pdf', 'public')
             ]);
         }
         if (request('plan_localisation')) {
             $profil->update([
-                'plan_localisation' => request('plan_localisation')->store('documents/plan-localisation', 'public')
+                'plan_localisation' => request('plan_localisation')->storeAs('documents/plan-localisation', 'plan_localisation' . $id . '.pdf', 'public')
             ]);
         }
         if (request('certificat_medical')) {
             $profil->update([
-                'certificat_medical' => request('certificat_medical')->store('documents/certificat-medical', 'public')
+                'certificat_medical' => request('certificat_medical')->storeAs('documents/certificat-medical', 'certificat' . $id . '.pdf', 'public')
             ]);
         }
         if (request('casier_judiciaire')) {
             $profil->update([
-                'casier_judiciaire' => request('casier_judiciaire')->store('documents/casier-judiciaire', 'public')
+                'casier_judiciaire' => request('casier_judiciaire')->storeAs('documents/casier-judiciaire', 'casier' . $id . '.pdf', 'public')
             ]);
         }
     }
