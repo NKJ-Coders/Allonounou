@@ -31,6 +31,13 @@ class ProfilController extends Controller
         return back()->with('confirmMsg', 'Profil crée avec succès!');
     }
 
+    public function show($profil)
+    {
+        $profil = Profil::findOrFail($profil);
+
+        return view('profil.show', compact('profil'));
+    }
+
     // function de validation du formulaire
     private function validator()
     {
@@ -38,8 +45,8 @@ class ProfilController extends Controller
             'cni' => 'required',
             'photo' => 'required|image|max:5000',
             'plan_localisation' => 'required',
-            // 'certificat_medical' => 'required',
-            // 'casier_judiciaire' => 'required',
+            'certificat_medical' => 'required',
+            'casier_judiciaire' => 'required',
             'nom_pere' => 'string',
             'nom_mere' => 'required',
             'date_nais' => 'required',
