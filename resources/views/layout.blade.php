@@ -97,10 +97,18 @@
                       <a class="nav-link" href="/">Accueil <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="{{ route('annonce-recruteur.create') }}">Publier une annonce recrutement</a>
+                      {{-- <a class="nav-link" href="{{ route('annonce-recruteur.create') }}">Publier une annonce recrutement</a> --}}
+                        <a class="nav-link" href="/profil/create">Creer un profil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('annonce-recruteur.index') }}">Voir mes annonces</a>
+                      {{-- <a class="nav-link" href="{{ route('annonce-recruteur.create') }}">Publier une annonce recrutement</a> --}}
+                        <a class="nav-link" href="/profil/{{ 1 }}">Voir mon profil</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/tache/create">Creer une tache</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('annonce-recruteur.index') }}">Voir annonces recrutement</a>
                     </li>
                   </ul>
                 </div>

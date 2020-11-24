@@ -23,3 +23,37 @@ Route::get('/', function () {
 // Route::patch('/annonce-recruteur/{annonce}', 'Annonce_recruteurController@update');
 
 Route::resource('annonce-recruteur', 'Annonce_recruteurController');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::get('/profil/create', 'ProfilController@create');
+Route::post('/profil', 'ProfilController@store');
+Route::get('/profil/{profil}', 'ProfilController@show');
+
+
+Route::get('/tache/create', 'TacheController@create');
+Route::get('/tache/store', 'TacheController@store');
+Route::get('/tache', 'TacheController@index');
