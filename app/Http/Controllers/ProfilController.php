@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfilController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function index()
     {
@@ -36,6 +40,14 @@ class ProfilController extends Controller
         $profil = Profil::findOrFail($profil);
 
         return view('profil.show', compact('profil'));
+    }
+
+    public function edit(Profil $profil)
+    {
+    }
+
+    public function update(Profil $profil)
+    {
     }
 
     // function de validation du formulaire
