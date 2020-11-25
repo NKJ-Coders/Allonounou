@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Compte_recruteur extends Model
 {
+    protected $fillable = ['nom', 'email', 'telephone1', 'telephone2', 'telephone3'];
+
     public function annonce_demandeurs()
     {
 

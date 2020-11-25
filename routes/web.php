@@ -57,3 +57,15 @@ Route::get('/profil/{profil}', 'ProfilController@show');
 Route::get('/tache/create', 'TacheController@create');
 Route::get('/tache/store', 'TacheController@store');
 Route::get('/tache', 'TacheController@index');
+
+Route::get('/registration/{type_compte}', 'Auth\RegisterController@showRegisterForm')->name('registration');
+
+Route::name('registration.')->group(function () {
+    Route::post('/registration/recruteur', 'Auth\RegisterController@storeRecruteur')->name('recruteur');
+
+    Route::post('/registration/demandeur', 'Auth\RegisterController@storeDemandeur')->name('demandeur');
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

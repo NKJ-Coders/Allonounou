@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.app')
 
 @section('content')
     <h1 class="my-3">Publier une annonce:</h1>

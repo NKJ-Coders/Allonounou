@@ -7,6 +7,8 @@ use PhpParser\Node\Expr\FuncCall;
 
 class Compte_demandeur extends Model
 {
+    protected $guarded = [];
+
     public function profil()
     {
 
