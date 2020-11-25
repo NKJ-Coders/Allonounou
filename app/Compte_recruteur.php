@@ -25,4 +25,9 @@ class Compte_recruteur extends Model
 
         return $this->hasMany('App\Abonnement');
     }
+
+    public function user()
+    {
+        return $this->hasOne('App\User');
+    }
 }

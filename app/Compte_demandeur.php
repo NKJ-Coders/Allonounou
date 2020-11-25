@@ -25,4 +25,9 @@ class Compte_demandeur extends Model
     {
         return $this->belongsTo('App\Localisation');
     }
+
+    public function user()
+    {
+        return $this->hasOne('App\User');
+    }
 }
