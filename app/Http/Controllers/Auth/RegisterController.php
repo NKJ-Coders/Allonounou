@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Compte_demandeur;
 use App\Compte_recruteur;
 use App\User;
+use App\SendCode;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -32,7 +34,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/verify ';
 
     /**
      * Create a new controller instance.
@@ -76,6 +78,13 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        event(new Registered($user = $this->create($request->all())));
+        return $this->registered($request,$user) ?: redirect('verify?telephone1'.$request->telephone1);
+    }
+
     protected function create(array $data)
     {
         // if ($data['type_compte'] == 'demandeur') {
@@ -122,6 +131,20 @@ class RegisterController extends Controller
         return view('auth.register', compact('type_compte'));
     }
 
+    public function getVerify(){
+        return view('verify');
+    }
+    public function postVerify(Request $request){
+        if ($user=User::Where('code',$request->code)->first()) {
+            $user->active=1;
+            $user->code=null;
+            $user->save();
+            return redirect()->route('login')->withMessage('Your account is active');
+        }
+        else{
+            return back()->withMessage('Verify code is not correct Please. try again');
+        }
+    }
     public function storeRecruteur(Request $request)
     {
         $val = $this->validate($request, [
@@ -149,17 +172,23 @@ class RegisterController extends Controller
         $user->id_compte = $compte->id;
         $user->name = $compte->nom;
         $user->telephone1 = $compte->telephone1;
+        $user->active = 0;
         $user->type = $data['type_compte'];
         $user->password = Hash::make($data['password']);
         $user->save();
-
-        if (Auth::guard('web')->attempt(['telephone1' => $data['telephone1'], 'password' => $data['password']], true)) {
-            return redirect()->intended(route('login'));
+        if ($user) {
+            $user->code=SendCode::sendCode($compte->telephone1);
+            $user->save();
+            return redirect()->intended(route('verify'));
         }
+        // if (Auth::guard('web')->attempt(['telephone1' => $data['telephone1'], 'password' => $data['password']], true)) {
+        //     return redirect()->intended(route('login'));
+        // }
     }
 
     public function storeDemandeur(Request $request)
     {
+
         $this->validate($request, [
             'nom' => 'required|string|max:255',
             'telephone1' => 'required|integer|unique:users',
@@ -199,9 +228,14 @@ class RegisterController extends Controller
         $user->type = $data['type_compte'];
         $user->password = Hash::make($data['password']);
         $user->save();
-
-        if (Auth::guard('web')->attempt(['telephone1' => $data['telephone1'], 'password' => $data['password']], true)) {
-            return redirect()->intended(route('login'));
+        if ($user) {
+            $user->code=SendCode::sendCode($compte->telephone1);
+            $user->save();
+            return redirect()->intended(route('verify'));
         }
+
+        // if (Auth::guard('web')->attempt(['telephone1' => $data['telephone1'], 'password' => $data['password']], true)) {
+        //     return redirect()->intended(route('login'));
+        // }
     }
 }
