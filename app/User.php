@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Compte_admin');
     }
+
+    public function profils()
+    {
+        return $this->hasMany('App\Profil');
+    }
 }

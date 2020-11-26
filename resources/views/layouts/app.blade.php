@@ -38,10 +38,24 @@
                         <a class="nav-link" href="{{ route('home') }}">Accueil <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="/annonce-recruteur/create">Publier une annonce recrutement</a>
+                            <a class="nav-link" href="/annonce-recruteur/create">Publier une annonce recrutement</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/annonce-recruteur">Voir mes annonces</a>
+                        </li>
+                        <li class="nav-item">
+                        {{-- <a class="nav-link" href="{{ route('annonce-recruteur.create') }}">Publier une annonce recrutement</a> --}}
+                            <a class="nav-link" href="/profil/create">Creer un profil</a>
+                        </li>
+                        <li class="nav-item">
+                        {{-- <a class="nav-link" href="{{ route('annonce-recruteur.create') }}">Publier une annonce recrutement</a> --}}
+                            <a class="nav-link" href="{{ route('profil.show', ['user' => Auth::id()]) }}">Voir mon profil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/tache/create">Creer une tache</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
                         </li>
                     </ul>
 
@@ -95,7 +109,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="container py-4">
             @yield('content')
         </main>
     </div>

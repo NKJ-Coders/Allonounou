@@ -15,7 +15,8 @@ class CreateProfilsTable extends Migration
     {
         Schema::create('profils', function (Blueprint $table) {
             $table->bigIncrements('id');
-            // $table->unsignedBigInteger('compte_demandeur_id')->index()->nullable();
+            $table->unsignedBigInteger('compte_demandeur_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('cni', 150)->nullable();
             $table->string('photo', 150)->nullable();
             $table->string('plan_localisation', 150)->nullable();
@@ -42,6 +43,7 @@ class CreateProfilsTable extends Migration
             $table->timestamps();
 
             // $table->foreign('compte_demandeur_id')->references('id')->on('compte_demandeurs');
+            // $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

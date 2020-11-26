@@ -49,9 +49,9 @@ Route::resource('annonce-recruteur', 'Annonce_recruteurController');
 
 
 
-Route::get('/profil/create', 'ProfilController@create');
+Route::get('/profil/create/{compte}', 'ProfilController@create')->name('profil.create');
 Route::post('/profil', 'ProfilController@store');
-Route::get('/profil/{profil}', 'ProfilController@show');
+Route::get('/profil/show/{user}', 'ProfilController@show')->name('profil.show');
 
 
 Route::get('/tache/create', 'TacheController@create');
@@ -65,6 +65,10 @@ Route::name('registration.')->group(function () {
 
     Route::post('/registration/demandeur', 'Auth\RegisterController@storeDemandeur')->name('demandeur');
 });
+
+Route::get('compte/list', 'CompteController@index')->name('compte');
+
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
 Auth::routes();
 

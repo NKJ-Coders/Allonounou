@@ -1,9 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    @if(session()->has('confirmMsg'))
-        <div class="alert alert-success my-3">{{ session()->get('confirmMsg') }}</div>
-    @endif
     <div class="mx-auto" style="width: 700px">
         <form class="my-4" action="/profil" method="POST" enctype="multipart/form-data">
             @csrf
@@ -62,7 +59,7 @@
                     <div class="invalid-feedback">Veuillez entrer le nom du pere</div>
                 @enderror
             </div>
-
+            <input type="hidden" name="compte_demandeur_id" value="{{ $compte->id }}">
             <div class="form-group">
                 <input type="text" name="nom_mere" class="form-control @error('nom_mere') is-invalid @enderror" placeholder="Nom de la mere">
                 @error('nom_mere')
@@ -159,6 +156,15 @@
                     <input type="radio" name="handicape_moteur" id="handicape_moteur2" class="custom-control-input" value="0" checked>
                     <label for="handicape_moteur2" class="custom-control-label">Non</label>
                 </div>
+            </div>
+
+            <div class="form-group">
+                <select name="poste_id" id="poste_id" class="custom-select col-md-8 @error('poste_id') is-invalid @enderror">
+                    <option value="">Selectionner le poste</option>
+                    @foreach($postes as $key => $poste)
+                        <option value="{{ $poste->id }}">{{ $poste->nom }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="form-group">

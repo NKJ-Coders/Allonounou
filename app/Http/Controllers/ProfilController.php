@@ -2,44 +2,62 @@
 
 namespace App\Http\Controllers;
 
+use App\Annonce_demandeur;
+use App\Compte_demandeur;
+use App\Poste;
 use App\Profil;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ProfilController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     public function index()
     {
     }
 
-    public function create()
+    public function create(Compte_demandeur $compte)
     {
+        $postes = Poste::all();
         // $onlinelink = Profil::find(7);
         // $link = 'storage/' . $onlinelink->photo;
         // $size = Storage::size($link);
-        return view('profil.create');
+        return view('profil.create', compact('compte', 'postes'));
     }
 
-    public function store()
+    public function store(Request $request)
     {
 
         $profil = Profil::create($this->validator());
+
+        $annonce_demandeur = new Annonce_demandeur;
+        $annonce_demandeur->profil_id = $profil->id;
+        $annonce_demandeur->poste_id = $request->poste_id;
+        $annonce_demandeur->save();
         // upload files
         $this->storeImage($profil, $profil->id);
 
-        return back()->with('confirmMsg', 'Profil crée avec succès!');
+        $profil->update([
+            'user_id' => Auth::id(),
+        ]);
+
+        return view('compte-demandeur.index')->with('confirmMsg', 'Profil crée avec succès!');
     }
 
-    public function show($profil)
+    public function show($user)
     {
-        $profil = Profil::findOrFail($profil);
 
-        return view('profil.show', compact('profil'));
+        $profil = Profil::where('user_id', $user)->get();
+        // dd($profil[0]->photo);
+
+        $compte_demandeur = Compte_demandeur::findOrFail($profil[0]->compte_demandeur_id);
+
+        return view('profil.show', compact('profil', 'compte_demandeur'));
     }
 
     public function edit(Profil $profil)
@@ -47,6 +65,10 @@ class ProfilController extends Controller
     }
 
     public function update(Profil $profil)
+    {
+    }
+
+    public function destroy(Profil $profil)
     {
     }
 
@@ -75,6 +97,7 @@ class ProfilController extends Controller
             'handicape_moteur' => 'required|integer',
             'handicape_visuel' => 'required|integer',
             'handicape_des_mains' => 'required|integer',
+            'compte_demandeur_id' => 'required|integer'
         ]);
     }
 
