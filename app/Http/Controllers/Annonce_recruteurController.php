@@ -7,6 +7,7 @@ use App\Localisation;
 use App\Poste;
 use App\Tache;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Annonce_recruteurController extends Controller
@@ -39,7 +40,10 @@ class Annonce_recruteurController extends Controller
 
             // insert @id_annonce & @id_tache in table tache_recrutement
             $annonce_recrut->taches()->sync([$request->tache_id]);
-
+            $compte_di = Auth::id() ;
+            $annonce_recruteur = new Annone_recruteur;
+            $annonce_recruteur->compte_recruteur_id = $compte_di;
+            $annonce_recruteur->save();
             session()->flash('confirmMsg', 'Annonces publiées avec succès!' );
 
             // return back()->with('confirmMsg', );

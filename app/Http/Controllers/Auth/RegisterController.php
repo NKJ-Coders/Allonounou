@@ -131,8 +131,22 @@ class RegisterController extends Controller
         return view('auth.register', compact('type_compte'));
     }
 
-    public function getVerify(){
-        return view('verify');
+    public function getVerify(Request $request){
+        $compte_di = $request->compte_di;
+        // $user = User::where('id_compte',$compte_id)->get();
+        // $telephone1 = $user[0]->telephone1;
+        return view('verify',compact('compte_di'));
+    }
+    public function reset (Request $request){
+        $compte_di = $request->compte_di;
+        // $telephone1 = $request->telephone1;
+        $user = User::where('id_compte', $compte_di)->get();
+        $telephone1 = $user[0]->telephone1;
+        // dd($user[0]->code);
+        $user[0]->update([
+            'code' => SendCode::sendCode($telephone1),
+        ]);
+        return redirect()->route('verify',['compte_di'=>$compte_di]);
     }
     public function postVerify(Request $request){
         if ($user=User::Where('code',$request->code)->first()) {
@@ -179,7 +193,8 @@ class RegisterController extends Controller
         if ($user) {
             $user->code=SendCode::sendCode($compte->telephone1);
             $user->save();
-            return redirect()->intended(route('verify'));
+            return redirect()->route('verify',['compte_di'=>$compte->id]);
+            // return redirect()->route('verify',['telephone1'=>$compte->telephone1]);
         }
         // if (Auth::guard('web')->attempt(['telephone1' => $data['telephone1'], 'password' => $data['password']], true)) {
         //     return redirect()->intended(route('login'));
@@ -231,7 +246,7 @@ class RegisterController extends Controller
         if ($user) {
             $user->code=SendCode::sendCode($compte->telephone1);
             $user->save();
-            return redirect()->intended(route('verify'));
+            return redirect()->route('verify',['compte_di'=>$compte->id]);
         }
 
         // if (Auth::guard('web')->attempt(['telephone1' => $data['telephone1'], 'password' => $data['password']], true)) {
