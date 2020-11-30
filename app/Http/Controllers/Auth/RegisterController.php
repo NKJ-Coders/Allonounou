@@ -236,6 +236,8 @@ class RegisterController extends Controller
         $compte->langue = $data['langue'];
         $compte->save();
 
+
+
         $user = new User();
         $user->id_compte = $compte->id;
         $user->name = $compte->nom;

@@ -54,6 +54,7 @@ Route::get('/verify/reset/{compte_di?}', 'Auth\RegisterController@reset')->name(
 
 
 
+
 Route::get('/profil/create/{compte}', 'ProfilController@create')->name('profil.create');
 Route::post('/profil', 'ProfilController@store');
 Route::get('/profil/show/{user}', 'ProfilController@show')->name('profil.show');
