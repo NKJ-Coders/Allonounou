@@ -71,7 +71,7 @@
         </div> --}}
 
         <div class="form-group">
-            <input type="text" name="salaire" id="salaire" class="form-control col-md-2 @error('salaire') is-invalid @enderror" placeholder="Salaire">F CFA
+            <input type="text" name="salaire" id="salaire" class="form-control col-md-2 @error('salaire') is-invalid @enderror" placeholder="Salaire" value="{{ old('salaire') }}">F CFA
             @error('salaire')
                 <div class="invalid-feedback">Veuillez bien remplir ce champs</div>
             @enderror
@@ -79,7 +79,7 @@
 
         <div class="form-group col-md-6">
             Heure de debut:
-            <input type="time" name="heure_debut" id="heure_debut" class="form-control col-md-8 @error('heure_debut') is-invalid @enderror">
+            <input type="time" name="heure_debut" id="heure_debut" class="form-control col-md-8 @error('heure_debut') is-invalid @enderror" value="{{ old('heure_debut') }}">
             @error('salaire')
                 <div class="invalid-feedback">Veuillez definir une heure de debut</div>
             @enderror
@@ -87,7 +87,7 @@
 
         <div class="form-group col-md-6">
             Heure de fin:
-            <input type="time" name="heure_fin" id="heure_fin" class="form-control col-md-8 @error('heure_fin') is-invalid @enderror">
+            <input type="time" name="heure_fin" id="heure_fin" class="form-control col-md-8 @error('heure_fin') is-invalid @enderror" value="{{ old('heure_fin') }}">
             @error('salaire')
                 <div class="invalid-feedback">Veuillez definir une heure de fin</div>
             @enderror

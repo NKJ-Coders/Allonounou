@@ -54,14 +54,14 @@
                 </div>
             </div>
             <div class="form-group">
-                <input type="text" name="nom_pere" class="form-control @error('nom_pere') is-invalid @enderror" placeholder="Nom du pere">
+                <input type="text" name="nom_pere" class="form-control @error('nom_pere') is-invalid @enderror" placeholder="Nom du pere" value="{{ old('nom_pere') }}">
                 @error('nom_pere')
                     <div class="invalid-feedback">Veuillez entrer le nom du pere</div>
                 @enderror
             </div>
             <input type="hidden" name="compte_demandeur_id" value="{{ $compte->id }}">
             <div class="form-group">
-                <input type="text" name="nom_mere" class="form-control @error('nom_mere') is-invalid @enderror" placeholder="Nom de la mere">
+                <input type="text" name="nom_mere" class="form-control @error('nom_mere') is-invalid @enderror" value="{{ old('nom_mere') }}" placeholder="Nom de la mere">
                 @error('nom_mere')
                     <div class="invalid-feedback">Veuillez entrer le nom de la mere</div>
                 @enderror
@@ -69,14 +69,14 @@
 
             <div class="form-group">
                 <label for="date_nais">Date de naissance:</label>
-                <input type="date" name="date_nais" class="form-control @error('date_nais') is-invalid @enderror">
+                <input type="date" name="date_nais" class="form-control @error('date_nais') is-invalid @enderror" value="{{ old('date_nais') }}">
                 @error('date_nais')
                     <div class="invalid-feedback">Veuillez entrer le nom de la mere</div>
                 @enderror
             </div>
 
             <div class="form-group">
-                <input type="text" name="lieu_nais" class="form-control @error('lieu_nais') is-invalid @enderror" placeholder="Lieu de naissance">
+                <input type="text" name="lieu_nais" class="form-control @error('lieu_nais') is-invalid @enderror" value="{{ old('lieu_nais') }}" placeholder="Lieu de naissance">
                 @error('lieu_nais')
                     <div class="invalid-feedback">Veuillez entrer votre lieu de naissance</div>
                 @enderror
@@ -84,66 +84,75 @@
 
             <div class="form-group">
                 <label for="nbre_enfant">Nombre d'enfant:</label>
-                <input type="number" name="nbre_enfant" class="form-control col-md-5 @error('nbre_enfant') is-invalid @enderror" min="0">
+                <input type="number" name="nbre_enfant" class="form-control col-md-5 @error('nbre_enfant') is-invalid @enderror" value="{{ old('nbre_enfant') }}" min="0">
                 @error('nbre_enfant')
                     <div class="invalid-feedback">Preciser le nombre d'enfant</div>
                 @enderror
             </div>
 
             <div class="form-group">
-                <input type="text" name="personne_proche1" class="form-control @error('personne_proche1') is-invalid @enderror" placeholder="Nom d'une personne proche">
+                <input type="text" name="personne_proche1" class="form-control @error('personne_proche1') is-invalid @enderror" value="{{ old('personne_proche1') }}" placeholder="Nom d'une personne proche">
                 @error('personne_proche1')
                     <div class="invalid-feedback">Veuillez entrer le nom d'une personne proche</div>
                 @enderror
             </div>
 
             <div class="form-group">
-                <input type="text" name="personne_proche2" class="form-control @error('personne_proche2') is-invalid @enderror" placeholder="Nom d'une deuxieme personne proche">
+                <input type="text" name="personne_proche2" class="form-control @error('personne_proche2') is-invalid @enderror" value="{{ old('personne_proche2') }}" placeholder="Nom d'une deuxieme personne proche">
                 @error('personne_proche2')
                     <div class="invalid-feedback">Veuillez entrer le nom d'une personne proche</div>
                 @enderror
             </div>
 
             <div class="form-group">
-                <input type="text" name="personne_proche3" class="form-control @error('personne_proche3') is-invalid @enderror" placeholder="Nom d'une troisieme personne proche">
+                <input type="text" name="personne_proche3" class="form-control @error('personne_proche3') is-invalid @enderror" value="{{ old('personne_proche3') }}" placeholder="Nom d'une troisieme personne proche">
                 @error('personne_proche3')
                     <div class="invalid-feedback">Veuillez entrer le nom d'une personne proche</div>
                 @enderror
             </div>
 
             <div class="form-group">
-                <input type="text" name="personne_proche4" class="form-control @error('personne_proche4') is-invalid @enderror" placeholder="Nom d'une autre personne proche">
+                <input type="text" name="personne_proche4" class="form-control @error('personne_proche4') is-invalid @enderror" value="{{ old('personne_proche4') }}" placeholder="Nom d'une autre personne proche">
                 @error('personne_proche4')
                     <div class="invalid-feedback">Veuillez entrer le nom d'une personne proche</div>
                 @enderror
             </div>
 
             <div class="form-group">
-                <input type="text" name="telephone_personne_proche1" class="form-control @error('telephone_personne_proche1') is-invalid @enderror" placeholder="Numero d'une personne proche">
+                <input type="text" name="telephone_personne_proche1" class="form-control @error('telephone_personne_proche1') is-invalid @enderror" value="{{ old('telephone_personne_proche1') }}" placeholder="Numero d'une personne proche">
                 @error('telephone_personne_proche1')
                     <div class="invalid-feedback">Veuillez entrer le numero valable d'une personne proche</div>
                 @enderror
             </div>
 
             <div class="form-group">
-                <input type="text" name="telephone_personne_proche2" class="form-control @error('telephone_personne_proche2') is-invalid @enderror" placeholder="Numero d'une autre personne proche">
+                <input type="text" name="telephone_personne_proche2" class="form-control @error('telephone_personne_proche2') is-invalid @enderror" value="{{ old('telephone_personne_proche2') }}" placeholder="Numero d'une autre personne proche">
                 @error('telephone_personne_proche2')
                     <div class="invalid-feedback">Veuillez entrer le numero valable d'une personne proche</div>
                 @enderror
             </div>
 
             <div class="form-group">
-                <input type="text" name="telephone_personne_proche3" class="form-control @error('telephone_personne_proche3') is-invalid @enderror" placeholder="Numero d'une autre personne proche">
+                <input type="text" name="telephone_personne_proche3" class="form-control @error('telephone_personne_proche3') is-invalid @enderror" value="{{ old('telephone_personne_proche3') }}" placeholder="Numero d'une autre personne proche">
                 @error('telephone_personne_proche3')
                     <div class="invalid-feedback">Veuillez entrer le numero valable d'une personne proche</div>
                 @enderror
             </div>
 
             <div class="form-group">
-                <input type="text" name="telephone_personne_proche4" class="form-control @error('telephone_personne_proche4') is-invalid @enderror" placeholder="Numero d'une autre personne proche">
+                <input type="text" name="telephone_personne_proche4" class="form-control @error('telephone_personne_proche4') is-invalid @enderror" value="{{ old('telephone_personne_proche4') }}" placeholder="Numero d'une autre personne proche">
                 @error('telephone_personne_proche4')
                     <div class="invalid-feedback">Veuillez entrer le numero valable d'une personne proche</div>
                 @enderror
+            </div>
+
+            <div class="form-group">
+                <select name="poste_id" id="poste_id" class="custom-select col-md-8 @error('poste_id') is-invalid @enderror">
+                    <option value="">Selectionner le poste</option>
+                    @foreach($postes as $key => $poste)
+                        <option value="{{ $poste->id }}">{{ $poste->nom }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="form-group">
@@ -156,15 +165,6 @@
                     <input type="radio" name="handicape_moteur" id="handicape_moteur2" class="custom-control-input" value="0" checked>
                     <label for="handicape_moteur2" class="custom-control-label">Non</label>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <select name="poste_id" id="poste_id" class="custom-select col-md-8 @error('poste_id') is-invalid @enderror">
-                    <option value="">Selectionner le poste</option>
-                    @foreach($postes as $key => $poste)
-                        <option value="{{ $poste->id }}">{{ $poste->nom }}</option>
-                    @endforeach
-                </select>
             </div>
 
             <div class="form-group">

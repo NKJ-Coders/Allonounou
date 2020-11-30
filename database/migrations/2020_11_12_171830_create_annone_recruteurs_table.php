@@ -15,10 +15,10 @@ class CreateAnnoneRecruteursTable extends Migration
     {
         Schema::create('annone_recruteurs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('compte_recruteur_id')->nullable();;
+            $table->unsignedInteger('compte_recruteur_id')->nullable();
             $table->unsignedInteger('poste_id')->nullable();
             $table->unsignedInteger('localisation_id')->nullable();
-            // $table->unsignedInteger('tache_id');
+            $table->unsignedInteger('tache_id');
             $table->unsignedInteger('salaire')->nullable();
             $table->boolean('residente')->nullable();
             $table->boolean('urgent')->nullable();

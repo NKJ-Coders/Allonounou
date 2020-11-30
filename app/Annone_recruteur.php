@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Annone_recruteur extends Model
 {
@@ -10,7 +11,7 @@ class Annone_recruteur extends Model
 
     public function scopeOnline($query)
     {
-        return $query->where('online', 1)->get();
+        return $query->with('compte_recruteur')->where('id', Auth::user()->id_compte)->where('online', 1)->paginate(15);
     }
 
     public function getUrgentAttribute($attributes)

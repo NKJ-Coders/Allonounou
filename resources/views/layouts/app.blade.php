@@ -13,7 +13,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
     <!-- Scripts -->
+    <script src="{{ asset('js/jquery-3.5.1.min.js') }}" defer></script>
+    <script src="{{ asset('js/croppie.js') }}" defer></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/ajax.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -21,6 +24,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/croppie.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -37,29 +41,89 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                        <a class="nav-link" href="{{ route('home') }}">Accueil <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/annonce-recruteur/create">Publier une annonce recrutement</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/annonce-recruteur">Voir mes annonces</a>
-                        </li>
-                        <li class="nav-item">
-                        {{-- <a class="nav-link" href="{{ route('annonce-recruteur.create') }}">Publier une annonce recrutement</a> --}}
-                            <a class="nav-link" href="/profil/create">Creer un profil</a>
-                        </li>
-                        <li class="nav-item">
-                        {{-- <a class="nav-link" href="{{ route('annonce-recruteur.create') }}">Publier une annonce recrutement</a> --}}
-                            <a class="nav-link" href="{{ route('profil.show', ['user' => Auth::id()]) }}">Voir mon profil</a>
-                        </li>
-                        <li class="nav-item">
+
+                        {{-- <li class="nav-item">
                             <a class="nav-link" href="/tache/create">Creer une tache</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
-                        </li>
+                        </li> --}}
+                        @guest
+                            @if (Route::has('register'))
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="{{ route('home') }}">Accueil <span class="sr-only">(current)</span></a>
+                                </li>
+                            @endif
+                        @else
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{{ route('home') }}">Accueil <span class="sr-only">(current)</span></a>
+                            </li>
+                            @if (Auth::user()->type == 'demandeur')
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        {{ __('Candidatures') }}
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
+                                        <a href="{{ route('mes_candidatures') }}" class="dropdown-item">
+                                            {{ __('Mes candidatures') }}
+                                        </a>
+                                        <a href="" class="dropdown-item">
+                                            {{ __('Présélections') }}
+                                        </a>
+                                    </div>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="">Mes interviews</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('profil.show', ['user' => Auth::id()]) }}">Mon profil</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('annonce-recruteur.list') }}">Voir offres</a>
+                                </li>
+                            @endif
+
+                            @if (Auth::user()->type == 'recruteur')
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        {{ __('Annonces') }}
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
+                                        <a href="{{ route('annonce-recruteur.index') }}" class="dropdown-item">
+                                            {{ __('Mes annonces') }}
+                                        </a>
+                                        <a href="{{ route('annonce-recruteur.create') }}" class="dropdown-item">
+                                            {{ __('Publier une annonces') }}
+                                        </a>
+                                    </div>
+                                </li>
+
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="">{{ __('Interviews programmés') }}</a>
+                                </li>
+
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        {{ __('Mes employés') }}
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
+                                        <a href="" class="dropdown-item">
+                                            {{ __('Actuels') }}
+                                        </a>
+                                        <a href="" class="dropdown-item">
+                                            {{ __('Precedent') }}
+                                        </a>
+                                    </div>
+                                </li>
+                            @endif
+
+                            {{-- @if (Auth::user()->type == 'admin') --}}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
+                                </li>
+                            {{-- @endif --}}
+                        @endguest
+
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -89,6 +153,7 @@
                                 </li>
                             @endif
                         @else
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -106,6 +171,12 @@
                                     </form>
                                 </div>
                             </li>
+
+                            @if (Auth::user()->type == 'demandeur')
+                                <li class="nav-item">
+                                    <a class="nav-link" href=""><span class="fa fa-bell"></span></a>
+                                </li>
+                            @endif
                         @endguest
                     </ul>
                 </div>
