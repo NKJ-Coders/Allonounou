@@ -23,9 +23,12 @@ Route::get('/', function () {
 // Route::patch('/annonce-recruteur/{annonce}', 'Annonce_recruteurController@update');
 
 Route::resource('annonce-recruteur', 'Annonce_recruteurController');
-Route::get('/verify', 'Auth\RegisterController@getVerify')->name('getverify');
+
+Route::get('/verify/{compte_di?}', 'Auth\RegisterController@getVerify')->name('verify');
 
 Route::post('/verify', 'Auth\RegisterController@postVerify')->name('verify');
+Route::get('/verify/reset/{compte_di?}', 'Auth\RegisterController@reset')->name('reset');
+
 
 
 

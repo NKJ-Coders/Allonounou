@@ -38,7 +38,8 @@
                     </form>
                 </div>
                 <div class="card-footer">
-                    <a href=""> Resend code</a>
+                    <a href="{{ route('reset',['compte_di'=>$compte_di]) }}"> Resend code</a>
+                    {{-- <a href="{{ route('reset',['telephone1'=>$telephone1]) }}"> Resend code</a> --}}
                 </div>
             </div>
         </div>
