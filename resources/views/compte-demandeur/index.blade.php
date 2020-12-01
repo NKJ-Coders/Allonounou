@@ -23,6 +23,7 @@
             </thead>
             <tbody>
                 @foreach ($comptes as $key => $compte)
+                    <?php $getProfil = App\Profil::find($compte->id, 'compte_demandeur_id') ?>
                     <tr>
                         <th scope="row">{{ $key+1 }}</th>
                         <td>{{ $compte->nom }}</a></td>
@@ -31,7 +32,12 @@
                         <td>{{ $compte->metier }}</td>
                         <td>{{ $compte->age }}</td>
                         <td>
-                            <a href="{{ route('profil.create', ['compte' => $compte->id]) }}" class="btn btn-warning">Creer profil</a>
+                            @if (empty($getProfil))
+                                <a href="{{ route('profil.create', ['compte' => $compte->id]) }}" class="btn btn-warning">Creer profil</a>
+                            @else
+                                <a href="{{ route('profil.create', ['compte' => $compte->id]) }}" class="btn btn-warning">Modifier profil</a>
+                                {{-- <a href="{{ route('profil.create', ['compte' => $compte->id]) }}" class="btn btn-warning">Ajouter une photo de profil</a> --}}
+                            @endif
                         </td>
                     </tr>
                 @endforeach

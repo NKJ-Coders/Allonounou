@@ -9,13 +9,20 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- font-awesome -->
+    <!-- CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.js"></script>
+
+    <!-- font-awesome -->
+    {{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> --}}
 
     <!-- Scripts -->
-    <script src="{{ asset('js/jquery-3.5.1.min.js') }}" defer></script>
+    {{-- <script src="{{ asset('js/jquery-3.5.1.min.js') }}" defer></script>
     <script src="{{ asset('js/croppie.js') }}" defer></script>
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}" defer></script> --}}
     <script src="{{ asset('js/ajax.js') }}" defer></script>
 
     <!-- Fonts -->
@@ -189,3 +196,48 @@
     </div>
 </body>
 </html>
+
+<script>
+    $(document).ready({
+        $image_crop = $('#image-preview').croppie({
+            enableExif:true,
+            viewport:{
+                width: 200,
+                height: 200,
+                type: 'square'
+            },
+            boundary:{
+                width: 300,
+                height: 300
+            }
+        });
+
+        $('#photo').change(function() {
+            var reader = new FileReader();
+
+            reader.onload = function (event) {
+                $image_crop.croppie('bind', {
+                    url:event.target.result;
+                }).then(function() {
+                    console.log('jQuery bind complete');
+                });
+            }
+            reader.readAsDataURL(this.files[0]);
+        });
+
+        $('.crop_image').click(function(event) {
+            $image_crop.croppie('result', {
+                type:'canvas',
+                size:'viewport'
+            }).then(function(response) {
+                var photo = $('input[name="photo"]'),val();
+                var compte_demandeur_id = $('input[name="compte_demandeur_id"]').val();
+                $.ajax({
+                    url: "{{ route('imageCrop') }}",
+                    type: 'post',
+                    data: {"image"}
+                });
+            });
+        });
+    });
+</script>

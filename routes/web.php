@@ -77,6 +77,8 @@ Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 Route::get('/offres/list', 'Annonce_recruteurController@list')->name('annonce-recruteur.list');
 Route::get('/annonce_recruteur/postuler/{annonce}', 'Annonce_recruteurController@postuler')->name('annonce-recruteur.postuler');
 
+Route::post('/imageCrop', 'ImageCropController@store')->name('imageCrop');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
