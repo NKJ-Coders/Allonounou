@@ -13,13 +13,11 @@
                     @endif
                     <form method="POST" action="{{ route('verify') }}">
                         @csrf
-
+                        <input id="compte_di" type="hidden" value="{{ $compte_di }}" name="compte_di">
                         <div class="form-group row">
                             <label for="code" class="col-md-4 col-form-label text-md-right">{{ __('code') }}</label>
-
                             <div class="col-md-6">
                                 <input id="code" type="text" class="form-control @error('code') is-invalid @enderror" name="code" required>
-
                                 @error('code')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
