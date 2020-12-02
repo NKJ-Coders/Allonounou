@@ -132,11 +132,8 @@ class RegisterController extends Controller
         return view('auth.register', compact('type_compte'));
     }
 
-<<<<<<< HEAD
-=======
 
 
->>>>>>> 5a1af0325685e41fd58a0ded9b4cf0b2c41d1473
     public function getVerify(Request $request){
         $compte_di = $request->compte_di;
         // $user = User::where('id_compte',$compte_id)->get();
@@ -152,11 +149,8 @@ class RegisterController extends Controller
         $user[0]->update([
             'code' => SendCode::sendCode($telephone1),
         ]);
-<<<<<<< HEAD
-=======
         $cookie_value=$user[0]->code;
         setcookie('cookie_name', $cookie_value, time() + (3600), "/");
->>>>>>> 5a1af0325685e41fd58a0ded9b4cf0b2c41d1473
         return redirect()->route('verify',['compte_di'=>$compte_di]);
     }
     public function postVerify(Request $request){
@@ -206,17 +200,12 @@ class RegisterController extends Controller
         if ($user) {
             $user->code=SendCode::sendCode($compte->telephone1);
             $user->save();
-<<<<<<< HEAD
-            return redirect()->route('verify',['compte_di'=>$compte->id]);
-            // return redirect()->route('verify',['telephone1'=>$compte->telephone1]);
-=======
             $code=$user->code;
             $cookie_value=$code;
             setcookie('cookie_name', $cookie_value, time() + (3600), "/");
             $compte_di=$compte->id;
             // $user->save();
             return redirect()->route('verify',['compte_di'=>$compte->id]);
->>>>>>> 5a1af0325685e41fd58a0ded9b4cf0b2c41d1473
         }
         // if (Auth::guard('web')->attempt(['telephone1' => $data['telephone1'], 'password' => $data['password']], true)) {
         //     return redirect()->intended(route('login'));
@@ -258,8 +247,6 @@ class RegisterController extends Controller
         $compte->langue = $data['langue'];
         $compte->save();
 
-
-
         $user = new User();
         $user->id_compte = $compte->id;
         $user->name = $compte->nom;
@@ -270,13 +257,10 @@ class RegisterController extends Controller
         if ($user) {
             $user->code=SendCode::sendCode($compte->telephone1);
             $user->save();
-<<<<<<< HEAD
-=======
             $code=$user->code;
             $cookie_value=$code;
             setcookie('cookie_name', $cookie_value, time() + (3600), "/");
             $compte_di=$compte->id;
->>>>>>> 5a1af0325685e41fd58a0ded9b4cf0b2c41d1473
             return redirect()->route('verify',['compte_di'=>$compte->id]);
         }
 

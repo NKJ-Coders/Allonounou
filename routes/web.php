@@ -23,22 +23,13 @@ Route::get('/', function () {
 // Route::patch('/annonce-recruteur/{annonce}', 'Annonce_recruteurController@update');
 
 Route::resource('annonce-recruteur', 'Annonce_recruteurController');
-<<<<<<< HEAD
-
-=======
->>>>>>> 5a1af0325685e41fd58a0ded9b4cf0b2c41d1473
 Route::get('/verify/{compte_di?}', 'Auth\RegisterController@getVerify')->name('verify');
 
 Route::post('/verify', 'Auth\RegisterController@postVerify')->name('verify');
 Route::get('/verify/reset/{compte_di?}', 'Auth\RegisterController@reset')->name('reset');
-<<<<<<< HEAD
 
-
-
-
-=======
->>>>>>> 5a1af0325685e41fd58a0ded9b4cf0b2c41d1473
-
+Route::put('/update/{compte_di?}', 'CompteController@update')->name('update');
+Route::get('/update', 'CompteController@getupdate')->name('update');
 
 
 

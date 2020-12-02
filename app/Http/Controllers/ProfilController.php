@@ -6,6 +6,7 @@ use App\Annonce_demandeur;
 use App\Compte_demandeur;
 use App\Poste;
 use App\Profil;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -54,8 +55,8 @@ class ProfilController extends Controller
 
         $profil = Profil::where('user_id', $user)->get();
         // dd($profil[0]->photo);
-
-        $compte_demandeur = Compte_demandeur::findOrFail($profil[0]->compte_demandeur_id);
+        $users=User::where('id',$user)->get();
+        $compte_demandeur = Compte_demandeur::findOrFail($users[0]->id_compte);
 
         return view('profil.show', compact('profil', 'compte_demandeur'));
     }
