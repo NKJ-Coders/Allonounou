@@ -72,7 +72,7 @@ Route::name('registration.')->group(function () {
 Route::get('compte/list', 'CompteController@index')->name('compte');
 Route::get('mes_candidatures', 'Annonce_recruteurController@mesCandidatures')->name('mes_candidatures');
 
-Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+Route::get('/Admin', 'DashboardController@index')->name('dashboard');
 
 Route::get('/offres/list', 'Annonce_recruteurController@list')->name('annonce-recruteur.list');
 Route::get('/annonce_recruteur/postuler/{annonce}', 'Annonce_recruteurController@postuler')->name('annonce-recruteur.postuler');

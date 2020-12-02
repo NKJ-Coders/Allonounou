@@ -123,11 +123,11 @@
                                 </li>
                             @endif
 
-                            {{-- @if (Auth::user()->type == 'admin') --}}
+                            {{-- @if (Auth::user()->type == 'admin' || Auth::user()->type == 'super admin')
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
                                 </li>
-                            {{-- @endif --}}
+                            @endif --}}
                         @endguest
 
 
@@ -194,50 +194,63 @@
             @yield('content')
         </main>
     </div>
-</body>
-</html>
 
-<script>
-    $(document).ready({
-        $image_crop = $('#image-preview').croppie({
-            enableExif:true,
-            viewport:{
-                width: 200,
-                height: 200,
-                type: 'square'
-            },
-            boundary:{
-                width: 300,
-                height: 300
-            }
-        });
+    <script>
+        $(document).ready(function() {
+            $image_crop = $('#image-preview').croppie({
+                enableExif:true,
+                viewport:{
+                    width: 200,
+                    height: 250,
+                    type: 'square'
+                },
+                boundary:{
+                    width: 300,
+                    height: 300
+                }
+            });
 
-        $('#photo').change(function() {
-            var reader = new FileReader();
+            $('#photo').change(function() {
+                var reader = new FileReader();
 
-            reader.onload = function (event) {
-                $image_crop.croppie('bind', {
-                    url:event.target.result;
-                }).then(function() {
-                    console.log('jQuery bind complete');
-                });
-            }
-            reader.readAsDataURL(this.files[0]);
-        });
+                reader.onload = function (event) {
+                    $image_crop.croppie('bind', {
+                        url: event.target.result
+                    }).then(function() {
+                        console.log('jQuery bind complete');
+                    });
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
 
-        $('.crop_image').click(function(event) {
-            $image_crop.croppie('result', {
-                type:'canvas',
-                size:'viewport'
-            }).then(function(response) {
-                var photo = $('input[name="photo"]'),val();
-                var compte_demandeur_id = $('input[name="compte_demandeur_id"]').val();
-                $.ajax({
-                    url: "{{ route('imageCrop') }}",
-                    type: 'post',
-                    data: {"image"}
+            $('.crop_image').click(function(event) {
+                $image_crop.croppie('result', {
+                    type:'canvas',
+                    size:'viewport'
+                }).then(function(response) {
+                    var _token = $('input[name=_token]').val();
+                    // var photo = $('input[name="photo"]'),val();
+                    var compte_demandeur_id = $('input[name="compte_demandeur_id"]').val();
+                    $.ajax({
+                        url: "{{ route('imageCrop') }}",
+                        type: 'post',
+                        // data: {"photo=" + photo + "&compte_demandeur_id=" + compte_demandeur_id},
+                        data: {"photo": response, "id": compte_demandeur_id, _token:_token},
+                        dataType: "json",
+                        success: function(data) {
+                            var crop_image = '<img src="{{ asset('+ data.path +') }}" />';
+                            $('#uploaded_image').html(crop_image);
+                            var confirm = '<span class="fa fa-check"></span> ' + data.confirmMsg;
+                            // var crop_image = '<p>'+data.id+'</p>';
+                            $('#confirmMsg').attr('class', 'alert alert-success text-center');
+                            $('#confirmMsg').html(confirm);
+                            // var text = data.path
+                            // $('#text').text(text);
+                        }
+                    });
                 });
             });
         });
-    });
-</script>
+    </script>
+</body>
+</html>

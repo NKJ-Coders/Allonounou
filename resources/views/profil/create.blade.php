@@ -1,23 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="mx-auto" style="width: 700px">
 
-        <form action="{{ route('imageCrop') }}" method="post">
-            @csrf
-            <input type="hidden" name="compte_demandeur_id" value="{{ $compte->id }}">
-            <div class="card">
-                <div class="card-header">Inserer une image pour ce profil</div>
+    <div class="card">
+                <div class="card-header">Inserer une image pour ce profil <div id="text"></div></div>
                 <div class="card-body">
                     <div class="form-group">
+                        @csrf
+                        <input type="hidden" name="compte_demandeur_id" value="{{ $compte->id }}">
                         <div class="row">
-                            <div class="col-md-4" style="boder-right: 1px solid #ddd; background-color: #333">
+                            <div class="col-md-4" style="boder-right: 1px solid #ddd;">
                                 <div id="image-preview"></div>
                             </div>
                             <div class="col-md-4" style="padding: 20px; border-right: 1px solid #ddd">
                                 <div class="custom-file">
                                     <input type="file" name="photo" id="photo" class="custom-file-input @error('photo') is-invalid @enderror" accept=".png, .jpg, .jpeg">
-                                    <label class="custom-file-label" for="photo">photo...</label>
+                                    <label class="custom-file-label" for="photo">Choisir une photo...</label>
                                     @error('photo')
                                         <div class="invalid-feedback">Veuillez selectionner une photo</div>
                                     @enderror
@@ -31,19 +29,16 @@
                             </div>
                         </div>
                     </div>
-                    @if(session()->has('confirmInsert'))
-                        <div class="alert alert-success text-center">
-                            <span class="fa fa-check"></span>
-                            {{ session()->get('confirmInsert') }}
-                        </div>
-                    @endif
-                    <br>
+
+                    <br><br>
+                    <div id="confirmMsg"></div>
                 </div>
             </div>
-            <br><br>
+    <div class="mx-auto" style="width: 700px">
 
-
-        </form>
+        @if (session()->has('confirmMsg'))
+            <div class="alert alert-success"><span class="fa fa-check"></span> {{ session()->get('confirmMsg') }}</div>
+        @endif
 
         <form class="my-4" action="/profil" method="POST" enctype="multipart/form-data">
             @csrf
