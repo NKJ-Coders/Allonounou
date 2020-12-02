@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -40,5 +41,17 @@ class LoginController extends Controller
     public function username()
     {
         return 'telephone1';
+    }
+
+    // redirection en fonction du type de user
+    public function redirectTo()
+    {
+        // if (Auth::check()) {
+        if (Auth::user()->type == 'admin' || Auth::user()->type == 'super admin') {
+            return "/Admin";
+        } elseif (Auth::user()->type == 'demandeur' || Auth::user()->type == 'recruteur') {
+            return "/home";
+        }
+        // }
     }
 }

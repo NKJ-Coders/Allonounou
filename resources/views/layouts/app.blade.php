@@ -8,15 +8,23 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-    <script src="{{ asset('js/myjs.js') }}" defer></script>
-    <!-- font-awesome -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <!-- Scripts -->
 
-    <script src="{{ asset('js/jquery-3.5.1.min.js') }}" defer></script>
+    <!-- CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.js"></script>
+
+    <!-- font-awesome -->
+    {{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> --}}
+
+    <!-- Scripts -->
+    {{--
     <script src="{{ asset('js/croppie.js') }}" defer></script>
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}" defer></script> --}}
     <script src="{{ asset('js/ajax.js') }}" defer></script>
+    <script src="{{ asset('js/myjs.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -116,11 +124,11 @@
                                 </li>
                             @endif
 
-                            {{-- @if (Auth::user()->type == 'admin') --}}
+                            {{-- @if (Auth::user()->type == 'admin' || Auth::user()->type == 'super admin')
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
                                 </li>
-                            {{-- @endif --}}
+                            @endif --}}
                         @endguest
 
 
@@ -187,5 +195,63 @@
             @yield('content')
         </main>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $image_crop = $('#image-preview').croppie({
+                enableExif:true,
+                viewport:{
+                    width: 200,
+                    height: 250,
+                    type: 'square'
+                },
+                boundary:{
+                    width: 300,
+                    height: 300
+                }
+            });
+
+            $('#photo').change(function() {
+                var reader = new FileReader();
+
+                reader.onload = function (event) {
+                    $image_crop.croppie('bind', {
+                        url: event.target.result
+                    }).then(function() {
+                        console.log('jQuery bind complete');
+                    });
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
+
+            $('.crop_image').click(function(event) {
+                $image_crop.croppie('result', {
+                    type:'canvas',
+                    size:'viewport'
+                }).then(function(response) {
+                    var _token = $('input[name=_token]').val();
+                    // var photo = $('input[name="photo"]'),val();
+                    var compte_demandeur_id = $('input[name="compte_demandeur_id"]').val();
+                    $.ajax({
+                        url: "{{ route('imageCrop') }}",
+                        type: 'post',
+                        // data: {"photo=" + photo + "&compte_demandeur_id=" + compte_demandeur_id},
+                        data: {"photo": response, "id": compte_demandeur_id, _token:_token},
+                        dataType: "json",
+                        success: function(data) {
+                            var crop_image = '<img src="{{ asset('+ data.path +') }}" />';
+                            $('#uploaded_image').html(crop_image);
+                            var confirm = '<span class="fa fa-check"></span> ' + data.confirmMsg;
+                            // var crop_image = '<p>'+data.id+'</p>';
+                            $('#confirmMsg').attr('class', 'alert alert-success text-center');
+                            $('#confirmMsg').html(confirm);
+                            // var text = data.path
+                            // $('#text').text(text);
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 </html>

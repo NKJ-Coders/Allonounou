@@ -33,21 +33,40 @@ class ProfilController extends Controller
 
     public function store(Request $request)
     {
+        $data_profil = Profil::where('compte_demandeur_id', $request->compte_demandeur_id)->get();
 
-        $profil = Profil::create($this->validator());
+        if (empty($data_profil[0])) {
+            $profil = Profil::create($this->validator());
 
-        $annonce_demandeur = new Annonce_demandeur;
-        $annonce_demandeur->profil_id = $profil->id;
-        $annonce_demandeur->poste_id = $request->poste_id;
-        $annonce_demandeur->save();
-        // upload files
-        $this->storeImage($profil, $profil->id);
+            $annonce_demandeur = new Annonce_demandeur;
+            $annonce_demandeur->profil_id = $profil->id;
+            $annonce_demandeur->poste_id = $request->poste_id;
+            $annonce_demandeur->save();
+            // upload files
+            $this->storeImage($profil, $profil->id);
 
-        $profil->update([
-            'user_id' => Auth::id(),
-        ]);
+            $profil->update([
+                'user_id' => Auth::id(),
+            ]);
 
-        return view('compte-demandeur.index')->with('confirmMsg', 'Profil crée avec succès!');
+            return redirect()->back()->with('confirmMsg', 'Profil crée avec succès!');
+        } else {
+            // dd($data_profil[0]);
+            $data_profil[0]->update($this->validator());
+            // dd($data);
+            // upload files
+            $this->storeImage($data_profil[0], $data_profil[0]->id);
+
+            $data_profil[0]->update([
+                'user_id' => Auth::id(),
+            ]);
+
+
+            return redirect()->back()->with('confirmMsg', 'Profil crée avec succès!');
+        }
+
+        // return view('compte-demandeur.index')->with('confirmMsg', 'Profil crée avec succès!');
+
     }
 
     public function show($user)
@@ -78,7 +97,7 @@ class ProfilController extends Controller
     {
         return request()->validate([
             'cni' => 'required',
-            'photo' => 'required|image|max:5000',
+            // 'photo' => 'required|image|max:5000',
             'plan_localisation' => 'required',
             'certificat_medical' => 'required',
             'casier_judiciaire' => 'required',
@@ -105,11 +124,11 @@ class ProfilController extends Controller
     // function d'upload d'image
     public function storeImage(Profil $profil, $id)
     {
-        if (request('photo')) {
-            $profil->update([
-                'photo' => request('photo')->storeAs('documents/avatars', 'profil' . $id . '.jpg', 'public')
-            ]);
-        }
+        // if (request('photo')) {
+        //     $profil->update([
+        //         'photo' => request('photo')->storeAs('documents/avatars', 'profil' . $id . '.jpg', 'public')
+        //     ]);
+        // }
         if (request('cni')) {
             $profil->update([
                 'cni' => request('cni')->storeAs('documents/cni', 'cni' . $id . '.pdf', 'public')
