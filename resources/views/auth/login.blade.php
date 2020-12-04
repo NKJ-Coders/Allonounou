@@ -1,76 +1,73 @@
-@extends('layouts.app')
+@extends('layouts.appAuth')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+@section('card')
+<div class="account-container">
 
-                <div class="card-body">
-                    @if (Session::has('message'))
-                    <div class="alert alert-success">{{ Session::get('message') }}</div>
-                    @endif
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+	<div class="content clearfix">
 
-                        <div class="form-group row">
-                            <label for="telephone1" class="col-md-4 col-form-label text-md-right">{{ __('Numero de telephone') }}</label>
+		<form action="{{ route('login') }}" method="post">
+			@csrf
 
-                            <div class="col-md-6">
-                                <input id="telephone1" type="text" class="form-control @error('telephone1') is-invalid @enderror" name="telephone1" value="{{ old('telephone1') }}" required autocomplete="telephone1" autofocus>
+			<h1>Connexion</h1>
 
-                                @error('telephone1')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+			@if (Session::has('message'))
+				<div class="alert alert-success"><span class="fa fa-check"></span> {{ Session::get('message') }}</div>
+			@endif
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+			<div class="login-fields">
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+				<p>Veuillez renseigner vos informations de connexion !</p>
 
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+				<div class="field">
+					<label for="telephone1">Username</label>
+					<input type="text" id="telephone1" name="telephone1" placeholder="Telephone" class="login username-field @error('telephone1') is-invalid @enderror" value="{{ old('telephone1') }}" required autocomplete="telephone1" autofocus />
 
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+					@error('telephone1')
+						<span class="invalid-feedback" role="alert">
+							<strong>{{ $message }}</strong>
+						</span>
+					@enderror
+				</div> <!-- /field -->
 
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+				<div class="field">
+					<label for="password">Password:</label>
+					<input type="password" id="password" name="password" value="" placeholder="Mote de passe" class="login password-field @error('password') is-invalid @enderror" required autocomplete="current-password"/>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
+					@error('password')
+						<span class="invalid-feedback" role="alert">
+							<strong>{{ $message }}</strong>
+						</span>
+					@enderror
+				</div> <!-- /password -->
 
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+			</div> <!-- /login-fields -->
+
+			<div class="login-actions">
+
+				<span class="login-checkbox">
+					<input name="remember" id="remember" {{ old('remember') ? 'checked' : '' }} type="checkbox" class="field login-checkbox" value="First Choice" tabindex="4" />
+					<label class="choice" for="remember">Se souvenir de moi</label>
+				</span>
+
+				<button class="button btn btn-success btn-large">Se connecter</button>
+
+			</div> <!-- .actions -->
+
+
+
+		</form>
+
+	</div> <!-- /content -->
+
+</div> <!-- /account-container -->
+
+
+
+<div class="login-extra">
+	@if (Route::has('password.request'))
+		<a href="{{ route('password.request') }}">
+			{{ __('Mot de passe oublié?') }}
+		</a>
+	@endif
+</div> <!-- /login-extra -->
 @endsection
