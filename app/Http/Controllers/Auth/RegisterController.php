@@ -83,7 +83,7 @@ class RegisterController extends Controller
     {
         $this->validator($request->all())->validate();
         event(new Registered($user = $this->create($request->all())));
-        return $this->registered($request,$user) ?: redirect('verify?telephone1'.$request->telephone1);
+        return $this->registered($request, $user) ?: redirect('verify?telephone1' . $request->telephone1);
     }
 
     protected function create(array $data)
@@ -134,13 +134,15 @@ class RegisterController extends Controller
 
 
 
-    public function getVerify(Request $request){
+    public function getVerify(Request $request)
+    {
         $compte_di = $request->compte_di;
         // $user = User::where('id_compte',$compte_id)->get();
         // $telephone1 = $user[0]->telephone1;
-        return view('verify',compact('compte_di'));
+        return view('verify', compact('compte_di'));
     }
-    public function reset (Request $request){
+    public function reset(Request $request)
+    {
         $compte_di = $request->compte_di;
         // $telephone1 = $request->telephone1;
         $user = User::where('id_compte', $compte_di)->get();
@@ -149,20 +151,20 @@ class RegisterController extends Controller
         $user[0]->update([
             'code' => SendCode::sendCode($telephone1),
         ]);
-        $cookie_value=$user[0]->code;
+        $cookie_value = $user[0]->code;
         setcookie('cookie_name', $cookie_value, time() + (3600), "/");
-        return redirect()->route('verify',['compte_di'=>$compte_di]);
+        return redirect()->route('verify', ['compte_di' => $compte_di]);
     }
-    public function postVerify(Request $request){
-        $cod=$_COOKIE['cookie_name'];
-        if ($cod==$request->code) {
-            $user=User::Where('id_compte',$request->compte_di)->get();
-            $user[0]->active=1;
-            $user[0]->code=null;
+    public function postVerify(Request $request)
+    {
+        $cod = $_COOKIE['cookie_name'];
+        if ($cod == $request->code) {
+            $user = User::Where('id_compte', $request->compte_di)->get();
+            $user[0]->active = 1;
+            $user[0]->code = null;
             $user[0]->save();
             return redirect()->route('login')->withMessage('Your account is active');
-        }
-        else{
+        } else {
             return back()->withMessage('Verify code is not correct Please. try again');
         }
     }
@@ -185,7 +187,7 @@ class RegisterController extends Controller
         $compte->nom = $data['nom'];
         $compte->telephone1 = $data['telephone1'];
         $compte->telephone2 = $data['telephone2'];
-        $compte->telephone3 = $data['telephone3'];
+        $compte->telephone3 = (!empty($data['telephone3'])) ? $data['telephone3'] : NULL;
         $compte->email = $data['email'];
         $compte->save();
 
@@ -198,14 +200,14 @@ class RegisterController extends Controller
         $user->password = Hash::make($data['password']);
         $user->save();
         if ($user) {
-            $user->code=SendCode::sendCode($compte->telephone1);
+            $user->code = SendCode::sendCode($compte->telephone1);
             $user->save();
-            $code=$user->code;
-            $cookie_value=$code;
+            $code = $user->code;
+            $cookie_value = $code;
             setcookie('cookie_name', $cookie_value, time() + (3600), "/");
-            $compte_di=$compte->id;
+            $compte_di = $compte->id;
             // $user->save();
-            return redirect()->route('verify',['compte_di'=>$compte->id]);
+            return redirect()->route('verify', ['compte_di' => $compte->id]);
         }
         // if (Auth::guard('web')->attempt(['telephone1' => $data['telephone1'], 'password' => $data['password']], true)) {
         //     return redirect()->intended(route('login'));
@@ -237,7 +239,7 @@ class RegisterController extends Controller
         $compte->nom = $data['nom'];
         $compte->telephone1 = $data['telephone1'];
         $compte->telephone2 = $data['telephone2'];
-        $compte->telephone3 = $data['telephone3'];
+        $compte->telephone3 = (!empty($data['telephone3'])) ? $data['telephone3'] : NULL;
         $compte->age = $data['age'];
         $compte->situation_matrimoniale = $data['situation_matrimoniale'];
         $compte->age_dernier_enfant = $data['age_dernier_enfant'];
@@ -255,13 +257,13 @@ class RegisterController extends Controller
         $user->password = Hash::make($data['password']);
         $user->save();
         if ($user) {
-            $user->code=SendCode::sendCode($compte->telephone1);
+            $user->code = SendCode::sendCode($compte->telephone1);
             $user->save();
-            $code=$user->code;
-            $cookie_value=$code;
+            $code = $user->code;
+            $cookie_value = $code;
             setcookie('cookie_name', $cookie_value, time() + (3600), "/");
-            $compte_di=$compte->id;
-            return redirect()->route('verify',['compte_di'=>$compte->id]);
+            $compte_di = $compte->id;
+            return redirect()->route('verify', ['compte_di' => $compte->id]);
         }
 
         // if (Auth::guard('web')->attempt(['telephone1' => $data['telephone1'], 'password' => $data['password']], true)) {

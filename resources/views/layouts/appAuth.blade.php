@@ -3,13 +3,14 @@
 
  <head>
     <meta charset="utf-8">
-    <title>{{ config('app.name', 'Laravel') }}</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/bootstrap-responsive.min.css') }}" rel="stylesheet" type="text/css" />
@@ -19,6 +20,8 @@
 
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/pages/signin.css') }}" rel="stylesheet" type="text/css">
+
+
 
 </head>
 
@@ -37,19 +40,19 @@
 			</a>
 
 			<a class="brand" href="index.html">
-				Allô<span class="text-danger">Nounou</span>
+                Allô<span class="text-danger">Nounou</span>
 			</a>
 
 			<div class="nav-collapse">
 				<ul class="nav pull-right">
 					<li class="">
-						<a href="login.html" class="">
-							Already have an account? Login now
+						<a href="{{ route('login') }}" class="">
+							Vous avez déjà un compte? connectez-vous maintenant
 						</a>
 
 					</li>
 					<li class="">
-						<a href="index.html" class="">
+						<a href="{{ route('home') }}" class="">
 							<i class="icon-chevron-left"></i>
 							Retour à la page d'accueil
 						</a>
@@ -67,12 +70,10 @@
 
 @yield('card')
 
+<script src="{{ asset('js/jquery-1.7.2.min.js') }}" defer></script>
+<script src="{{ asset('js/bootstrap.js') }}" defer></script>
 
-<script src="{{ asset('js/jquery-1.7.2.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap.js') }}"></script>
-
-<script src="{{ asset('js/signin.js') }}"></script>
-
+<script src="{{ asset('js/signin.js') }}" defer></script>
 </body>
 
  </html>

@@ -38,7 +38,7 @@ class CreateProfilsTable extends Migration
             $table->boolean('handicape_moteur')->nullable();
             $table->boolean('handicape_visuel')->nullable();
             $table->boolean('handicape_des_mains')->nullable();
-            $table->boolean('statut')->default('1')->nullable();
+            $table->boolean('statut')->default('0')->nullable();
             $table->boolean('online')->default('1')->nullable();
             $table->timestamps();
 

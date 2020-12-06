@@ -8,7 +8,7 @@
 		<form action="{{ route('login') }}" method="post">
 			@csrf
 
-			<h1>Connexion</h1>
+			<h1>Connectez-vous</h1>
 
 			@if (Session::has('message'))
 				<div class="alert alert-success"><span class="fa fa-check"></span> {{ Session::get('message') }}</div>
@@ -70,4 +70,10 @@
 		</a>
 	@endif
 </div> <!-- /login-extra -->
+
+{{-- <script>
+    $(document).ready(function() {
+        alert('ok');
+    });
+</script> --}}
 @endsection

@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.appAdmin')
 
-@section('content')
+@section('contenu')
 
     @if(session()->has('confirmMsg'))
         <div class="alert alert-success text-center my-3">{{ session()->get('confirmMsg') }}</div>
@@ -23,8 +23,11 @@
             </thead>
             <tbody>
                 @foreach ($comptes as $key => $compte)
-                    <?php $getProfil = App\Profil::where('compte_demandeur_id', $compte->id)->first(); ?>
+                    <?php $getProfile = App\Profil::where('compte_demandeur_id', $compte->id)->first(); ?>
+
+
                     <tr>
+                        @if (empty($getProfile))
                         <th scope="row">{{ $key+1 }}</th>
                         <td>{{ $compte->nom }}</a></td>
                         <td>{{ $compte->telephone1 }}</td>
@@ -32,18 +35,21 @@
                         <td>{{ $compte->metier }}</td>
                         <td>{{ $compte->age }}</td>
                         <td>
-                            {{-- {{ dd($getProfil) }} --}}
-                            @if (empty($getProfil))
+                            <div class="row flex-contain">
                                 <a href="{{ route('profil.create', ['compte' => $compte->id]) }}" class="btn btn-warning">Creer profil</a>
-                            @else
-                                <a href="{{ route('profil.create', ['compte' => $compte->id]) }}" class="btn btn-warning" title="Modifier"><span class="fa fa-edit"></span></a>
                                 {{-- <a href="{{ route('profil.create', ['compte' => $compte->id]) }}" class="btn btn-warning">Ajouter une photo de profil</a> --}}
-                            @endif
+
+                            </div>
                         </td>
+                        @else
+                        <td>Aucune demande de profil</td>
+                        @endif
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
-    {{-- <div class="row d-flex justify-content-center">{{ $comptes->links() }}</div> --}}
+    <div class="row d-flex justify-content-center">{{ $comptes->links() }}</div>
+
+
 @endsection

@@ -20,6 +20,9 @@ class ProfilController extends Controller
 
     public function index()
     {
+        $profils = Profil::with('compte_demandeur')->where('online', '<>', -1)->paginate(15);
+
+        return view('profil.index', compact('profils'));
     }
 
     public function create(Compte_demandeur $compte)
@@ -74,7 +77,7 @@ class ProfilController extends Controller
 
         $profil = Profil::where('user_id', $user)->get();
         // dd($profil[0]->photo);
-        $users=User::where('id',$user)->get();
+        $users = User::where('id', $user)->get();
         $compte_demandeur = Compte_demandeur::findOrFail($users[0]->id_compte);
 
         return view('profil.show', compact('profil', 'compte_demandeur'));
@@ -90,6 +93,9 @@ class ProfilController extends Controller
 
     public function destroy(Profil $profil)
     {
+        $profil->update(['online' => -1]);
+
+        return redirect()->back();
     }
 
     // function de validation du formulaire
@@ -149,5 +155,24 @@ class ProfilController extends Controller
                 'casier_judiciaire' => request('casier_judiciaire')->storeAs('documents/casier-judiciaire', 'casier' . $id . '.pdf', 'public')
             ]);
         }
+    }
+
+    // Modifier le statut du profil
+    public function changeStatut(Profil $profil, $statut)
+    {
+        // valider le profil
+        if ($statut == 1) {
+            $profil->update(['statut' => 1]);
+        }
+        // mettre en attente
+        if ($statut == 0) {
+            $profil->update(['statut' => 0]);
+        }
+        // rejeter
+        if ($statut == -1) {
+            $profil->update(['statut' => -1]);
+        }
+
+        return redirect()->back();
     }
 }

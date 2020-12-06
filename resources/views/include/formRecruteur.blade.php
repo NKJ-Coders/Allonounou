@@ -1,103 +1,114 @@
-<form method="POST" action="{{ route('registration.recruteur') }}">
-    @csrf
-    <input type="hidden" name="type_compte" value="recruteur">
-    <div class="form-group row">
-        <label for="nom" class="col-md-4 col-form-label text-md-right">{{ __('Nom') }}</label>
+<div class="account-container register">
 
-        <div class="col-md-6">
-            <input id="nom" type="text" class="form-control @error('nom') is-invalid @enderror" name="nom" value="{{ old('nom') }}" required autocomplete="nom" autofocus>
+	<div class="content clearfix">
 
-            @error('nom')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-    </div>
+		<form action="{{ route('registration.recruteur') }}" method="post">
+			@csrf
 
-    <div class="form-group row">
-        <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email') }}</label>
+			<h1>Inscription</h1>
 
-        <div class="col-md-6">
-            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+			<div class="login-fields">
 
-            @error('email')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-    </div>
+				<p>Créer votre compte en tant que recruteur:</p>
 
-    <div class="form-group row">
-        <label for="telephone1" class="col-md-4 col-form-label text-md-right">{{ __('Telephone 1') }}</label>
+				<div class="field">
+					<label for="firstname">Nom:</label>
+					<input type="text" id="firstname" name="nom" placeholder="Nom*" class="login @error('nom') is-invalid @enderror" value="{{ old('nom') }}" required autocomplete="nom" autofocus />
 
-        <div class="col-md-6">
-            <input id="telephone1" type="text" class="form-control @error('telephone1') is-invalid @enderror" name="telephone1" value="{{ old('telephone1') }}" required autocomplete="telephone1" autofocus>
+					@error('nom')
+						<span class="invalid-feedback" role="alert">
+							<strong>{{ $message }}</strong>
+						</span>
+					@enderror
+                </div> <!-- /field -->
 
-            @error('telephone1')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-    </div>
+                <input type="hidden" name="type_compte">
 
-    <div class="form-group row">
-        <label for="telephone2" class="col-md-4 col-form-label text-md-right">{{ __('Telephone 2 (Whatsapp)') }}</label>
+				<div class="field">
+					<label for="lastname">Telephone 1:</label>
+					<input type="text" id="lastname" placeholder="Telephone 1*" class="login @error('telephone1') is-invalid @enderror" name="telephone1" value="{{ old('telephone1') }}" required autocomplete="telephone1" autofocus />
 
-        <div class="col-md-6">
-            <input id="telephone2" type="text" class="form-control @error('telephone2') is-invalid @enderror" name="telephone2" value="{{ old('telephone2') }}" required autocomplete="telephone2" autofocus>
+					@error('telephone1')
+						<span class="invalid-feedback" role="alert">
+							<strong>{{ $message }}</strong>
+						</span>
+					@enderror
+				</div> <!-- /field -->
 
-            @error('telephone2')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-    </div>
+				<div class="field">
+					<label for="lastname">Telephone 1:</label>
+					<input type="text" id="lastname" placeholder="Telephone 2* (whatsapp)" class="login @error('telephone2') is-invalid @enderror" name="telephone2" value="{{ old('telephone2') }}" required autocomplete="telephone2" autofocus />
 
-    <div class="form-group row">
-        <label for="telephone3" class="col-md-4 col-form-label text-md-right">{{ __('Telephone 3') }}</label>
+					@error('telephone2')
+						<span class="invalid-feedback" role="alert">
+							<strong>{{ $message }}</strong>
+						</span>
+					@enderror
+				</div> <!-- /field -->
 
-        <div class="col-md-6">
-            <input id="telephone3" type="text" class="form-control @error('telephone3') is-invalid @enderror" name="telephone3" value="{{ old('telephone3') }}" required autocomplete="telephone3" autofocus>
+				<div class="field">
+					<label for="lastname">Telephone 3:</label>
+					<input type="text" id="lastname" placeholder="Telephone 3" class="login @error('telephone3') is-invalid @enderror" nname="telephone3" value="{{ old('telephone3') }}" autocomplete="telephone3" autofocus />
 
-            @error('telephone3')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+					@error('telephone3')
+					<span class="invalid-feedback" role="alert">
+						<strong>{{ $message }}</strong>
+					</span>
+					@enderror
+				</div> <!-- /field -->
 
-        <div class="col-md-6">
-            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
-            @error('password')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-    </div>
+				<div class="field">
+					<label for="email">Adresse Email:</label>
+					<input type="email" id="email" name="email" placeholder="Email*" class="login @error('email') is-invalid @enderror" value="{{ old('email') }}" required autocomplete="email" autofocus/>
 
-    <div class="form-group row">
-        <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+					@error('email')
+						<span class="invalid-feedback" role="alert">
+							<strong>{{ $message }}</strong>
+						</span>
+					@enderror
+				</div> <!-- /field -->
 
-        <div class="col-md-6">
-            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-        </div>
-    </div>
+				<div class="field">
+					<label for="password">Mot de passe:</label>
+					<input type="password" id="password" name="password" value="" placeholder="Mot de passe*" class="login @error('password') is-invalid @enderror" required autocomplete="new-password"/>
 
-    <div class="form-group row mb-0">
-        <div class="col-md-6 offset-md-4">
-            <button type="submit" class="btn btn-primary">
-                {{ __('Register') }}
-            </button>
-        </div>
-    </div>
-</form>
+					@error('password')
+						<span class="invalid-feedback" role="alert">
+							<strong>{{ $message }}</strong>
+						</span>
+					@enderror
+				</div> <!-- /field -->
+
+				<div class="field">
+					<label for="confirm_password">Confirm Password:</label>
+					<input type="password" id="confirm_password" value="" placeholder="Confirmer mot de passe*" class="login" name="password_confirmation" required autocomplete="new-password"/>
+				</div> <!-- /field -->
+
+            </div> <!-- /login-fields -->
+
+            <div class="text-danger text-italic">Les champs avec (*) sont obligatoires.</div>
+
+			<div class="login-actions">
+
+				<span class="login-checkbox">
+					<input id="Field" name="Field" type="checkbox" class="field login-checkbox" value="First Choice" tabindex="4" />
+					<label class="choice" for="Field">J'accepte les <a href="#">termes et conditions de confidentialité.</a></label>
+				</span>
+
+				<button class="button btn btn-primary btn-large">{{ __('S\'inscrire	') }}</button>
+
+			</div> <!-- .actions -->
+
+		</form>
+
+	</div> <!-- /content -->
+
+</div> <!-- /account-container -->
+
+
+<!-- Text Under Box -->
+<div class="login-extra">
+	Vous avez déjà un compte? <a href="{{ route('login') }}">Connectez-vous à votre compte</a>
+</div> <!-- /login-extra -->
 

@@ -55,7 +55,9 @@ Route::get('/update', 'CompteController@getupdate')->name('update');
 Route::get('/profil/create/{compte}', 'ProfilController@create')->name('profil.create');
 Route::post('/profil', 'ProfilController@store');
 Route::get('/profil/show/{user}', 'ProfilController@show')->name('profil.show');
-
+Route::get('/profil/index', 'ProfilController@index')->name('profil.index');
+Route::get('/profil/statut/{profil}/{statut}', 'ProfilController@changeStatut')->name('profil.statut');
+Route::get('/profil/delete/{profil}', 'ProfilController@destroy')->name('profil.delete');
 
 Route::get('/tache/create', 'TacheController@create');
 Route::get('/tache/store', 'TacheController@store');
@@ -69,7 +71,7 @@ Route::name('registration.')->group(function () {
     Route::post('/registration/demandeur', 'Auth\RegisterController@storeDemandeur')->name('demandeur');
 });
 
-Route::get('compte/list', 'CompteController@index')->name('compte');
+Route::get('compte_demandeur/list', 'CompteController@index')->name('compte_demandeur');
 Route::get('mes_candidatures', 'Annonce_recruteurController@mesCandidatures')->name('mes_candidatures');
 
 Route::get('/Admin', 'DashboardController@index')->name('dashboard');
