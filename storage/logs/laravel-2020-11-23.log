@@ -1,0 +1,61 @@
+[2020-11-23 07:37:15] local.ERROR: Command "make:refresh" is not defined.
+
+Did you mean one of these?
+    make:auth
+    make:channel
+    make:command
+    make:controller
+    make:event
+    make:exception
+    make:factory
+    make:job
+    make:listener
+    make:mail
+    make:middleware
+    make:migration
+    make:model
+    make:notification
+    make:observer
+    make:policy
+    make:provider
+    make:request
+    make:resource
+    make:rule
+    make:seeder
+    make:test
+    migrate:fresh
+    migrate:refresh {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"make:refresh\" is not defined.
+
+Did you mean one of these?
+    make:auth
+    make:channel
+    make:command
+    make:controller
+    make:event
+    make:exception
+    make:factory
+    make:job
+    make:listener
+    make:mail
+    make:middleware
+    make:migration
+    make:model
+    make:notification
+    make:observer
+    make:policy
+    make:provider
+    make:request
+    make:resource
+    make:rule
+    make:seeder
+    make:test
+    migrate:fresh
+    migrate:refresh at C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\symfony\\console\\Application.php:676)
+[stacktrace]
+#0 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\symfony\\console\\Application.php(237): Symfony\\Component\\Console\\Application->find()
+#1 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\symfony\\console\\Application.php(149): Symfony\\Component\\Console\\Application->doRun()
+#2 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php(90): Symfony\\Component\\Console\\Application->run()
+#3 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(133): Illuminate\\Console\\Application->run()
+#4 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#5 {main}
+"} 

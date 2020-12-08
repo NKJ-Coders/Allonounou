@@ -1,0 +1,38 @@
+[2020-12-07 06:24:42] local.ERROR: SQLSTATE[HY000] [2002] Aucune connexion n’a pu être établie car l’ordinateur cible l’a expressément refusée.
+ (SQL: select * from information_schema.tables where table_schema = allonounou and table_name = migrations and table_type = 'BASE TABLE') {"exception":"[object] (Illuminate\\Database\\QueryException(code: 2002): SQLSTATE[HY000] [2002] Aucune connexion n’a pu être établie car l’ordinateur cible l’a expressément refusée.
+ (SQL: select * from information_schema.tables where table_schema = allonounou and table_name = migrations and table_type = 'BASE TABLE') at C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:664, PDOException(code: 2002): SQLSTATE[HY000] [2002] Aucune connexion n’a pu être établie car l’ordinateur cible l’a expressément refusée.
+ at C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70)
+[stacktrace]
+#0 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(624): Illuminate\\Database\\Connection->runQueryCallback()
+#1 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(333): Illuminate\\Database\\Connection->run()
+#2 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Schema\\MySqlBuilder.php(18): Illuminate\\Database\\Connection->select()
+#3 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\DatabaseMigrationRepository.php(169): Illuminate\\Database\\Schema\\MySqlBuilder->hasTable()
+#4 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(585): Illuminate\\Database\\Migrations\\DatabaseMigrationRepository->repositoryExists()
+#5 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Console\\Migrations\\ResetCommand.php(63): Illuminate\\Database\\Migrations\\Migrator->repositoryExists()
+#6 [internal function]: Illuminate\\Database\\Console\\Migrations\\ResetCommand->handle()
+#7 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(32): call_user_func_array()
+#8 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(90): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#9 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#10 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(576): Illuminate\\Container\\BoundMethod::call()
+#11 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(183): Illuminate\\Container\\Container->call()
+#12 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\symfony\\console\\Command\\Command.php(255): Illuminate\\Console\\Command->execute()
+#13 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(170): Symfony\\Component\\Console\\Command\\Command->run()
+#14 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(198): Illuminate\\Console\\Command->run()
+#15 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Console\\Migrations\\RefreshCommand.php(100): Illuminate\\Console\\Command->call()
+#16 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Console\\Migrations\\RefreshCommand.php(53): Illuminate\\Database\\Console\\Migrations\\RefreshCommand->runReset()
+#17 [internal function]: Illuminate\\Database\\Console\\Migrations\\RefreshCommand->handle()
+#18 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(32): call_user_func_array()
+#19 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(90): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#20 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#21 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(576): Illuminate\\Container\\BoundMethod::call()
+#22 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(183): Illuminate\\Container\\Container->call()
+#23 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\symfony\\console\\Command\\Command.php(255): Illuminate\\Console\\Command->execute()
+#24 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(170): Symfony\\Component\\Console\\Command\\Command->run()
+#25 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\symfony\\console\\Application.php(1009): Illuminate\\Console\\Command->run()
+#26 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\symfony\\console\\Application.php(273): Symfony\\Component\\Console\\Application->doRunCommand()
+#27 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\symfony\\console\\Application.php(149): Symfony\\Component\\Console\\Application->doRun()
+#28 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php(90): Symfony\\Component\\Console\\Application->run()
+#29 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(133): Illuminate\\Console\\Application->run()
+#30 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#31 {main}
+"} 

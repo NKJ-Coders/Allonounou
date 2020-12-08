@@ -1,0 +1,56 @@
+[2020-11-24 23:40:12] local.ERROR: include(C:\Users\Idriss Ketchaya\Downloads\Allonounou\vendor\composer/../beyondcode/laravel-dump-server/src/DumpServerServiceProvider.php): failed to open stream: No such file or directory {"exception":"[object] (ErrorException(code: 0): include(C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\composer/../beyondcode/laravel-dump-server/src/DumpServerServiceProvider.php): failed to open stream: No such file or directory at C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\composer\\ClassLoader.php:444)
+[stacktrace]
+#0 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\composer\\ClassLoader.php(444): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError()
+#1 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\composer\\ClassLoader.php(444): include()
+#2 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\composer\\ClassLoader.php(322): Composer\\Autoload\\includeFile()
+#3 [internal function]: Composer\\Autoload\\ClassLoader->loadClass()
+#4 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(670): spl_autoload_call()
+#5 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(604): Illuminate\\Foundation\\Application->resolveProvider()
+#6 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\ProviderRepository.php(75): Illuminate\\Foundation\\Application->register()
+#7 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(584): Illuminate\\Foundation\\ProviderRepository->load()
+#8 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\RegisterProviders.php(17): Illuminate\\Foundation\\Application->registerConfiguredProviders()
+#9 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(210): Illuminate\\Foundation\\Bootstrap\\RegisterProviders->bootstrap()
+#10 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(322): Illuminate\\Foundation\\Application->bootstrapWith()
+#11 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(131): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#12 Command line code(1): Illuminate\\Foundation\\Console\\Kernel->handle()
+#13 {main}
+"} 
+[2020-11-24 23:40:12] local.ERROR: include(C:\Users\Idriss Ketchaya\Downloads\Allonounou\vendor\composer/../beyondcode/laravel-dump-server/src/DumpServerServiceProvider.php): failed to open stream: No such file or directory {"exception":"[object] (ErrorException(code: 0): include(C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\composer/../beyondcode/laravel-dump-server/src/DumpServerServiceProvider.php): failed to open stream: No such file or directory at C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\composer\\ClassLoader.php:444)
+[stacktrace]
+#0 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\composer\\ClassLoader.php(444): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError()
+#1 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\composer\\ClassLoader.php(444): include()
+#2 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\composer\\ClassLoader.php(322): Composer\\Autoload\\includeFile()
+#3 [internal function]: Composer\\Autoload\\ClassLoader->loadClass()
+#4 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(670): spl_autoload_call()
+#5 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(604): Illuminate\\Foundation\\Application->resolveProvider()
+#6 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\ProviderRepository.php(75): Illuminate\\Foundation\\Application->register()
+#7 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(584): Illuminate\\Foundation\\ProviderRepository->load()
+#8 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\RegisterProviders.php(17): Illuminate\\Foundation\\Application->registerConfiguredProviders()
+#9 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(210): Illuminate\\Foundation\\Bootstrap\\RegisterProviders->bootstrap()
+#10 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(322): Illuminate\\Foundation\\Application->bootstrapWith()
+#11 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(131): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#12 Command line code(1): Illuminate\\Foundation\\Console\\Kernel->handle()
+#13 {main}
+"} 
+[2020-11-24 23:40:13] local.ERROR: Uncaught ReflectionException: Class translator does not exist in C:\Users\Idriss Ketchaya\Downloads\Allonounou\vendor\laravel\framework\src\Illuminate\Container\Container.php:788
+Stack trace:
+#0 C:\Users\Idriss Ketchaya\Downloads\Allonounou\vendor\laravel\framework\src\Illuminate\Container\Container.php(788): ReflectionClass->__construct()
+#1 C:\Users\Idriss Ketchaya\Downloads\Allonounou\vendor\laravel\framework\src\Illuminate\Container\Container.php(667): Illuminate\Container\Container->build()
+#2 C:\Users\Idriss Ketchaya\Downloads\Allonounou\vendor\laravel\framework\src\Illuminate\Container\Container.php(615): Illuminate\Container\Container->resolve()
+#3 C:\Users\Idriss Ketchaya\Downloads\Allonounou\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(767): Illuminate\Container\Container->make()
+#4 C:\Users\Idriss Ketchaya\Downloads\Allonounou\vendor\laravel\framework\src\Illuminate\Foundation\helpers.php(121): Illuminate\Foundation\Application->make()
+#5 Command line code(1): app()
+#6 {main}
+ {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Uncaught ReflectionException: Class translator does not exist in C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php:788
+Stack trace:
+#0 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(788): ReflectionClass->__construct()
+#1 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(667): Illuminate\\Container\\Container->build()
+#2 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(615): Illuminate\\Container\\Container->resolve()
+#3 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(767): Illuminate\\Container\\Container->make()
+#4 C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\helpers.php(121): Illuminate\\Foundation\\Application->make()
+#5 Command line code(1): app()
+#6 {main}
+ at C:\\Users\\Idriss Ketchaya\\Downloads\\Allonounou\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php:788)
+[stacktrace]
+#0 {main}
+"} 
