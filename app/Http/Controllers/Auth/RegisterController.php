@@ -226,7 +226,7 @@ class RegisterController extends Controller
             'situation_matrimoniale' => 'string',
             'age_dernier_enfant' => ['integer'],
             'metier' => 'string',
-            'age_dernier_metier' => 'integer',
+            'date_arret_dernier_metier' => 'date',
             'niveau_etude' => 'string',
             'langue' => 'string',
             'type_compte' => 'string',
@@ -244,7 +244,7 @@ class RegisterController extends Controller
         $compte->situation_matrimoniale = $data['situation_matrimoniale'];
         $compte->age_dernier_enfant = $data['age_dernier_enfant'];
         $compte->metier = $data['metier'];
-        $compte->age_dernier_metier = $data['age_dernier_metier'];
+        $compte->date_arret_dernier_metier = $data['date_arret_dernier_metier'];
         $compte->niveau_etude = $data['niveau_etude'];
         $compte->langue = $data['langue'];
         $compte->save();

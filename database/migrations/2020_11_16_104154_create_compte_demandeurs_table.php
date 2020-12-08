@@ -24,7 +24,7 @@ class CreateCompteDemandeursTable extends Migration
             $table->string('situation_matrimoniale')->nullable();
             $table->unsignedBigInteger('age_dernier_enfant')->nullable();
             $table->string('metier')->nullable();
-            $table->unsignedBigInteger('age_dernier_metier')->nullable();
+            $table->date('date_arret_dernier_metier')->nullable();
             $table->string('niveau_etude')->nullable();
             $table->string('langue')->nullable();
             $table->boolean('statut')->default('1')->nullable();

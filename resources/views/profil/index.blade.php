@@ -14,6 +14,7 @@
                     <th scope="col">Telephone 2 (whatsapp)</th>
                     <th scope="col">Metier</th>
                     <th scope="col">Age</th>
+                    <th scope="col">Statut</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -28,6 +29,7 @@
                         <td>{{ $profil->compte_demandeur->telephone2 }}</td>
                         <td>{{ $profil->compte_demandeur->metier }}</td>
                         <td>{{ $profil->compte_demandeur->age }}</td>
+                        <td>{{ ($profil->statut == 1) ? '(Validé)' : (($profil->statut == 0) ? '(En attente)' : '(Rejeté)') }}</td>
                         <td>
                             <div class="row flex-contain">
                                 <a href="{{ route('profil.create', ['profil' => $profil->id]) }}" title="Modifier" class="btn btn-small btn-success"><i class="icon-edit"></i></a>

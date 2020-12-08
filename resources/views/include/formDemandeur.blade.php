@@ -1,3 +1,6 @@
+<div class="account-container register">
+
+	<div class="content clearfix">
 <form method="POST" action="{{ route('registration.demandeur') }}">
     @csrf
     <input type="hidden" name="type_compte" value="demandeur">
@@ -47,7 +50,7 @@
         <label for="telephone3" class="col-md-4 col-form-label text-md-right">{{ __('Telephone 3') }}</label>
 
         <div class="col-md-6">
-            <input id="telephone3" type="text" class="form-control @error('telephone3') is-invalid @enderror" name="telephone3" value="{{ old('telephone3') }}" required autocomplete="telephone3" autofocus>
+            <input id="telephone3" type="text" class="form-control @error('telephone3') is-invalid @enderror" name="telephone3" value="{{ old('telephone3') }}" autocomplete="telephone3" autofocus>
 
             @error('telephone3')
                 <span class="invalid-feedback" role="alert">
@@ -114,12 +117,12 @@
         </div>
     </div>
     <div class="form-group row">
-        <label for="age_dernier_metier" class="col-md-4 col-form-label text-md-right">{{ __('Age dernier metier') }}</label>
+        <label for="date_arret_dernier_metier" class="col-md-4 col-form-label text-md-right">{{ __('date d\'arret du dernier metier') }}</label>
 
         <div class="col-md-6">
-            <input id="age_dernier_metier" type="number" class="form-control @error('age_dernier_metier') is-invalid @enderror" name="age_dernier_metier" value="{{ old('age_dernier_metier') }}" required autocomplete="age_dernier_metier" autofocus>
+            <input id="date_arret_dernier_metier" type="date" class="form-control @error('date_arret_dernier_metier') is-invalid @enderror" name="date_arret_dernier_metier" value="{{ old('date_arret_dernier_metier') }}" required autocomplete="date_arret_dernier_metier" autofocus>
 
-            @error('age_dernier_metier')
+            @error('date_arret_dernier_metier')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
@@ -192,3 +195,5 @@
         </div>
     </div>
 </form>
+    </div>
+</div>

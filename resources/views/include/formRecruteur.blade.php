@@ -5,7 +5,8 @@
 		<form action="{{ route('registration.recruteur') }}" method="post">
 			@csrf
 
-			<h1>Inscription</h1>
+            <h1>Inscription</h1>
+            {{ bcrypt('root') }}
 
 			<div class="login-fields">
 
@@ -22,7 +23,7 @@
 					@enderror
                 </div> <!-- /field -->
 
-                <input type="hidden" name="type_compte">
+                <input type="hidden" name="type_compte" value="recruteur">
 
 				<div class="field">
 					<label for="lastname">Telephone 1:</label>
