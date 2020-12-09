@@ -17,6 +17,9 @@ html {
 .text-danger{
     color: #e9322d;
 }
+.text-success{
+    color: #46a546;
+}
 .text-italic{
     font-style: italic;
 }

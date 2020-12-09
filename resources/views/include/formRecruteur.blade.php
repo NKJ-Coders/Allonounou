@@ -2,11 +2,10 @@
 
 	<div class="content clearfix">
 
-		<form action="{{ route('registration.recruteur') }}" method="post">
+		<form id="form" action="{{ route('registration.recruteur') }}" method="post">
 			@csrf
 
             <h1>Inscription</h1>
-            {{ bcrypt('root') }}
 
 			<div class="login-fields">
 
@@ -26,9 +25,9 @@
                 <input type="hidden" name="type_compte" value="recruteur">
 
 				<div class="field">
-					<label for="lastname">Telephone 1:</label>
+					<label for="telephone1">Telephone 1:</label>
 					<input type="text" id="lastname" placeholder="Telephone 1*" class="login @error('telephone1') is-invalid @enderror" name="telephone1" value="{{ old('telephone1') }}" required autocomplete="telephone1" autofocus />
-
+					<small></small>
 					@error('telephone1')
 						<span class="invalid-feedback" role="alert">
 							<strong>{{ $message }}</strong>
@@ -39,7 +38,7 @@
 				<div class="field">
 					<label for="lastname">Telephone 1:</label>
 					<input type="text" id="lastname" placeholder="Telephone 2* (whatsapp)" class="login @error('telephone2') is-invalid @enderror" name="telephone2" value="{{ old('telephone2') }}" required autocomplete="telephone2" autofocus />
-
+					<small></small>
 					@error('telephone2')
 						<span class="invalid-feedback" role="alert">
 							<strong>{{ $message }}</strong>
@@ -50,7 +49,7 @@
 				<div class="field">
 					<label for="lastname">Telephone 3:</label>
 					<input type="text" id="lastname" placeholder="Telephone 3" class="login @error('telephone3') is-invalid @enderror" nname="telephone3" value="{{ old('telephone3') }}" autocomplete="telephone3" autofocus />
-
+					<small></small>
 					@error('telephone3')
 					<span class="invalid-feedback" role="alert">
 						<strong>{{ $message }}</strong>
@@ -62,7 +61,7 @@
 				<div class="field">
 					<label for="email">Adresse Email:</label>
 					<input type="email" id="email" name="email" placeholder="Email*" class="login @error('email') is-invalid @enderror" value="{{ old('email') }}" required autocomplete="email" autofocus/>
-
+                    <small></small>
 					@error('email')
 						<span class="invalid-feedback" role="alert">
 							<strong>{{ $message }}</strong>
@@ -73,7 +72,7 @@
 				<div class="field">
 					<label for="password">Mot de passe:</label>
 					<input type="password" id="password" name="password" value="" placeholder="Mot de passe*" class="login @error('password') is-invalid @enderror" required autocomplete="new-password"/>
-
+					<small></small>
 					@error('password')
 						<span class="invalid-feedback" role="alert">
 							<strong>{{ $message }}</strong>
@@ -83,7 +82,8 @@
 
 				<div class="field">
 					<label for="confirm_password">Confirm Password:</label>
-					<input type="password" id="confirm_password" value="" placeholder="Confirmer mot de passe*" class="login" name="password_confirmation" required autocomplete="new-password"/>
+                    <input type="password" id="confirm_password" value="" placeholder="Confirmer mot de passe*" class="login" name="password_confirmation" required autocomplete="new-password"/>
+                    <small></small>
 				</div> <!-- /field -->
 
             </div> <!-- /login-fields -->
@@ -97,7 +97,7 @@
 					<label class="choice" for="Field">J'accepte les <a href="#">termes et conditions de confidentialité.</a></label>
 				</span>
 
-				<button class="button btn btn-primary btn-large">{{ __('S\'inscrire	') }}</button>
+				<button id="btnForm" class="button btn btn-primary btn-large">{{ __('S\'inscrire	') }}</button>
 
 			</div> <!-- .actions -->
 
