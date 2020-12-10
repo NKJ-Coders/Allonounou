@@ -22,12 +22,25 @@
 					@enderror
                 </div> <!-- /field -->
 
+                <div class="field">
+                    <label for="prenom" class="col-md-4 col-form-label text-md-right">{{ __('Nom*') }}</label>
+                    <input id="prenom" type="text" class="login @error('prenom') is-invalid @enderror" name="prenom" value="{{ old('prenom') }}" placeholder="Prénom*" required autocomplete="prenom" autofocus>
+
+                    @error('prenom')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
                 <input type="hidden" name="type_compte" value="recruteur">
 
 				<div class="field">
 					<label for="telephone1">Telephone 1:</label>
-					<input type="text" id="lastname" placeholder="Telephone 1*" class="login @error('telephone1') is-invalid @enderror" name="telephone1" value="{{ old('telephone1') }}" required autocomplete="telephone1" autofocus />
-					<small></small>
+                    <input type="text" id="telephone" placeholder="Telephone 1*" class="login @error('telephone1') is-invalid @enderror" name="telephone1" value="{{ old('telephone1') }}" required autocomplete="telephone1" autofocus />
+                    <span id="valid-msg" class="text-success hide"><i class="icon-ok"></i> Valid</span>
+                    <span id="error-msg" class="text-danger hide"><i class="icon-remove"></i></span>
+					{{-- <small></small> --}}
 					@error('telephone1')
 						<span class="invalid-feedback" role="alert">
 							<strong>{{ $message }}</strong>
@@ -36,8 +49,8 @@
 				</div> <!-- /field -->
 
 				<div class="field">
-					<label for="lastname">Telephone 1:</label>
-					<input type="text" id="lastname" placeholder="Telephone 2* (whatsapp)" class="login @error('telephone2') is-invalid @enderror" name="telephone2" value="{{ old('telephone2') }}" required autocomplete="telephone2" autofocus />
+					<label for="lastname">Telephone 2:</label>
+					<input type="text" id="telephone2" placeholder="Telephone 2* (whatsapp)" class="login @error('telephone2') is-invalid @enderror" name="telephone2" value="{{ old('telephone2') }}" required autocomplete="telephone2" autofocus />
 					<small></small>
 					@error('telephone2')
 						<span class="invalid-feedback" role="alert">

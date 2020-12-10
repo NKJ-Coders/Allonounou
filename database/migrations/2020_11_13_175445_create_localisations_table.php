@@ -19,6 +19,7 @@ class CreateLocalisationsTable extends Migration
             $table->string('designation');
             $table->unsignedInteger('distance')->nullable();
             $table->string('proximite')->nullable();
+            $table->string('type')->nullable();
             $table->boolean('statut', 1)->default('1')->nullable();
             $table->boolean('online', 1)->default('1')->nullable();
             $table->timestamps();

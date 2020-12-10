@@ -16,6 +16,7 @@ class CreateCompteAdminsTable extends Migration
         Schema::create('compte_admins', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nom')->nullable();
+            $table->string('prenom')->nullable();
             $table->unsignedBigInteger('telephone1')->nullable();
             $table->timestamps();
         });

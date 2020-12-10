@@ -129,7 +129,24 @@ class RegisterController extends Controller
 
     public function showRegisterForm($type_compte)
     {
-        return view('auth.register', compact('type_compte'));
+        $tab_mois = [
+            'Janvier',
+            'Février',
+            'Mars',
+            'Avril',
+            'Mai',
+            'Juin',
+            'Juillet',
+            'Aout',
+            'Septembre',
+            'Octobre',
+            'Novembre',
+            'Décembre'
+        ];
+
+        $metiers = ['Femme de menage', 'Nounou'];
+
+        return view('auth.register', compact('type_compte', 'tab_mois', 'metiers'));
     }
 
 
@@ -172,6 +189,7 @@ class RegisterController extends Controller
     {
         $val = $this->validate($request, [
             'nom' => 'required|string|max:255',
+            'prenom' => 'required|string',
             'telephone1' => 'required|integer|unique:users',
             'telephone2' => 'integer',
             'telephone3' => 'sometimes',
@@ -185,6 +203,7 @@ class RegisterController extends Controller
 
         $compte = new Compte_recruteur();
         $compte->nom = $data['nom'];
+        $compte->prenom = $data['prenom'];
         $compte->telephone1 = $data['telephone1'];
         $compte->telephone2 = $data['telephone2'];
         $compte->telephone3 = (!empty($data['telephone3'])) ? $data['telephone3'] : NULL;
@@ -193,7 +212,7 @@ class RegisterController extends Controller
 
         $user = new User();
         $user->id_compte = $compte->id;
-        $user->name = $compte->nom;
+        $user->prenom = $compte->prenom;
         $user->telephone1 = $compte->telephone1;
         $user->active = 0;
         $user->type = $data['type_compte'];
@@ -219,14 +238,15 @@ class RegisterController extends Controller
 
         $this->validate($request, [
             'nom' => 'required|string|max:255',
+            'prenom' => 'required|string',
             'telephone1' => 'required|integer|unique:users',
             'telephone2' => 'integer',
             'telephone3' => 'sometimes',
-            'age' => 'required|integer',
+            // 'age' => 'required|integer',
             'situation_matrimoniale' => 'string',
-            'age_dernier_enfant' => ['integer'],
-            'metier' => 'string',
-            'date_arret_dernier_metier' => 'date',
+            // 'age_dernier_enfant' => ['integer'],
+            'metier' => 'required|string',
+            // 'date_arret_dernier_metier' => 'date',
             'niveau_etude' => 'string',
             'langue' => 'string',
             'type_compte' => 'string',
@@ -237,21 +257,22 @@ class RegisterController extends Controller
 
         $compte = new Compte_demandeur();
         $compte->nom = $data['nom'];
+        $compte->prenom = $data['prenom'];
         $compte->telephone1 = $data['telephone1'];
         $compte->telephone2 = $data['telephone2'];
         $compte->telephone3 = (!empty($data['telephone3'])) ? $data['telephone3'] : NULL;
-        $compte->age = $data['age'];
+        $compte->date_nais = $data['jour'] . ' ' . $data['mois'] . ' ' . $data['annee'];
         $compte->situation_matrimoniale = $data['situation_matrimoniale'];
-        $compte->age_dernier_enfant = $data['age_dernier_enfant'];
+        $compte->age_dernier_enfant = $data['jour_enfant'] . ' ' . $data['mois_enfant'] . ' ' . $data['annee_enfant'];
         $compte->metier = $data['metier'];
-        $compte->date_arret_dernier_metier = $data['date_arret_dernier_metier'];
+        $compte->date_arret_dernier_metier = $data['jour_metier'] . ' ' . $data['mois_metier'] . ' ' . $data['annee_metier'];;
         $compte->niveau_etude = $data['niveau_etude'];
         $compte->langue = $data['langue'];
         $compte->save();
 
         $user = new User();
         $user->id_compte = $compte->id;
-        $user->name = $compte->nom;
+        $user->prenom = $compte->prenom;
         $user->telephone1 = $compte->telephone1;
         $user->type = $data['type_compte'];
         $user->password = Hash::make($data['password']);

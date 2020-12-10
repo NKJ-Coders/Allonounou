@@ -5,6 +5,9 @@
             @csrf
 
             <h1>Inscription</h1>
+
+                <p>Créer votre compte en tant que demandeur:</p>
+
                 <div class="login-field">
                     <input type="hidden" name="type_compte" value="demandeur">
                     <div class="field">
@@ -12,6 +15,17 @@
                         <input id="nom" type="text" class="login @error('nom') is-invalid @enderror" name="nom" value="{{ old('nom') }}" required autocomplete="nom" autofocus>
 
                         @error('nom')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+
+                    <div class="field">
+                        <label for="prenom" class="col-md-4 col-form-label text-md-right">{{ __('Prénom*') }}</label>
+                        <input id="prenom" type="text" class="login @error('prenom') is-invalid @enderror" name="prenom" value="{{ old('prenom') }}" required autocomplete="prenom" autofocus>
+
+                        @error('prenom')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -55,15 +69,30 @@
                     </div>
 
                     <div class="field">
-                        <label for="age" class="col-md-4 col-form-label text-md-right">{{ __('Age*') }}</label>
+                        <label for="age" class="col-md-4 col-form-label text-md-right">{{ __('Date de naissance*') }}</label>
 
-                        <input id="age" type="date" class="login @error('age') is-invalid @enderror" name="age" value="{{ old('age') }}" required autocomplete="age" autofocus>
+                        {{-- <input id="age" type="date" class="login @error('age') is-invalid @enderror" name="age" value="{{ old('age') }}" required autocomplete="age" autofocus> --}}
+                            <div class="flex-contain">
+                                <input type="number" placeholder="Jour" min="01" max="31" style="width: 70px" value="{{ old('jour') }}" required  class="login" name="jour" id="jour">
+                                <select name="mois" id="mois" class="login col-md-4 custom-select" required>
+                                    <option value="">Mois</option>
+                                    @foreach($tab_mois as $value)
+                                        <option value="{{ $value }}">{{ $value }}</option>
+                                    @endforeach
+                                </select>
+                                <select name="annee" id="annee" class="login col-md-4 custom-select" required>
+                                    <option value="">Annee</option>
+                                    @for($i = 1970; $i <= 2040; $i++)
+                                        <option value="{{ $i }}">{{ $i }}</option>
+                                    @endfor
+                                </select>
+                            </div>
 
-                        @error('age')
+                        {{-- @error('age')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                        @enderror
+                        @enderror --}}
                     </div>
 
                     <div class="field">
@@ -83,7 +112,22 @@
                     <div class="field">
                         <label for="age_dernier_enfant" class="col-md-4 col-form-label text-md-right">{{ __('Age dernier enfant') }}</label>
 
-                        <input id="age_dernier_enfant" type="date" class="login @error('age_dernier_enfant') is-invalid @enderror" name="age_dernier_enfant" value="{{ old('age_dernier_enfant') }}" autocomplete="age_dernier_enfant" autofocus>
+                        {{-- <input id="age_dernier_enfant" type="date" class="login @error('age_dernier_enfant') is-invalid @enderror" name="age_dernier_enfant" value="{{ old('age_dernier_enfant') }}" autocomplete="age_dernier_enfant" autofocus> --}}
+                        <div class="flex-contain">
+                            <input type="number" placeholder="Jour" min="01" max="31" style="width: 70px" value="{{ old('jour_enfant') }}"  class="login" name="jour_enfant" id="jour">
+                            <select name="mois_enfant" id="mois" class="login col-md-4 custom-select">
+                                <option value="">Mois</option>
+                                @foreach($tab_mois as $value)
+                                    <option value="{{ $value }}">{{ $value }}</option>
+                                @endforeach
+                            </select>
+                            <select name="annee_enfant" id="annee" class="login col-md-4 custom-select">
+                                <option value="">Annee</option>
+                                @for($i = 1970; $i <= 2040; $i++)
+                                    <option value="{{ $i }}">{{ $i }}</option>
+                                @endfor
+                            </select>
+                        </div>
 
                         @error('age_dernier_enfant')
                             <span class="invalid-feedback" role="alert">
@@ -94,7 +138,12 @@
                     <div class="field">
                         <label for="metier" class="col-md-4 col-form-label text-md-right">{{ __('Métier*') }}</label>
 
-                        <input id="metier" type="text" class="login @error('metier') is-invalid @enderror" name="metier" value="{{ old('metier') }}" required autocomplete="metier" autofocus>
+                        {{-- <input id="metier" type="text" class="login @error('metier') is-invalid @enderror" name="metier" value="{{ old('metier') }}" required autocomplete="metier" autofocus> --}}
+                        <select required name="metier" id="metier" class="custom-select">
+                            @foreach($metiers as $metier)
+                                <option value="{{ $metier }}">{{ $metier }}</option>
+                            @endforeach
+                        </select>
 
                         @error('metier')
                             <span class="invalid-feedback" role="alert">
@@ -105,7 +154,22 @@
                     <div class="field">
                         <label for="date_arret_dernier_metier" class="col-md-4 col-form-label text-md-right">{{ __('date d\'arret du dernier metier') }}</label>
 
-                        <input id="date_arret_dernier_metier" type="date" class="login @error('date_arret_dernier_metier') is-invalid @enderror" name="date_arret_dernier_metier" value="{{ old('date_arret_dernier_metier') }}" autocomplete="date_arret_dernier_metier" autofocus>
+                        {{-- <input id="date_arret_dernier_metier" type="date" class="login @error('date_arret_dernier_metier') is-invalid @enderror" name="date_arret_dernier_metier" value="{{ old('date_arret_dernier_metier') }}" autocomplete="date_arret_dernier_metier" autofocus> --}}
+                        <div class="flex-contain">
+                            <input type="number" placeholder="Jour" min="01" max="31" style="width: 70px" value="{{ old('jour_metier') }}"  class="login" name="jour_metier" id="jour">
+                            <select name="mois_metier" id="mois" class="login col-md-4 custom-select">
+                                <option value="">Mois</option>
+                                @foreach($tab_mois as $value)
+                                    <option value="{{ $value }}">{{ $value }}</option>
+                                @endforeach
+                            </select>
+                            <select name="annee_metier" id="annee" class="login col-md-4 custom-select">
+                                <option value="">Annee</option>
+                                @for($i = 1970; $i <= 2040; $i++)
+                                    <option value="{{ $i }}">{{ $i }}</option>
+                                @endfor
+                            </select>
+                        </div>
 
                         @error('date_arret_dernier_metier')
                             <span class="invalid-feedback" role="alert">

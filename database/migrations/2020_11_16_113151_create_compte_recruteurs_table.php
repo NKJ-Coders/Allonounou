@@ -16,6 +16,7 @@ class CreateCompteRecruteursTable extends Migration
         Schema::create('compte_recruteurs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nom')->nullable();
+            $table->string('prenom')->nullable();
             $table->string('email', 150)->nullable();
             $table->unsignedBigInteger('telephone1')->nullable();
             $table->unsignedBigInteger('telephone2')->nullable();
