@@ -35,6 +35,8 @@
                     <div class="field">
                         <label for="telephone1" class="col-md-4 col-form-label text-md-right">{{ __('Telephone 1*') }}</label>
                         <input id="telephone1" type="text" class="login @error('telephone1') is-invalid @enderror" name="telephone1" value="{{ old('telephone1') }}" required autocomplete="telephone1" autofocus>
+                    {{-- <span id="valid-msg" class="text-success hide"><i class="icon-ok"></i> </span>
+                    <span id="error-msg" class="text-danger hide"><i class="icon-remove"></i></span> --}}
                         <small></small>
 
                         @error('telephone1')
@@ -59,7 +61,7 @@
                     <div class="field">
                         <label for="telephone3" class="col-md-4 col-form-label text-md-right">{{ __('Telephone 3') }}</label>
 
-                        <input id="telephone3" type="text" class="login @error('telephone3') is-invalid @enderror" name="telephone3" value="{{ old('telephone3') }}" autocomplete="telephone3" autofocus>
+                        <input id="telephone3" type="text" class="login phone3 @error('telephone3') is-invalid @enderror" name="telephone3" value="{{ old('telephone3') }}" autocomplete="telephone3" autofocus>
                         <small></small>
                         @error('telephone3')
                             <span class="invalid-feedback" role="alert">

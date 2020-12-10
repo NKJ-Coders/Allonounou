@@ -1,12 +1,14 @@
-var input = document.querySelector('#telephone');
+// ******************* Input Telephone 1***********************
+var input = document.querySelector('#phone');
 var valiMsg = document.querySelector('#valid-msg');
-var errorMsg = document.querySelector('error-msg');
+var errorMsg = document.querySelector('#error-msg');
 
-var errorMap = ['Invalid number', 'Invalid country code', 'Too short', 'Too long', 'Invalid number'];
+var errorMap = ['Numero invalide', 'Code de pays invalide', 'Trop court', 'Trop long', 'Numero invalide'];
 
 var iti = new window.intlTelInput(input, {
     // onlyCountries: ['cm'],
-    utilsScript: 'js/utils.js'
+    initialCountry: 'cm',
+    utilsScript: '../js/utils.js'
 });
 
 var reset = function () {
@@ -31,4 +33,6 @@ input.addEventListener('blur', function () {
 });
 
 input.addEventListener('change', reset);
-input.add('keyup', reset);
+input.addEventListener('keyup', reset);
+
+

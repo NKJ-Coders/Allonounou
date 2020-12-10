@@ -1,8 +1,9 @@
 let form = document.querySelector('#form');
+let tel = document.querySelector('.phone3');
 
-form.email.addEventListener('keyup', function () {
-    validEmail(this);
-});
+// form.email.addEventListener('keyup', function () {
+//     validEmail(this);
+// });
 
 form.password.addEventListener('keyup', function () {
     validPassword(this);
@@ -16,9 +17,9 @@ form.telephone2.addEventListener('keyup', function() {
     validPhone(this);
 });
 
-// form.telephone3.addEventListener('keyup', function() {
-//     validPhone(this);
-// });
+tel.addEventListener('keyup', function() {
+    validPhone(this);
+});
 
 form.password_confirmation.addEventListener('keyup', function () {
     let small = this.nextElementSibling;
@@ -120,3 +121,7 @@ const validPhone = function (inputTelephone) {
         return false;
     }
 }
+
+form.email.addEventListener('keyup', function () {
+    validEmail(this);
+});

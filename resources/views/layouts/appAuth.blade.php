@@ -16,7 +16,9 @@
     <script src="{{ asset('js/signin.js') }}" defer></script>
     <script src="{{ asset('js/validationForms.js') }}" defer></script>
     <script src="{{ asset('js/intlTelInput.min.js') }}" defer></script>
-    <script src="{{ asset('js/itl.js') }}" defer></script>
+    <script src="{{ asset('js/itl.js') }}" async></script>
+    <script src="{{ asset('js/inputphone2.js') }}" async></script>
+    <script src="{{ asset('js/inputphone3.js') }}" async></script>
 
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/bootstrap-responsive.min.css') }}" rel="stylesheet" type="text/css" />

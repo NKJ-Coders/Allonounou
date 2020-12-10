@@ -37,8 +37,8 @@
 
 				<div class="field">
 					<label for="telephone1">Telephone 1:</label>
-                    <input type="text" id="telephone" placeholder="Telephone 1*" class="login @error('telephone1') is-invalid @enderror" name="telephone1" value="{{ old('telephone1') }}" required autocomplete="telephone1" autofocus />
-                    <span id="valid-msg" class="text-success hide"><i class="icon-ok"></i> Valid</span>
+                    <input type="tel" id="phone" placeholder="Telephone 1*" class="login @error('telephone1') is-invalid @enderror" name="telephone1" value="{{ old('telephone1') }}" required autocomplete="telephone1" autofocus />
+                    <span id="valid-msg" class="text-success hide"><i class="icon-ok"></i> </span>
                     <span id="error-msg" class="text-danger hide"><i class="icon-remove"></i></span>
 					{{-- <small></small> --}}
 					@error('telephone1')
@@ -49,9 +49,11 @@
 				</div> <!-- /field -->
 
 				<div class="field">
-					<label for="lastname">Telephone 2:</label>
-					<input type="text" id="telephone2" placeholder="Telephone 2* (whatsapp)" class="login @error('telephone2') is-invalid @enderror" name="telephone2" value="{{ old('telephone2') }}" required autocomplete="telephone2" autofocus />
-					<small></small>
+					<label for="telephone2">Telephone 2:</label>
+					<input type="tel" id="phone2" placeholder="Telephone 2* (whatsapp)" class="login @error('telephone2') is-invalid @enderror" name="telephone2" value="{{ old('telephone2') }}" required autocomplete="telephone2" autofocus />
+                    <span id="valid-msg2" class="text-success hide"><i class="icon-ok"></i> </span>
+                    <span id="error-msg2" class="text-danger hide"><i class="icon-remove"></i></span>
+					{{-- <small></small> --}}
 					@error('telephone2')
 						<span class="invalid-feedback" role="alert">
 							<strong>{{ $message }}</strong>
@@ -61,8 +63,10 @@
 
 				<div class="field">
 					<label for="lastname">Telephone 3:</label>
-					<input type="text" id="lastname" placeholder="Telephone 3" class="login @error('telephone3') is-invalid @enderror" nname="telephone3" value="{{ old('telephone3') }}" autocomplete="telephone3" autofocus />
-					<small></small>
+					<input type="text" id="phone3" placeholder="Telephone 3" class="login phone3 @error('telephone3') is-invalid @enderror" nname="telephone3" value="{{ old('telephone3') }}" autocomplete="telephone3" autofocus />
+                    <span id="valid-msg3" class="text-success hide"><i class="icon-ok"></i> </span>
+                    <span id="error-msg3" class="text-danger hide"><i class="icon-remove"></i></span>
+					{{-- <small></small> --}}
 					@error('telephone3')
 					<span class="invalid-feedback" role="alert">
 						<strong>{{ $message }}</strong>
