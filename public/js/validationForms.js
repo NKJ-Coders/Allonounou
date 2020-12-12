@@ -37,7 +37,7 @@ form.password_confirmation.addEventListener('keyup', function () {
 // envoi du formulaire
 form.addEventListener('submit', function (e) {
     e.preventDefault();
-    if (validEmail(form.email) && validPassword(form.password) && validPhone(form.telephone1) && validPhone(form.telephone2)) {
+    if (validPassword(form.password) && validPhone(form.telephone1) && validPhone(form.telephone2)) {
         form.submit()
     }
 });
@@ -122,6 +122,6 @@ const validPhone = function (inputTelephone) {
     }
 }
 
-form.email.addEventListener('keyup', function () {
-    validEmail(this);
-});
+// form.email.addEventListener('keyup', function () {
+//     validEmail(this);
+// });
