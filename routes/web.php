@@ -81,6 +81,8 @@ Route::get('/annonce_recruteur/postuler/{annonce}', 'Annonce_recruteurController
 
 Route::post('/imageCrop', 'ImageCropController@store')->name('imageCrop');
 
+Route::get('/localisation', 'LocalisationController@getLocalisation')->name('localisation');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

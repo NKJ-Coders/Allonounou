@@ -8,6 +8,7 @@ use App\User;
 use App\SendCode;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use App\Localisation;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -146,7 +147,9 @@ class RegisterController extends Controller
 
         $metiers = ['Femme de menage', 'Nounou'];
 
-        return view('auth.register', compact('type_compte', 'tab_mois', 'metiers'));
+        $localisations = Localisation::where('id_parent', 0)->get();
+
+        return view('auth.register', compact('type_compte', 'tab_mois', 'metiers', 'localisations'));
     }
 
 
@@ -251,9 +254,13 @@ class RegisterController extends Controller
             'langue' => 'string',
             'type_compte' => 'string',
             'password' => 'required|string|min:8|confirmed',
+            'localisation' => 'required|string',
         ]);
 
         $data = $request->all();
+
+        // find localisation_id
+        $localisation = Localisation::where('designation', $data['localisation'])->get();
 
         $compte = new Compte_demandeur();
         $compte->nom = $data['nom'];
@@ -268,6 +275,7 @@ class RegisterController extends Controller
         $compte->date_arret_dernier_metier = $data['jour_metier'] . ' ' . $data['mois_metier'] . ' ' . $data['annee_metier'];;
         $compte->niveau_etude = $data['niveau_etude'];
         $compte->langue = $data['langue'];
+        $compte->localisation_id = $localisation[0]->id;
         $compte->save();
 
         $user = new User();
