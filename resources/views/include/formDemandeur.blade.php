@@ -216,6 +216,53 @@
                             </span>
                         @enderror
                     </div>
+
+                    <div class="field">
+                        <label for="">Pays:</label>
+                        <input type="text" name="" class="login" placeholder="Dans quel pays êtes-vous?" id="pays" list="search_pays">
+                        <datalist id="search_pays">
+                            @foreach($localisations as $localisation)
+                                <option value="{{ $localisation->designation }}" label="{{ $localisation->id }}">{{ $localisation->id }}</option>
+                            @endforeach
+                        </datalist>
+                    </div>
+
+                    <div class="field">
+                        <label for="">Region:</label>
+                        <input type="text" name="" class="login" placeholder="Dans quelle region êtes-vous?" id="region" list="search_region">
+                        <datalist id="search_region"></datalist>
+                    </div>
+
+                    <div class="field">
+                        <label for="">Ville:</label>
+                        <input type="text" name="" class="login" placeholder="Dans quelle ville êtes-vous?" id="ville" list="search_ville">
+                        <datalist id="search_ville"></datalist>
+                    </div>
+
+                    <div class="field">
+                        <label for="">Arrondissement:</label>
+                        <input type="text" name="" class="login" placeholder="Dans quelle ville êtes-vous?" id="arr" list="search_arr">
+                        <datalist id="search_arr"></datalist>
+                    </div>
+
+                    <div class="field">
+                        <label for="">Quartier:</label>
+                        <input type="text" name="" class="login" placeholder="Dans quel quartier êtes-vous?" id="quartier" list="search_quartier">
+                        <datalist id="search_quartier"></datalist>
+                    </div>
+
+                    <div class="field">
+                        <label for="">Zone:</label>
+                        <input required type="text" name="localisation" class="login @error('localisation_id') is-invalid @enderror" value="{{ old('localisation_id') }}" placeholder="Dans quelle zone êtes-vous?" id="zone" list="search_zone">
+                        <datalist id="search_zone"></datalist>
+
+                        @error('localisation_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+
                     <div class="field">
                         <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password*') }}</label>
                         <input id="password" type="password" class="login @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
