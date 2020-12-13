@@ -19,19 +19,6 @@ class CompteController extends Controller
 
     public function update(Request $request)
     {
-        request()->validate([
-            'nom' => 'string|max:25',
-            'telephone1' => 'integer|unique:users',
-            'telephone2' => 'integer',
-            'telephone3' => 'sometimes',
-            'age' => 'integer',
-            'situation_matrimoniale' => 'string',
-            'age_dernier_enfant' => 'integer',
-            'metier' => 'string',
-            'age_dernier_metier' => 'integer',
-            'niveau_etude' => 'string',
-            'langue' => 'string',
-        ]);
         // $compte_di = $request->compte_di;
         // dd($request->nom);
         if (!empty($request->nom) && isset($request->nom)) {
@@ -39,10 +26,6 @@ class CompteController extends Controller
             $compte = Compte_demandeur::where('id', $compte_di)->get();
             $compte[0]->update([
                 'nom' => $request->nom,
-            ]);
-            $user = User::where('id_compte', $compte_di)->get();
-            $user[0]->update([
-                'name' => $request->nom,
             ]);
         }
         if (!empty($request->telephone1) && isset($request->telephone1)) {
@@ -70,11 +53,11 @@ class CompteController extends Controller
                 'telephone3' => $request->telephone3,
             ]);
         }
-        if (!empty($request->age) && isset($request->age)) {
+        if (!empty($request->date_nais) && isset($request->date_nais)) {
             $compte_di = $request->compte_di;
             $compte = Compte_demandeur::where('id', $compte_di)->get();
             $compte[0]->update([
-                'age' => $request->age,
+                'date_nais' => $request->date_nais,
             ]);
         }
         if (!empty($request->metier) && isset($request->metier)) {
@@ -91,11 +74,11 @@ class CompteController extends Controller
                 'age_dernier_enfant' => $request->age_dernier_enfant,
             ]);
         }
-        if (!empty($request->age_dernier_metier) && isset($request->age_dernier_metier)) {
+        if (!empty($request->date_arret_dernier_metier) && isset($request->date_arret_dernier_metier)) {
             $compte_di = $request->compte_di;
             $compte = Compte_demandeur::where('id', $compte_di)->get();
             $compte[0]->update([
-                'age_dernier_metier' => $request->age_dernier_metier,
+                'date_arret_dernier_metier' => $request->date_arret_dernier_metier,
             ]);
         }
         if (!empty($request->niveau_etude) && isset($request->niveau_etude)) {
@@ -112,11 +95,15 @@ class CompteController extends Controller
                 'situation_matrimoniale' => $request->situation_matrimoniale,
             ]);
         }
-        if (!empty($request->age_dernier_metier) && isset($request->age_dernier_metier)) {
+        if (!empty($request->prenom) && isset($request->prenom)) {
             $compte_di = $request->compte_di;
             $compte = Compte_demandeur::where('id', $compte_di)->get();
             $compte[0]->update([
-                'age_dernier_metier' => $request->age_dernier_metier,
+                'prenom' => $request->prenom,
+            ]);
+            $user = User::where('id_compte', $compte_di)->get();
+            $user[0]->update([
+                'prenom' => $request->prenom,
             ]);
         }
         if (!empty($request->langue) && isset($request->langue)) {
@@ -130,6 +117,14 @@ class CompteController extends Controller
         // $id_user=$user[0]->id;
         return redirect()->route('update', ['user' => Auth::id()]);
     }
+
+    public function getmodify($compte_di)
+    {
+        $compte_demandeur = Compte_demandeur::where('id', $compte_di)->get();
+        $compte_demandeur = $compte_demandeur[0];
+        return view('profil.modify', compact('compte_demandeur'));
+    }
+
     public function getupdate()
     {
         return redirect()->route('profil.show', ['user' => Auth::id()]);

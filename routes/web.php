@@ -28,8 +28,9 @@ Route::get('/verify/{compte_di?}', 'Auth\RegisterController@getVerify')->name('v
 Route::post('/verify', 'Auth\RegisterController@postVerify')->name('verify');
 Route::get('/verify/reset/{compte_di?}', 'Auth\RegisterController@reset')->name('reset');
 
-Route::put('/update/{compte_di?}', 'CompteController@update')->name('update');
-Route::get('/update', 'CompteController@getupdate')->name('update');
+Route::put('/compte/update/{compte_di?}', 'CompteController@update')->name('update');
+Route::get('/compte/update', 'CompteController@getupdate')->name('update');
+Route::get('/compte/modify/{compte_di?}', 'CompteController@getmodify')->name('compte.modify');
 
 
 
