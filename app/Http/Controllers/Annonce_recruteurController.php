@@ -74,6 +74,7 @@ class Annonce_recruteurController extends Controller
     // lister toutes les offres
     public function list()
     {
+
         $allAnnonces = Annone_recruteur::with('compte_recruteur')->paginate(15);
 
         return view('annonce-recruteur.list', compact('allAnnonces'));

@@ -85,6 +85,7 @@ Route::post('/imageCrop', 'ImageCropController@store')->name('imageCrop');
 Route::get('/localisation', 'LocalisationController@getLocalisation')->name('localisation');
 
 Route::post('/offre/signaler', 'OffreController@signaler')->name('offre.signaler');
+Route::get('/offre/liker', 'OffreController@liker')->name('offre.liker');
 
 Auth::routes();
 

@@ -12,7 +12,7 @@
     <!-- CDN -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-1.7.2.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.js"></script>
 
@@ -195,174 +195,208 @@
         </main>
     </div>
 
-    <script>
-        $(document).ready(function() {
-            $image_crop = $('#image-preview').croppie({
-                enableExif:true,
-                viewport:{
-                    width: 200,
-                    height: 250,
-                    type: 'square'
-                },
-                boundary:{
-                    width: 300,
-                    height: 300
-                }
-            });
+    @if(request()->is('imageCrop'))
+        <script>
+            $(document).ready(function() {
+                $image_crop = $('#image-preview').croppie({
+                    enableExif:true,
+                    viewport:{
+                        width: 200,
+                        height: 250,
+                        type: 'square'
+                    },
+                    boundary:{
+                        width: 300,
+                        height: 300
+                    }
+                });
 
-            $('#photo').change(function() {
-                var reader = new FileReader();
+                $('#photo').change(function() {
+                    var reader = new FileReader();
 
-                reader.onload = function (event) {
-                    $image_crop.croppie('bind', {
-                        url: event.target.result
-                    }).then(function() {
-                        console.log('jQuery bind complete');
-                    });
-                }
-                reader.readAsDataURL(this.files[0]);
-            });
+                    reader.onload = function (event) {
+                        $image_crop.croppie('bind', {
+                            url: event.target.result
+                        }).then(function() {
+                            console.log('jQuery bind complete');
+                        });
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                });
 
-            $('.crop_image').click(function(event) {
-                $image_crop.croppie('result', {
-                    type:'canvas',
-                    size:'viewport'
-                }).then(function(response) {
-                    var _token = $('input[name=_token]').val();
-                    // var photo = $('input[name="photo"]'),val();
-                    var compte_demandeur_id = $('input[name="compte_demandeur_id"]').val();
-                    $.ajax({
-                        url: "{{ route('imageCrop') }}",
-                        type: 'post',
-                        // data: {"photo=" + photo + "&compte_demandeur_id=" + compte_demandeur_id},
-                        data: {"photo": response, "id": compte_demandeur_id, _token:_token},
-                        dataType: "json",
-                        success: function(data) {
-                            var crop_image = '<img src="{{ asset('+ data.path +') }}" />';
-                            $('#uploaded_image').html(crop_image);
-                            var confirm = '<span class="fa fa-check"></span> ' + data.confirmMsg;
-                            // var crop_image = '<p>'+data.id+'</p>';
-                            $('#confirmMsg').attr('class', 'alert alert-success text-center');
-                            $('#confirmMsg').html(confirm);
-                            // var text = data.path
-                            // $('#text').text(text);
-                        }
+                $('.crop_image').click(function(event) {
+                    $image_crop.croppie('result', {
+                        type:'canvas',
+                        size:'viewport'
+                    }).then(function(response) {
+                        var _token = $('input[name=_token]').val();
+                        // var photo = $('input[name="photo"]'),val();
+                        var compte_demandeur_id = $('input[name="compte_demandeur_id"]').val();
+                        $.ajax({
+                            url: "{{ route('imageCrop') }}",
+                            type: 'post',
+                            // data: {"photo=" + photo + "&compte_demandeur_id=" + compte_demandeur_id},
+                            data: {"photo": response, "id": compte_demandeur_id, _token:_token},
+                            dataType: "json",
+                            success: function(data) {
+                                var crop_image = '<img src="{{ asset('+ data.path +') }}" />';
+                                $('#uploaded_image').html(crop_image);
+                                var confirm = '<span class="fa fa-check"></span> ' + data.confirmMsg;
+                                // var crop_image = '<p>'+data.id+'</p>';
+                                $('#confirmMsg').attr('class', 'alert alert-success text-center');
+                                $('#confirmMsg').html(confirm);
+                                // var text = data.path
+                                // $('#text').text(text);
+                            }
+                        });
                     });
                 });
             });
-        });
-    </script>
+        </script>
+    @endif
 
-    <script>
-    // var pays = document.getElementById('pays')[0];
-    $(document).ready(function() {
-        $('#pays').on('change', function() {
-            // $('#region').val(' ');
-            $('#search_region').empty();
+    @if(request()->is('annonce_recruteur/create'))
+        <script>
+            // var pays = document.getElementById('pays')[0];
+            $(document).ready(function() {
+                $('#pays').on('change', function() {
+                    // $('#region').val(' ');
+                    $('#search_region').empty();
 
-            var id = $('#search_pays option[value="' + $(this).val() + '"]').attr('label');
+                    var id = $('#search_pays option[value="' + $(this).val() + '"]').attr('label');
 
-            $.get("{{ route('localisation') }}",
-                {
-                    id: id
-                },
-                function(res, status) {
-                    var data = JSON.parse(res);
-                    if(status === 'success'){
-                        for(var i=0; i<data.length; i++){
-                            $('#search_region').append('<option value="'+ data[i].designation +'" label="'+data[i].id+'">');
+                    $.get("{{ route('localisation') }}",
+                        {
+                            id: id
+                        },
+                        function(res, status) {
+                            var data = JSON.parse(res);
+                            if(status === 'success'){
+                                for(var i=0; i<data.length; i++){
+                                    $('#search_region').append('<option value="'+ data[i].designation +'" label="'+data[i].id+'">');
+                                }
+                            }
+                        }
+                    );
+                });
+
+                $('#region').on('change', function() {
+                    // $('#ville').val(' ');
+                    $('#search_ville').empty();
+
+                    var id = $('#search_region option[value="' + $(this).val() + '"]').attr('label');
+
+                    $.get("{{ route('localisation') }}",
+                        {
+                            id: id
+                        },
+                        function(res, status) {
+                            var data = JSON.parse(res);
+                            if(status === 'success'){
+                                // console.log(res);
+                                for(var j=0; j<data.length; j++){
+                                    $('#search_ville').append('<option value="'+ data[j].designation +'" label="'+data[j].id+'">');
+                                }
+                            }
+                        }
+                    );
+                });
+
+                $('#ville').on('change', function() {
+                    // $('#arr').val(' ');
+                    $('#search_arr').empty();
+
+                    var id = $('#search_ville option[value="' + $(this).val() + '"]').attr('label');
+
+                    $.get("{{ route('localisation') }}",
+                        {
+                            id: id
+                        },
+                        function(res, status) {
+                            var data = JSON.parse(res);
+                            if(status === 'success'){
+                                for(var j=0; j<data.length; j++){
+                                    $('#search_arr').append('<option value="'+ data[j].designation +'" label="'+data[j].id+'">');
+                                }
+                            }
+                        }
+                    );
+                });
+
+                $('#arr').on('change', function() {
+                    // $('#quartier').val(' ');
+                    $('#search_quartier').empty();
+
+                    var id = $('#search_arr option[value="' + $(this).val() + '"]').attr('label');
+
+                    $.get("{{ route('localisation') }}",
+                        {
+                            id: id
+                        },
+                        function(res, status) {
+                            var data = JSON.parse(res);
+                            if(status === 'success'){
+                                for(var j=0; j<data.length; j++){
+                                    $('#search_quartier').append('<option value="'+ data[j].designation +'" label="'+data[j].id+'">');
+                                }
+                            }
+                        }
+                    );
+                });
+
+                $('#quartier').on('change', function() {
+                    // $('#zone').val(' ');
+                    $('#search_zone').empty();
+
+                    var id = $('#search_quartier option[value="' + $(this).val() + '"]').attr('label');
+
+                    $.get("{{ route('localisation') }}",
+                        {
+                            id: id
+                        },
+                        function(res, status) {
+                            var data = JSON.parse(res);
+                            if(status === 'success'){
+                                for(var j=0; j<data.length; j++){
+                                    $('#search_zone').append('<option value="'+ data[j].designation +'" label="'+data[j].id+'">');
+                                }
+                            }
+                        }
+                    );
+                });
+
+
+            });
+        </script>
+    @endif
+
+    @if(request()->is('offres/list'))
+        <script>
+            $('#liker').on('click', function(e) {
+                e.preventDefault();
+                var annonce_recruteur_id = $('#offre_id').val();
+
+                $.get("{{ route('offre.liker') }}",
+                    {
+                        annonce_recruteur_id: annonce_recruteur_id
+                    },
+                    function(response, status) {
+                        var result = JSON.parse(response);
+
+                        if(result.status === 'like'){
+                            var liker = $('#liker');
+                            liker.empty();
+                            liker.html('<i class="text-danger fa fa-heart"></i>');
+                        } else {
+                            var liker = $('#liker');
+                            liker.empty();
+                            liker.html('<i class="fa fa-heart"></i>');
                         }
                     }
-                }
-            );
-        });
-
-        $('#region').on('change', function() {
-            // $('#ville').val(' ');
-            $('#search_ville').empty();
-
-            var id = $('#search_region option[value="' + $(this).val() + '"]').attr('label');
-
-            $.get("{{ route('localisation') }}",
-                {
-                    id: id
-                },
-                function(res, status) {
-                    var data = JSON.parse(res);
-                    if(status === 'success'){
-                        // console.log(res);
-                        for(var j=0; j<data.length; j++){
-                            $('#search_ville').append('<option value="'+ data[j].designation +'" label="'+data[j].id+'">');
-                        }
-                    }
-                }
-            );
-        });
-
-        $('#ville').on('change', function() {
-            // $('#arr').val(' ');
-            $('#search_arr').empty();
-
-            var id = $('#search_ville option[value="' + $(this).val() + '"]').attr('label');
-
-            $.get("{{ route('localisation') }}",
-                {
-                    id: id
-                },
-                function(res, status) {
-                    var data = JSON.parse(res);
-                    if(status === 'success'){
-                        for(var j=0; j<data.length; j++){
-                            $('#search_arr').append('<option value="'+ data[j].designation +'" label="'+data[j].id+'">');
-                        }
-                    }
-                }
-            );
-        });
-
-        $('#arr').on('change', function() {
-            // $('#quartier').val(' ');
-            $('#search_quartier').empty();
-
-            var id = $('#search_arr option[value="' + $(this).val() + '"]').attr('label');
-
-            $.get("{{ route('localisation') }}",
-                {
-                    id: id
-                },
-                function(res, status) {
-                    var data = JSON.parse(res);
-                    if(status === 'success'){
-                        for(var j=0; j<data.length; j++){
-                            $('#search_quartier').append('<option value="'+ data[j].designation +'" label="'+data[j].id+'">');
-                        }
-                    }
-                }
-            );
-        });
-
-        $('#quartier').on('change', function() {
-            // $('#zone').val(' ');
-            $('#search_zone').empty();
-
-            var id = $('#search_quartier option[value="' + $(this).val() + '"]').attr('label');
-
-            $.get("{{ route('localisation') }}",
-                {
-                    id: id
-                },
-                function(res, status) {
-                    var data = JSON.parse(res);
-                    if(status === 'success'){
-                        for(var j=0; j<data.length; j++){
-                            $('#search_zone').append('<option value="'+ data[j].designation +'" label="'+data[j].id+'">');
-                        }
-                    }
-                }
-            );
-        });
-    });
-</script>
+                );
+            });
+        </script>
+    @endif
 </body>
 </html>
 
