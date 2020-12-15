@@ -30,4 +30,10 @@ class Compte_demandeur extends Model
     {
         return $this->hasOne('App\User');
     }
+
+    public function annone_recruteurs()
+    {
+
+        return $this->belongsToMany('App\Annone_recruteur')->withTimestamps();
+    }
 }

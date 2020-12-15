@@ -13,7 +13,7 @@ class Localisation extends Model
         return $query->where('id_parent', '!=', 0)->get();
     }
 
-    public function annonce_recruteurs()
+    public function annone_recruteurs()
     {
 
         return $this->hasMany('App\Annone_recruteur');

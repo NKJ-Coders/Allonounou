@@ -84,4 +84,16 @@ class Annone_recruteur extends Model
 
         return $this->hasMany('App\Interview');
     }
+
+    public function users()
+    {
+
+        return $this->belongsToMany('App\User')->withTimestamps()->withPivot('titre', 'contenu');
+    }
+
+    public function compte_demandeurs()
+    {
+
+        return $this->belongsToMany('App\Compte_demandeur')->withTimestamps();
+    }
 }

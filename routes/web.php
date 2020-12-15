@@ -78,11 +78,13 @@ Route::get('mes_candidatures', 'Annonce_recruteurController@mesCandidatures')->n
 Route::get('/Admin', 'DashboardController@index')->name('dashboard');
 
 Route::get('/offres/list', 'Annonce_recruteurController@list')->name('annonce-recruteur.list');
-Route::get('/annonce_recruteur/postuler/{annonce}', 'Annonce_recruteurController@postuler')->name('annonce-recruteur.postuler');
+Route::get('/annonce_recruteur/candidater/{annonce}', 'Annonce_recruteurController@candidater')->name('annonce-recruteur.candidater');
 
 Route::post('/imageCrop', 'ImageCropController@store')->name('imageCrop');
 
 Route::get('/localisation', 'LocalisationController@getLocalisation')->name('localisation');
+
+Route::post('/offre/signaler', 'OffreController@signaler')->name('offre.signaler');
 
 Auth::routes();
 

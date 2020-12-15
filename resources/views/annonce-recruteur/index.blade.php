@@ -7,12 +7,11 @@
 
     @foreach($myAnnonces as $key => $myAnnonce)
         <div>
-            <p><span class="text-bold">Je recherche une: </span>{{ $myAnnonce->poste->nom }} @if($myAnnonce->residente == 1) , résidente @endif</p>
-            <p><span class="text-bold">Dans la ville de: </span></p>
+            <p><span class="text-bold">Salut, Je recherche une </span>{{ $myAnnonce->poste->nom }} @if($myAnnonce->residente == 1) , résidente @endif . Dans la ville de {{ $myAnnonce->localisation->designation }}</p>
             <p><span class="text-bold">Urgent: </span> {{ $myAnnonce->urgent ? 'Oui' : 'Non' }}</p>
             <p><span class="text-bold">heure debut: </span>{{ $myAnnonce->heure_debut }}, <span class="text-bold">heure de fin: </span>{{ $myAnnonce->heure_fin }}</p>
             <p><span class="text-bold">Salaire: </span>{{ $myAnnonce->salaire }}</p>
-            <p>Publié par: {{ $myAnnonce->compte_recruteur->nom }}, le {{ $myAnnonce->created_at }}</p>
+            <p class="text-muted">Publié le {{ $myAnnonce->created_at }}</p>
             <div class="text-right">
                 <a href="{{ route('annonce-recruteur.edit', ['annonce_recruteur' => $myAnnonce->id]) }}">Modifier</a>
                 <form action="{{ route('annonce-recruteur.destroy', ['annonce_recruteur' => $myAnnonce->id]) }}" method="POST" style="display: inline">

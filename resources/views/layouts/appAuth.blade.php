@@ -14,7 +14,9 @@
     <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.js') }}" defer></script>
     <script src="{{ asset('js/signin.js') }}" defer></script>
+    @if(request()->is('registration/demandeur'))
     <script src="{{ asset('js/validationForms.js') }}" defer></script>
+    @endif
     <script src="{{ asset('js/intlTelInput.min.js') }}" defer></script>
     <script src="{{ asset('js/itl.js') }}" async></script>
     <script src="{{ asset('js/inputphone2.js') }}" async></script>

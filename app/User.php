@@ -56,4 +56,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Profil');
     }
+
+    public function annone_recruteurs()
+    {
+
+        return $this->belongsToMany('App\Annone_recruteur')->withTimestamps()->withPivot('titre', 'contenu');
+    }
 }

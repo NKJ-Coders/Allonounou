@@ -12,7 +12,7 @@
     <!-- CDN -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.js"></script>
 
@@ -252,6 +252,117 @@
             });
         });
     </script>
+
+    <script>
+    // var pays = document.getElementById('pays')[0];
+    $(document).ready(function() {
+        $('#pays').on('change', function() {
+            // $('#region').val(' ');
+            $('#search_region').empty();
+
+            var id = $('#search_pays option[value="' + $(this).val() + '"]').attr('label');
+
+            $.get("{{ route('localisation') }}",
+                {
+                    id: id
+                },
+                function(res, status) {
+                    var data = JSON.parse(res);
+                    if(status === 'success'){
+                        for(var i=0; i<data.length; i++){
+                            $('#search_region').append('<option value="'+ data[i].designation +'" label="'+data[i].id+'">');
+                        }
+                    }
+                }
+            );
+        });
+
+        $('#region').on('change', function() {
+            // $('#ville').val(' ');
+            $('#search_ville').empty();
+
+            var id = $('#search_region option[value="' + $(this).val() + '"]').attr('label');
+
+            $.get("{{ route('localisation') }}",
+                {
+                    id: id
+                },
+                function(res, status) {
+                    var data = JSON.parse(res);
+                    if(status === 'success'){
+                        // console.log(res);
+                        for(var j=0; j<data.length; j++){
+                            $('#search_ville').append('<option value="'+ data[j].designation +'" label="'+data[j].id+'">');
+                        }
+                    }
+                }
+            );
+        });
+
+        $('#ville').on('change', function() {
+            // $('#arr').val(' ');
+            $('#search_arr').empty();
+
+            var id = $('#search_ville option[value="' + $(this).val() + '"]').attr('label');
+
+            $.get("{{ route('localisation') }}",
+                {
+                    id: id
+                },
+                function(res, status) {
+                    var data = JSON.parse(res);
+                    if(status === 'success'){
+                        for(var j=0; j<data.length; j++){
+                            $('#search_arr').append('<option value="'+ data[j].designation +'" label="'+data[j].id+'">');
+                        }
+                    }
+                }
+            );
+        });
+
+        $('#arr').on('change', function() {
+            // $('#quartier').val(' ');
+            $('#search_quartier').empty();
+
+            var id = $('#search_arr option[value="' + $(this).val() + '"]').attr('label');
+
+            $.get("{{ route('localisation') }}",
+                {
+                    id: id
+                },
+                function(res, status) {
+                    var data = JSON.parse(res);
+                    if(status === 'success'){
+                        for(var j=0; j<data.length; j++){
+                            $('#search_quartier').append('<option value="'+ data[j].designation +'" label="'+data[j].id+'">');
+                        }
+                    }
+                }
+            );
+        });
+
+        $('#quartier').on('change', function() {
+            // $('#zone').val(' ');
+            $('#search_zone').empty();
+
+            var id = $('#search_quartier option[value="' + $(this).val() + '"]').attr('label');
+
+            $.get("{{ route('localisation') }}",
+                {
+                    id: id
+                },
+                function(res, status) {
+                    var data = JSON.parse(res);
+                    if(status === 'success'){
+                        for(var j=0; j<data.length; j++){
+                            $('#search_zone').append('<option value="'+ data[j].designation +'" label="'+data[j].id+'">');
+                        }
+                    }
+                }
+            );
+        });
+    });
+</script>
 </body>
 </html>
 

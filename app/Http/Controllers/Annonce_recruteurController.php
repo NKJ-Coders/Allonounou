@@ -17,7 +17,7 @@ class Annonce_recruteurController extends Controller
     public function create()
     {
         $postes = Poste::online();
-        $localisations = Localisation::getByIdParent();
+        $localisations = Localisation::where('id_parent', 0)->get();
         $taches = Tache::getAll();
 
         return view('annonce-recruteur.create', compact('postes', 'localisations', 'taches'));
@@ -28,20 +28,27 @@ class Annonce_recruteurController extends Controller
     {
 
         if ($request->heure_fin > $request->heure_debut) {
+            // dd($request->localisation);
             $data = $request->validate([
                 'poste_id' => 'required|integer',
-                'localisation_id' => 'required',
                 'urgent' => 'required|integer',
                 'residente' => 'required|integer',
                 'salaire' => 'required|integer',
                 'heure_debut' => 'required',
-                'heure_fin' => 'required'
+                'heure_fin' => 'required',
+                'tache_id' => 'required'
             ]);
-            // dd($data);
+            // dd($request->localisation);
+            $localisation = Localisation::where('designation', $request->localisation)->first();
+
+            // dd($localisation);
+
             $annonce_recrut = Annone_recruteur::create($data);
 
             $annonce_recrut->update(['compte_recruteur_id' => Auth::user()->id_compte]);
             // $getId = $annonce_recrut->id;
+
+            $annonce_recrut->update(['localisation_id' => $localisation->id]);
 
             // insert @id_annonce & @id_tache in table tache_recrutement
             $annonce_recrut->taches()->sync([$request->tache_id]);
@@ -114,7 +121,7 @@ class Annonce_recruteurController extends Controller
         return redirect('annonce-recruteur');
     }
 
-    public function postuler(Annone_recruteur $annonce)
+    public function candidater(Annone_recruteur $annonce)
     {
         $profil = Profil::where('user_id', Auth::id())->get();
         // dd($profil);
