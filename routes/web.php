@@ -78,7 +78,7 @@ Route::get('mes_candidatures', 'Annonce_recruteurController@mesCandidatures')->n
 Route::get('/Admin', 'DashboardController@index')->name('dashboard');
 
 Route::get('/offres/list', 'Annonce_recruteurController@list')->name('annonce-recruteur.list');
-Route::get('/annonce_recruteur/candidater/{annonce}', 'Annonce_recruteurController@candidater')->name('annonce-recruteur.candidater');
+Route::get('/annonce_recruteur/candidater', 'Annonce_recruteurController@candidater')->name('annonce-recruteur.candidater');
 
 Route::post('/imageCrop', 'ImageCropController@store')->name('imageCrop');
 

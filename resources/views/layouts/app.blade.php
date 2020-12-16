@@ -394,6 +394,34 @@
                         }
                     }
                 );
+
+            });
+        </script>
+
+        <script>
+            // candidater a une offre
+            $('#candidater').on('click', function(event) {
+                event.preventDefault();
+                var id_annonce = $('#offre_id').val();
+
+                $.get("{{ route('annonce-recruteur.candidater') }}",
+                    {
+                        id_annonce: id_annonce
+                    },
+                    function(res, status) {
+                        var result = JSON.parse(res);
+                        if(result.status === 'valider'){
+                            var candidater = $('#candidater');
+                            candidater.empty();
+                            candidater.text('Je ne suis plus intéressé(e)');
+                        } else {
+                            var candidater = $('#candidater');
+                            candidater.empty();
+                            candidater.text('Je suis intéressé(e)');
+                        }
+
+                    }
+                );
             });
         </script>
     @endif

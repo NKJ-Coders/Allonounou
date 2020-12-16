@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Annone_recruteur;
+use App\Compte_demandeur;
 use App\Localisation;
 use App\Poste;
 use App\Profil;
@@ -122,14 +123,23 @@ class Annonce_recruteurController extends Controller
         return redirect('annonce-recruteur');
     }
 
-    public function candidater(Annone_recruteur $annonce)
+    public function candidater(Request $request)
     {
-        $profil = Profil::where('user_id', Auth::id())->get();
-        // dd($profil);
-        $annonce->profils()->sync([$profil[0]->id]);
+        $compte = Compte_demandeur::find(Auth::user()->id_compte);
+        $profil = Profil::where('compte_demandeur_id', $compte->id)->first();
+        $hashAnonnce = $profil->annone_recruteurs()->where('annone_recruteur_id', $request->id_annonce)->exists();
 
-        // return back();
-        return '<div class="text-success"><span class="fa fa-check"></span></div>';
+        if (!empty($hashAnonnce)) {
+            $profil->annone_recruteurs()->detach($request->id_annonce);
+            $data = ['status' => 'annuler'];
+
+            echo json_encode($data);
+        } else {
+            $profil->annone_recruteurs()->sync($request->id_annonce);
+            $data = ['status' => 'valider'];
+
+            echo json_encode($data);
+        }
     }
 
     // lister candidatures d'un demandeur

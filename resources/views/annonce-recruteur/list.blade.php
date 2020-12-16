@@ -17,7 +17,12 @@
                     $hashAnnonce = $compte->annone_recruteurs()->where('annone_recruteur_id', $allAnnonce->id)->exists();
                 ?>
                 <a id="liker" href="" style="text-decoration: none" class="mx-2"> <?php if($hashAnnonce){ ?> <i class="text-danger fa fa-heart"></i> <?php } else { ?> <i class="fa fa-heart"></i> <?php } ?></a>
-                <a href="{{ route('annonce-recruteur.candidater', ['id_annonce' => $allAnnonce->id]) }}" id="post">Candidater</a>
+
+                <?php
+                    $profil = App\Profil::where('compte_demandeur_id', $compte->id)->first();
+                    $test = $profil->annone_recruteurs()->where('annone_recruteur_id', $allAnnonce->id)->exists();
+                ?>
+                <a id="candidater" href=""> <?php if($test){ ?>Je ne suis plus intéressé(e) <?php } else { ?> Je suis intéressé(e)  <?php } ?></a>
                 <a href="#" class="mx-2" data-toggle="modal" data-target="#signalerModal">Signaler</a>
                 <a href="#">Partager</a>
             </div>
