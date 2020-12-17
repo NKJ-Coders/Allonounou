@@ -18,10 +18,12 @@
                 <a class="liker" id="{{ $allAnnonce->id }}" href="" style="text-decoration: none" class="mx-2"> <?php if($hashAnnonce){ ?> <i class="text-danger fa fa-heart"></i> <?php } else { ?> <i class="fa fa-heart"></i> <?php } ?></a>
 
                 <?php
-                    // $profil = App\Profil::where('compte_demandeur_id', $compte->id)->first();
-                    // $test = $profil->annone_recruteurs()->where('annone_recruteur_id', $allAnnonce->id)->exists();
+                    $profil = App\Profil::where('compte_demandeur_id', $compte->id)->first();
                 ?>
-                {{-- <a id="candidater" href=""> <?php //if($test){ ?>Je ne suis plus intéressé(e) <?php //} else { ?> Je suis intéressé(e)  <?php //} ?></a> --}}
+                @if(!empty($profil))
+                    <?php $test = $profil->annone_recruteurs()->where('annone_recruteur_id', $allAnnonce->id)->exists() ?>
+                    <a class="candidater" id="{{ $allAnnonce->id }}" href=""> <?php if($test){ ?>Je ne suis plus intéressé(e) <?php } else { ?> Je suis intéressé(e)  <?php } ?></a>
+                @endif
                 <a href="#" class="mx-2" data-toggle="modal" data-target="#signalerModal{{ $key }}">Signaler</a>
                 <a href="#">Partager</a>
             </div>

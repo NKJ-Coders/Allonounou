@@ -33,6 +33,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/croppie.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/customInput.css') }}">
 </head>
 <body>
     <div id="app">
@@ -121,6 +122,9 @@
                                             {{ __('Precedent') }}
                                         </a>
                                     </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('annonce-demande.list') }}">Voir demandes</a>
                                 </li>
                             @endif
 
@@ -407,28 +411,35 @@
 
         <script>
             // candidater a une offre
-            $('#candidater').on('click', function(event) {
-                event.preventDefault();
-                var id_annonce = $('#offre_id').val();
+            $('.candidater').each(function(i) {
+                $(this).on('click', function(event) {
+                    event.preventDefault();
+                    var id_annonce = $(this).attr('id');
+                    var candidater = $(this);
 
-                $.get("{{ route('annonce-recruteur.candidater') }}",
-                    {
-                        id_annonce: id_annonce
-                    },
-                    function(res, status) {
-                        var result = JSON.parse(res);
-                        if(result.status === 'valider'){
-                            var candidater = $('#candidater');
-                            candidater.empty();
-                            candidater.text('Je ne suis plus intéressé(e)');
-                        } else {
-                            var candidater = $('#candidater');
-                            candidater.empty();
-                            candidater.text('Je suis intéressé(e)');
+                    $.get("{{ route('annonce-recruteur.candidater') }}",
+                        {
+                            id_annonce: id_annonce
+                        },
+                        function(res, status) {
+                            var result = JSON.parse(res);
+                            if(result.status === 'valider'){
+                                // var candidater = $('#candidater');
+                                setTimeout(() => {
+                                    candidater.empty();
+                                    candidater.text('Je ne suis plus intéressé(e)');
+                                }, 1000);
+                            } else {
+                                // var candidater = $('#candidater');
+                                setTimeout(() => {
+                                    candidater.empty();
+                                    candidater.text('Je suis intéressé(e)');
+                                }, 1000);
+                            }
+
                         }
-
-                    }
-                );
+                    );
+                });
             });
         </script>
     @endif

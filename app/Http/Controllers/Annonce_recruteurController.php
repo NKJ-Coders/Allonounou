@@ -68,6 +68,8 @@ class Annonce_recruteurController extends Controller
     public function index()
     {
         $myAnnonces = Annone_recruteur::online();
+        // $getCandidate = $myAnnonces->with('profils')->get();
+        // dd($myAnnonces[0]->profils);
 
         return view('annonce-recruteur.index', compact('myAnnonces'));
     }
@@ -76,7 +78,7 @@ class Annonce_recruteurController extends Controller
     public function list()
     {
 
-        $allAnnonces = Annone_recruteur::with('compte_recruteur')->paginate(15);
+        $allAnnonces = Annone_recruteur::with('compte_recruteur')->paginate(1);
 
         return view('annonce-recruteur.list', compact('allAnnonces'));
     }
@@ -135,7 +137,7 @@ class Annonce_recruteurController extends Controller
 
             echo json_encode($data);
         } else {
-            $profil->annone_recruteurs()->sync($request->id_annonce);
+            $profil->annone_recruteurs()->attach($request->id_annonce);
             $data = ['status' => 'valider'];
 
             echo json_encode($data);

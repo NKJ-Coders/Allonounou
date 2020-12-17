@@ -19,9 +19,10 @@
                     @method('DELETE')
                     <button type="submit" class="btn btn-link">Supprimer</button>
                 </form>
-                <a href="">Candidature(s)</a>
+                <a href="#" class="mx-2" data-toggle="modal" data-target="#candidatureModal{{ $key }}">Candidature(s)</a>
             </div>
         </div>
+        @include('include/candidatureModal')
         <hr>
     @endforeach
     <div class="row d-flex justify-content">

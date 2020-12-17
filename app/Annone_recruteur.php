@@ -11,7 +11,7 @@ class Annone_recruteur extends Model
 
     public function scopeOnline($query)
     {
-        return $query->with('compte_recruteur')->where('compte_recruteur_id', Auth::user()->id_compte)->where('online', 1)->paginate(15);
+        return $query->with('profils')->where([['compte_recruteur_id', Auth::user()->id_compte], ['online', 1]])->paginate(1);
     }
 
     public function getUrgentAttribute($attributes)
