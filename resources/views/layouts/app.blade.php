@@ -255,7 +255,7 @@
         </script>
     @endif
 
-    @if(request()->is('annonce_recruteur/create'))
+    @if(request()->is('annonce-recruteur/create'))
         <script>
             // var pays = document.getElementById('pays')[0];
             $(document).ready(function() {
@@ -372,29 +372,36 @@
 
     @if(request()->is('offres/list'))
         <script>
-            $('#liker').on('click', function(e) {
-                e.preventDefault();
-                var annonce_recruteur_id = $('#offre_id').val();
+            $('.liker').each(function(i) {
+                $(this).on('click', function(e) {
+                    e.preventDefault();
+                    var annonce_recruteur_id = $(this).attr('id');
+                    var liker = $(this);
 
-                $.get("{{ route('offre.liker') }}",
-                    {
-                        annonce_recruteur_id: annonce_recruteur_id
-                    },
-                    function(response, status) {
-                        var result = JSON.parse(response);
+                    $.get("{{ route('offre.liker') }}",
+                        {
+                            annonce_recruteur_id: annonce_recruteur_id
+                        },
+                        function(response, status) {
+                            var result = JSON.parse(response);
 
-                        if(result.status === 'like'){
-                            var liker = $('#liker');
-                            liker.empty();
-                            liker.html('<i class="text-danger fa fa-heart"></i>');
-                        } else {
-                            var liker = $('#liker');
-                            liker.empty();
-                            liker.html('<i class="fa fa-heart"></i>');
+                            if(result.status === 'like'){
+                                // var liker = $(this);
+                                setTimeout(() => {
+                                    liker.empty();
+                                    liker.html('<i class="text-danger fa fa-heart"></i>');
+                                }, 1000);
+                            } else {
+                                // var liker = $(this);
+                                setTimeout(() => {
+                                    liker.empty();
+                                    liker.html('<i class="fa fa-heart"></i>');
+                                }, 1000);
+                            }
                         }
-                    }
-                );
+                    );
 
+                });
             });
         </script>
 

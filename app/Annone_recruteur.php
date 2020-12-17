@@ -11,7 +11,7 @@ class Annone_recruteur extends Model
 
     public function scopeOnline($query)
     {
-        return $query->with('compte_recruteur')->where('id', Auth::user()->id_compte)->where('online', 1)->paginate(15);
+        return $query->with('compte_recruteur')->where('compte_recruteur_id', Auth::user()->id_compte)->where('online', 1)->paginate(15);
     }
 
     public function getUrgentAttribute($attributes)
@@ -94,6 +94,6 @@ class Annone_recruteur extends Model
     public function compte_demandeurs()
     {
 
-        return $this->belongsToMany('App\Compte_demandeur')->withTimestamps();
+        return $this->belongsToMany('App\User')->withTimestamps();
     }
 }

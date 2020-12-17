@@ -37,7 +37,7 @@ class OffreController extends Controller
 
                 echo json_encode($data);
             } else {
-                $compte->annone_recruteurs()->sync($request->annonce_recruteur_id);
+                $compte->annone_recruteurs()->attach($request->annonce_recruteur_id);
                 $data = ['status' => 'like'];
 
                 echo json_encode($data);
