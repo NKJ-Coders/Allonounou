@@ -122,11 +122,11 @@ class CompteController extends Controller
     {
         $compte_demandeur = Compte_demandeur::where('id', $compte_di)->get();
         $compte_demandeur = $compte_demandeur[0];
-        return view('profil.modify', compact('compte_demandeur'));
+        return view('compte-demandeur.modify', compact('compte_demandeur'));
     }
 
     public function getupdate()
     {
-        return redirect()->route('profil.show', ['user' => Auth::id()]);
+        return redirect()->route('compte-demandeur.show', ['user' => Auth::id()]);
     }
 }
