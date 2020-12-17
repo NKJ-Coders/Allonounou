@@ -1,4 +1,4 @@
-<div class="modal fade" id="signalerModal" tabindex="-1" role="dialog" aria-labelledby="signalerModal" aria-hidden="true">
+<div class="modal fade" id="signalerModal{{ $key }}" tabindex="-1" role="dialog" aria-labelledby="signalerModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">

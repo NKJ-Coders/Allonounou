@@ -22,7 +22,7 @@
                     // $test = $profil->annone_recruteurs()->where('annone_recruteur_id', $allAnnonce->id)->exists();
                 ?>
                 {{-- <a id="candidater" href=""> <?php //if($test){ ?>Je ne suis plus intéressé(e) <?php //} else { ?> Je suis intéressé(e)  <?php //} ?></a> --}}
-                <a href="#" class="mx-2" data-toggle="modal" data-target="#signalerModal">Signaler</a>
+                <a href="#" class="mx-2" data-toggle="modal" data-target="#signalerModal{{ $key }}">Signaler</a>
                 <a href="#">Partager</a>
             </div>
         </div>
