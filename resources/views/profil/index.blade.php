@@ -32,7 +32,7 @@
                         <td>{{ ($profil->statut == 1) ? '(Validé)' : (($profil->statut == 0) ? '(En attente)' : '(Rejeté)') }}</td>
                         <td>
                             <div class="row flex-contain">
-                                <a href="{{ route('profil.create', ['profil' => $profil->id]) }}" title="Modifier" class="btn btn-small btn-success"><i class="icon-edit"></i></a>
+                                <a href="{{ route('profil.update', ['profil_di' => $profil->id]) }}" title="Modifier" class="btn btn-small btn-success"><i class="icon-edit"></i></a>
                                 {{-- <a href="{{ route('profil.create', ['compte' => $compte->id]) }}" class="btn btn-warning">Ajouter une photo de profil</a> --}}
                                 <a href="{{ route('profil.delete', ['id' => $profil->id]) }}" class="btn btn-small btn-danger" title="Supprimer"><i class="icon-trash"></i> </a>
                                 <div class="controls">

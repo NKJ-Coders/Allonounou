@@ -74,20 +74,14 @@ class ProfilController extends Controller
 
     public function show($user)
     {
-
-        $profil = Profil::where('user_id', $user)->get();
-        // dd($profil[0]->photo);
         $users = User::where('id', $user)->get();
+        $profil = Profil::where('compte_demandeur_id', $users[0]->id_compte)->get();
+        $profil = (empty($profil[0])) ? null : $profil[0] ;
         $compte_demandeur = Compte_demandeur::findOrFail($users[0]->id_compte);
-
-        return view('profil.show', compact('profil', 'compte_demandeur'));
+        return view('compte-demandeur.show', compact('profil', 'compte_demandeur'));
     }
 
     public function edit(Profil $profil)
-    {
-    }
-
-    public function update(Profil $profil)
     {
     }
 
@@ -126,7 +120,142 @@ class ProfilController extends Controller
             'compte_demandeur_id' => 'required|integer'
         ]);
     }
+    public function getupdate ($profil_di)
+    {
+        $profil = Profil::where('id',$profil_di)->get();
+        $profil = ($profil==[0]) ? null : $profil[0] ;
+        $compte_demandeur = Compte_demandeur::findOrFail($profil->compte_demandeur_id);
+        return view('profil.show', compact('profil', 'compte_demandeur'));
+    }
 
+    public function getmodify($profil_di)
+    {
+        $profil = Profil::where('id', $profil_di)->get();
+        $profil = ($profil==[0]) ? null : $profil[0] ;
+        return view('profil.modify', compact('profil'));
+    }
+
+    public function update(Request $request)
+    {
+        // echo json_encode($request->personne_proche1);
+        // $compte_di = $request->compte_di;
+        // dd($request->nom);
+
+        if (!empty($request->nom_pere) && isset($request->nom_pere)) {
+            $profil_di = $request->profil_di;
+            $profil = Profil::where('id', $profil_di)->get();
+            $profil[0]->update([
+                'nom_pere' => $request->nom_pere,
+            ]);
+        }
+        if (!empty($request->nom_mere) && isset($request->nom_mere)) {
+            $profil_di = $request->profil_di;
+            $profil = Profil::where('id', $profil_di)->get();
+            $profil[0]->update([
+                'nom_mere' => $request->nom_mere,
+            ]);
+        }
+        if (!empty($request->lieu_nais) && isset($request->lieu_nais)) {
+            $profil_di = $request->profil_di;
+            $profil = Profil::where('id', $profil_di)->get();
+            $profil[0]->update([
+                'lieu_nais' => $request->lieu_nais,
+            ]);
+        }
+        if (!empty($request->nbre_enfant) && isset($request->nbre_enfant)) {
+            $profil_di = $request->profil_di;
+            $profil = Profil::where('id', $profil_di)->get();
+            $profil[0]->update([
+                'nbre_enfant' => $request->nbre_enfant,
+            ]);
+        }
+        if (!empty($request->personne_proche1) && isset($request->personne_proche1)) {
+            $profil_di = $request->profil_di;
+            $profil = Profil::where('id', $profil_di)->get();
+            $profil[0]->update([
+                'personne_proche1' => $request->personne_proche1,
+            ]);
+        }
+        if (!empty($request->personne_proche2) && isset($request->personne_proche2)) {
+            $profil_di = $request->profil_di;
+            $profil = Profil::where('id', $profil_di)->get();
+            $profil[0]->update([
+                'personne_proche2' => $request->personne_proche2,
+            ]);
+        }
+        if (!empty($request->personne_proche3) && isset($request->personne_proche3)) {
+            $profil_di = $request->profil_di;
+            $profil = Profil::where('id', $profil_di)->get();
+            $profil[0]->update([
+                'personne_proche3' => $request->personne_proche3,
+            ]);
+        }
+        if (!empty($request->personne_proche4) && isset($request->personne_proche4)) {
+            $profil_di = $request->profil_di;
+            $profil = Profil::where('id', $profil_di)->get();
+            $profil[0]->update([
+                'personne_proche4' => $request->personne_proche4,
+            ]);
+        }
+        if (!empty($request->telephone_personne_proche1) && isset($request->telephone_personne_proche1)) {
+            $profil_di = $request->profil_di;
+            $profil = Profil::where('id', $profil_di)->get();
+            $profil[0]->update([
+                'telephone_personne_proche1' => $request->telephone_personne_proche1,
+            ]);
+        }
+        if (!empty($request->telephone_personne_proche2) && isset($request->telephone_personne_proche2)) {
+            $profil_di = $request->profil_di;
+            $profil = Profil::where('id', $profil_di)->get();
+            $profil[0]->update([
+                'telephone_personne_proche2' => $request->telephone_personne_proche2,
+            ]);
+        }
+        if (!empty($request->telephone_personne_proche3) && isset($request->telephone_personne_proche3)) {
+            $profil_di = $request->profil_di;
+            $profil = Profil::where('id', $profil_di)->get();
+            $profil[0]->update([
+                'telephone_personne_proche3' => $request->telephone_personne_proche3,
+            ]);
+        }
+        if (!empty($request->telephone_personne_proche4) && isset($request->telephone_personne_proche4)) {
+            $profil_di = $request->profil_di;
+            $profil = Profil::where('id', $profil_di)->get();
+            $profil[0]->update([
+                'telephone_personne_proche4' => $request->telephone_personne_proche4,
+            ]);
+        }
+        if (!empty($request->handicape_moteur) && isset($request->handicape_moteur)) {
+            $profil_di = $request->profil_di;
+            $profil = Profil::where('id', $profil_di)->get();
+            $profil[0]->update([
+                'handicape_moteur' => $request->handicape_moteur,
+            ]);
+        }
+        if (!empty($request->handicape_visuel) && isset($request->handicape_visuel)) {
+            $profil_di = $request->profil_di;
+            $profil = Profil::where('id', $profil_di)->get();
+            $profil[0]->update([
+                'handicape_visuel' => $request->handicape_visuel,
+            ]);
+        }
+        if (!empty($request->handicape_des_mains) && isset($request->handicape_des_mains)) {
+            $profil_di = $request->profil_di;
+            $profil = Profil::where('id', $profil_di)->get();
+            $profil[0]->update([
+                'handicape_des_mains' => $request->handicape_des_mains,
+            ]);
+        }
+        $profil_di = $request->profil_di;
+        $profil = Profil::where('id', $profil_di)->first();
+        $array = array("nom_pere"=> $profil->nom_pere, "nom_mere"=> $profil->nom_mere, "lieu_nais"=> $profil->lieu_nais, "nbre_enfant"=> $profil->nbre_enfant, "personne_proche1"=> $profil->personne_proche1, "personne_proche2"=> $profil->personne_proche2, "personne_proche3"=> $profil->personne_proche3, "personne_proche4"=> $profil->personne_proche4, "telephone_personne_proche1"=> $profil->telephone_personne_proche1, "telephone_personne_proche2"=> $profil->telephone_personne_proche2, "telephone_personne_proche3"=> $profil->telephone_personne_proche3, "telephone_personne_proche4"=> $profil->telephone_personne_proche4, "handicape_moteur"=> $profil->handicape_moteur, "handicape_visuel"=> $profil->handicape_visuel, "handicape_des_mains"=> $profil->handicape_des_mains,);
+
+        // // $user = User::where('id_compte',$compte_di)->get();
+        // // $id_user=$user[0]->id;
+        // // return redirect()->route('update', ['user' => Auth::id()]);
+        // $ret = array("etat"=>2);
+        echo json_encode($array);
+    }
     // function d'upload d'image
     public function storeImage(Profil $profil, $id)
     {

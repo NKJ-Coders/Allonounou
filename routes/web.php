@@ -33,9 +33,9 @@ Route::get('/compte/update', 'CompteController@getupdate')->name('update');
 Route::get('/compte/modify/{compte_di?}', 'CompteController@getmodify')->name('compte.modify');
 
 
-
-
-
+Route::post('/profil/update', 'ProfilController@update')->name('profil.update');
+Route::get('/profil/update/{profil_di?}', 'ProfilController@getupdate')->name('profil.update');
+Route::get('/profil/modify/{profil_di?}', 'ProfilController@getmodify')->name('profil.modify');
 
 
 

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<form method="POST" action="{{ route('profil.update ',['compte_di'=>$compte_demandeur->id]) }}">
+<form method="POST" action="{{ route('update',['compte_di'=>$compte_demandeur->id]) }}">
 @csrf
 @method('PUT')
 <div class="container register">
