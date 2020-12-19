@@ -87,6 +87,14 @@ Route::get('/localisation', 'LocalisationController@getLocalisation')->name('loc
 Route::post('/offre/signaler', 'OffreController@signaler')->name('offre.signaler');
 Route::get('/offre/liker', 'OffreController@liker')->name('offre.liker');
 
+Route::get('/annonce-demande/list', 'Annonce_demandeurController@list')->name('annonce-demande.list');
+
+Route::get('demande/like', 'demandeController@liker')->name('demande.liker');
+Route::post('demande/signaler', 'demandeController@signaler')->name('demande.signaler');
+Route::get('demande/addList', 'demandeController@addList')->name('demande.addList');
+Route::get('demande/removeToList', 'demandeController@removeToList')->name('demande.removeToList');
+Route::get('demande/insert', 'demandeController@insert')->name('demande.insert');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

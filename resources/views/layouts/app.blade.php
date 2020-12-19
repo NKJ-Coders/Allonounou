@@ -12,7 +12,7 @@
     <!-- CDN -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <script src="{{ asset('js/jquery-1.7.2.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.js"></script>
 
@@ -199,7 +199,7 @@
         </main>
     </div>
 
-    @if(request()->is('imageCrop'))
+    @if(Route::currentRouteName() == 'profil.create')
         <script>
             $(document).ready(function() {
                 $image_crop = $('#image-preview').croppie({
@@ -439,6 +439,101 @@
 
                         }
                     );
+                });
+            });
+        </script>
+    @endif
+
+    @if(Route::currentRouteName() === 'annonce-demande.list')
+        <script>
+            $(function() {
+                $('.liker').each(function(i) {
+                    $(this).on('click', function(e) {
+                        e.preventDefault();
+                        var annonce_demandeur_id = $(this).attr('id');
+                        var liker = $(this);
+
+                        $.get("{{ route('demande.liker') }}",
+                            {
+                                annonce_demandeur_id: annonce_demandeur_id
+                            },
+                            function(response, status) {
+                                var result = JSON.parse(response);
+
+                                if(result.status === 'like'){
+                                    // var liker = $(this);
+                                    setTimeout(() => {
+                                        liker.empty();
+                                        liker.html('<i class="text-danger fa fa-heart"></i>');
+                                    }, 1000);
+                                } else {
+                                    // var liker = $(this);
+                                    setTimeout(() => {
+                                        liker.empty();
+                                        liker.html('<i class="fa fa-heart"></i>');
+                                    }, 1000);
+                                }
+                            }
+                        );
+
+                    });
+                });
+
+                $('.addToSelection').each(function(i) {
+                    $(this).on('click', function(e) {
+                        e.preventDefault();
+                        var id_profil = $(this).attr('id');
+                        // var liker = $(this);
+
+                        $.get("{{ route('demande.addList') }}",
+                            {
+                                id_profil: id_profil
+                            },
+                            function(response, status) {
+                                var result = JSON.parse(response);
+                                // console.log(result);
+                                for (let propriete in result) {
+                                    const donnee = result[propriete];
+                                    // ajouter au modal dynamiquement
+                                }
+
+                            }
+                        );
+
+                    });
+                });
+
+                $('.removeToSelection').each(function(i) {
+                    $(this).on('click', function(e) {
+                        e.preventDefault();
+                        var id_profil = $(this).attr('id');
+                        // var liker = $(this);
+
+                        $.get("{{ route('demande.removeToList') }}",
+                            {
+                                id_profil: id_profil
+                            },
+                            function(response, status) {
+                                // var result = JSON.parse(response);
+                                console.log('ok');
+                            }
+                        );
+
+                    });
+                });
+
+                $('#insert').on('click', function(e) {
+                    e.preventDefault();
+
+                    $.get("{{ route('demande.insert') }}",
+                        function(res, status) {
+                            // var result = JSON.parse(res);
+                            // console.log('ok');
+                            $('.toClear').empty();
+                            $('.toClear').html('<h5 class="text-center text-success"><span class="fa fa-check"></span> Votre sélection a été bien enregistréé!</h5>')
+                        }
+                    );
+
                 });
             });
         </script>

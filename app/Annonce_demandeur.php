@@ -25,15 +25,27 @@ class Annonce_demandeur extends Model
         return $this->belongsToMany('App\Compte_demandeur');
     }
 
-    public function compte_recruteurs()
+    public function likers()
     {
 
-        return $this->belongsToMany('App\Compte_recruteur');
+        return $this->belongsToMany('App\Compte_recruteur', 'liker_demande');
     }
 
     public function interviews()
     {
 
         return $this->hasMany('App\Interview');
+    }
+
+    public function signalers()
+    {
+
+        return $this->belongsToMany('App\Compte_recruteur', 'signaler_demande')->withPivot('titre', 'contenu');
+    }
+
+    public function select_candidates()
+    {
+
+        return $this->belongsToMany('App\Compte_recruteur', 'selectionner_profil');
     }
 }

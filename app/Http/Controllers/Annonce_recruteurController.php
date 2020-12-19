@@ -78,7 +78,7 @@ class Annonce_recruteurController extends Controller
     public function list()
     {
 
-        $allAnnonces = Annone_recruteur::with('compte_recruteur')->paginate(1);
+        $allAnnonces = Annone_recruteur::with('compte_recruteur')->where('online', 1)->paginate(1);
 
         return view('annonce-recruteur.list', compact('allAnnonces'));
     }

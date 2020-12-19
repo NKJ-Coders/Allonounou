@@ -43,6 +43,7 @@ class ProfilController extends Controller
 
             $annonce_demandeur = new Annonce_demandeur;
             $annonce_demandeur->profil_id = $profil->id;
+            $annonce_demandeur->online = 0;
             $annonce_demandeur->poste_id = $request->poste_id;
             $annonce_demandeur->save();
             // upload files
@@ -76,7 +77,7 @@ class ProfilController extends Controller
     {
         $users = User::where('id', $user)->get();
         $profil = Profil::where('compte_demandeur_id', $users[0]->id_compte)->get();
-        $profil = (empty($profil[0])) ? null : $profil[0] ;
+        $profil = (empty($profil[0])) ? null : $profil[0];
         $compte_demandeur = Compte_demandeur::findOrFail($users[0]->id_compte);
         return view('compte-demandeur.show', compact('profil', 'compte_demandeur'));
     }
@@ -120,10 +121,10 @@ class ProfilController extends Controller
             'compte_demandeur_id' => 'required|integer'
         ]);
     }
-    public function getupdate ($profil_di)
+    public function getupdate($profil_di)
     {
-        $profil = Profil::where('id',$profil_di)->get();
-        $profil = ($profil==[0]) ? null : $profil[0] ;
+        $profil = Profil::where('id', $profil_di)->get();
+        $profil = ($profil == [0]) ? null : $profil[0];
         $compte_demandeur = Compte_demandeur::findOrFail($profil->compte_demandeur_id);
         return view('profil.show', compact('profil', 'compte_demandeur'));
     }
@@ -131,7 +132,7 @@ class ProfilController extends Controller
     public function getmodify($profil_di)
     {
         $profil = Profil::where('id', $profil_di)->get();
-        $profil = ($profil==[0]) ? null : $profil[0] ;
+        $profil = ($profil == [0]) ? null : $profil[0];
         return view('profil.modify', compact('profil'));
     }
 
@@ -248,7 +249,7 @@ class ProfilController extends Controller
         }
         $profil_di = $request->profil_di;
         $profil = Profil::where('id', $profil_di)->first();
-        $array = array("nom_pere"=> $profil->nom_pere, "nom_mere"=> $profil->nom_mere, "lieu_nais"=> $profil->lieu_nais, "nbre_enfant"=> $profil->nbre_enfant, "personne_proche1"=> $profil->personne_proche1, "personne_proche2"=> $profil->personne_proche2, "personne_proche3"=> $profil->personne_proche3, "personne_proche4"=> $profil->personne_proche4, "telephone_personne_proche1"=> $profil->telephone_personne_proche1, "telephone_personne_proche2"=> $profil->telephone_personne_proche2, "telephone_personne_proche3"=> $profil->telephone_personne_proche3, "telephone_personne_proche4"=> $profil->telephone_personne_proche4, "handicape_moteur"=> $profil->handicape_moteur, "handicape_visuel"=> $profil->handicape_visuel, "handicape_des_mains"=> $profil->handicape_des_mains,);
+        $array = array("nom_pere" => $profil->nom_pere, "nom_mere" => $profil->nom_mere, "lieu_nais" => $profil->lieu_nais, "nbre_enfant" => $profil->nbre_enfant, "personne_proche1" => $profil->personne_proche1, "personne_proche2" => $profil->personne_proche2, "personne_proche3" => $profil->personne_proche3, "personne_proche4" => $profil->personne_proche4, "telephone_personne_proche1" => $profil->telephone_personne_proche1, "telephone_personne_proche2" => $profil->telephone_personne_proche2, "telephone_personne_proche3" => $profil->telephone_personne_proche3, "telephone_personne_proche4" => $profil->telephone_personne_proche4, "handicape_moteur" => $profil->handicape_moteur, "handicape_visuel" => $profil->handicape_visuel, "handicape_des_mains" => $profil->handicape_des_mains,);
 
         // // $user = User::where('id_compte',$compte_di)->get();
         // // $id_user=$user[0]->id;
@@ -292,14 +293,29 @@ class ProfilController extends Controller
         // valider le profil
         if ($statut == 1) {
             $profil->update(['statut' => 1]);
+
+            $annonce_demandeur = Annonce_demandeur::where('profil_id', $profil->id)->first();
+            if (!empty($annonce_demandeur)) {
+                $annonce_demandeur->update(['online' => 1, 'profil_id' => $profil->id]);
+            }
         }
         // mettre en attente
         if ($statut == 0) {
             $profil->update(['statut' => 0]);
+
+            $annonce_demandeur = Annonce_demandeur::where('profil_id', $profil->id)->first();
+            if (!empty($annonce_demandeur)) {
+                $annonce_demandeur->update(['online' => 0, 'profil_id' => $profil->id]);
+            }
         }
         // rejeter
         if ($statut == -1) {
             $profil->update(['statut' => -1]);
+
+            $annonce_demandeur = Annonce_demandeur::where('profil_id', $profil->id)->first();
+            if (!empty($annonce_demandeur)) {
+                $annonce_demandeur->update(['online' => 0, 'profil_id' => $profil->id]);
+            }
         }
 
         return redirect()->back();
