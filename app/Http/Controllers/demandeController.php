@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Annonce_demandeur;
 use App\Compte_recruteur;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -12,8 +13,14 @@ use Illuminate\Support\Facades\Session;
 
 class demandeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('check.recruteur');
+    }
+
     public function liker(Request $request)
     {
+        $this->authorize('liker', Annonce_demandeur::class);
         if ($request->ajax()) {
             $compte = Compte_recruteur::find(Auth::user()->id_compte);
             $hashAnonnce = $compte->likes()->where('annonce_demandeur_id', $request->annonce_demandeur_id)->exists();
@@ -34,6 +41,7 @@ class demandeController extends Controller
 
     public function signaler(Request $request)
     {
+        $this->authorize('signaler', Annonce_demandeur::class);
         $data = $request->validate([
             'titre' => 'required',
             'contenu' => 'required'
@@ -48,6 +56,7 @@ class demandeController extends Controller
 
     public function addList(Request $request)
     {
+        $this->authorize('addList', Annonce_demandeur::class);
         if ($request->session()->has('id_profil')) {
             $data_profil = $request->session()->get('id_profil');
             if (!in_array($request->id_profil, $data_profil)) {
