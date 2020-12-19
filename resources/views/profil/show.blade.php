@@ -14,6 +14,7 @@
                             </div>
                             <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
                                 <a id="btn-contact" class="btn btn-success btn-block follow" href="{{ route('profil.modify',['compte_di'=>$compte_demandeur->id]) }}" >Modifier le profil</a>
+                                <button class="btn btn-warning btn-block">{{ ($profil->statut == 1) ? '(Validé)' : (($profil->statut == 0) ? '(En attente)' : '(Rejeté)') }}</button>
                             </div>
                             <div class="row user-detail-row">
                                 <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
@@ -80,7 +81,7 @@
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <span id="sp1">{{ $profil->nom_pere }}</span>
-                                                                        <a type="button" id="openModalLink1" class="btn default btn-outline el-link" title="Modifier"><i class="fa fa-edit"></i></a>
+                                                                        <a type="button" id="openModalLink1" class="btn default btn-outline el-link" title="Modifier"><?= (empty($profil->nom_pere)) ? '<button class="btn btn-warning btn-block">editer</button>' : '<i class="fa fa-edit"></i>' ; ?></a>
                                                                     </div>
                                                                     <div class="modal fade" id="nom_pere" role="dialog" aria-labelledby="image" aria-hidden="true">
                                                                         <div class="modal-dialog modal-md" role="document">
@@ -126,7 +127,7 @@
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <span id="sp2">{{ $profil->nom_mere }}</span>
-                                                                        <a type="button" id="openModalLink2" class="btn default btn-outline el-link" title="Modifier"><i class="fa fa-edit"></i></a>
+                                                                        <a type="button" id="openModalLink2" class="btn default btn-outline el-link" title="Modifier"><?= (empty($profil->nom_mere)) ? '<button class="btn btn-warning btn-block">editer</button>' : '<i class="fa fa-edit"></i>' ; ?></i></a>
                                                                     </div>
                                                                     <div class="modal fade" id="nom_mere" role="dialog" aria-labelledby="image" aria-hidden="true">
                                                                         <div class="modal-dialog modal-md" role="document">
@@ -172,7 +173,7 @@
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <span id="sp3">{{ $profil->lieu_nais }}</span>
-                                                                        <a type="button" id="openModalLink3" class="btn default btn-outline el-link" title="Modifier"><i class="fa fa-edit"></i></a>
+                                                                        <a type="button" id="openModalLink3" class="btn default btn-outline el-link" title="Modifier"><?= (empty($profil->lieu_nais)) ? '<button class="btn btn-warning btn-block">editer</button>' : '<i class="fa fa-edit"></i>' ; ?></a>
                                                                     </div>
                                                                     <div class="modal fade" id="lieu_nais" role="dialog" aria-labelledby="image" aria-hidden="true">
                                                                         <div class="modal-dialog modal-md" role="document">
@@ -218,7 +219,7 @@
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <span id="sp4">{{ $profil->nbre_enfant }}</span>
-                                                                        <a type="button" id="openModalLink4" class="btn default btn-outline el-link" title="Modifier"><i class="fa fa-edit"></i></a>
+                                                                        <a type="button" id="openModalLink4" class="btn default btn-outline el-link" title="Modifier"><?= (empty($profil->nbre_enfant)) ? '<button class="btn btn-warning btn-block">editer</button>' : '<i class="fa fa-edit"></i>' ; ?></a>
                                                                     </div>
                                                                     <div class="modal fade" id="nbre_enfant" role="dialog" aria-labelledby="image" aria-hidden="true">
                                                                         <div class="modal-dialog modal-md" role="document">
@@ -266,7 +267,7 @@
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <span id="sp5">{{ $profil->personne_proche1 }}</span>
-                                                                        <a type="button" id="openModalLink5" class="btn default btn-outline el-link" title="Modifier"><i class="fa fa-edit"></i></a>
+                                                                        <a type="button" id="openModalLink5" class="btn default btn-outline el-link" title="Modifier"><?= (empty($profil->personne_proche1)) ? '<button class="btn btn-warning btn-block">editer</button>' : '<i class="fa fa-edit"></i>' ; ?></a>
                                                                     </div>
                                                                     <div class="modal fade" id="personne_proche1" role="dialog" aria-labelledby="image" aria-hidden="true">
                                                                         <div class="modal-dialog modal-md" role="document">
@@ -312,7 +313,7 @@
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <span id="sp6">{{ $profil->personne_proche2 }}</span>
-                                                                        <a type="button" id="openModalLink6" class="btn default btn-outline el-link" title="Modifier"><i class="fa fa-edit"></i></a>
+                                                                        <a type="button" id="openModalLink6" class="btn default btn-outline el-link" title="Modifier"><?= (empty($profil->personne_proche2)) ? '<button class="btn btn-warning btn-block">editer</button>' : '<i class="fa fa-edit"></i>' ; ?></a>
                                                                     </div>
                                                                     <div class="modal fade" id="personne_proche2" role="dialog" aria-labelledby="image" aria-hidden="true">
                                                                         <div class="modal-dialog modal-md" role="document">
@@ -358,7 +359,7 @@
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <span id="sp7">{{ $profil->personne_proche3 }}</span>
-                                                                        <a type="button" id="openModalLink7" class="btn default btn-outline el-link" title="Modifier"><i class="fa fa-edit"></i></a>
+                                                                        <a type="button" id="openModalLink7" class="btn default btn-outline el-link" title="Modifier"><?= (empty($profil->personne_proche3)) ? '<button class="btn btn-warning btn-block">editer</button>' : '<i class="fa fa-edit"></i>' ; ?></a>
                                                                     </div>
                                                                     <div class="modal fade" id="personne_proche3" role="dialog" aria-labelledby="image" aria-hidden="true">
                                                                         <div class="modal-dialog modal-md" role="document">
@@ -404,7 +405,7 @@
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <span id="sp8">{{ $profil->personne_proche4 }}</span>
-                                                                        <a type="button" id="openModalLink8" class="btn default btn-outline el-link" title="Modifier"><i class="fa fa-edit"></i></a>
+                                                                        <a type="button" id="openModalLink8" class="btn default btn-outline el-link" title="Modifier"><?= (empty($profil->personne_proche4)) ? '<button class="btn btn-warning btn-block">editer</button>' : '<i class="fa fa-edit"></i>' ; ?></a>
                                                                     </div>
                                                                     <div class="modal fade" id="personne_proche4" role="dialog" aria-labelledby="image" aria-hidden="true">
                                                                         <div class="modal-dialog modal-md" role="document">
@@ -450,7 +451,7 @@
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <span id="sp9">{{ $profil->telephone_personne_proche1 }}</span>
-                                                                        <a type="button" id="openModalLink9" class="btn default btn-outline el-link" title="Modifier"><i class="fa fa-edit"></i></a>
+                                                                        <a type="button" id="openModalLink9" class="btn default btn-outline el-link" title="Modifier"><?= (empty($profil->telephone_personne_proche1)) ? '<button class="btn btn-warning btn-block">editer</button>' : '<i class="fa fa-edit"></i>' ; ?></a>
                                                                     </div>
                                                                     <div class="modal fade" id="telephone_personne_proche1" role="dialog" aria-labelledby="image" aria-hidden="true">
                                                                         <div class="modal-dialog modal-md" role="document">
@@ -496,7 +497,7 @@
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <span id="sp10">{{ $profil->telephone_personne_proche2 }}</span>
-                                                                        <a type="button" id="openModalLink10" class="btn default btn-outline el-link" title="Modifier"><i class="fa fa-edit"></i></a>
+                                                                        <a type="button" id="openModalLink10" class="btn default btn-outline el-link" title="Modifier"><?= (empty($profil->telephone_personne_proche2)) ? '<button class="btn btn-warning btn-block">editer</button>' : '<i class="fa fa-edit"></i>' ; ?></a>
                                                                     </div>
                                                                     <div class="modal fade" id="telephone_personne_proche2" role="dialog" aria-labelledby="image" aria-hidden="true">
                                                                         <div class="modal-dialog modal-md" role="document">
@@ -542,7 +543,7 @@
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <span id="sp11">{{ $profil->telephone_personne_proche3 }}</span>
-                                                                        <a type="button" id="#openModalLink11" class="btn default btn-outline el-link" title="Modifier"><i class="fa fa-edit"></i></a>
+                                                                        <a type="button" id="#openModalLink11" class="btn default btn-outline el-link" title="Modifier"><?= (empty($profil->telephone_personne_proche3)) ? '<button class="btn btn-warning btn-block">editer</button>' : '<i class="fa fa-edit"></i>' ; ?></a>
                                                                     </div>
                                                                     <div class="modal fade" id="telephone_personne_proche3" role="dialog" aria-labelledby="image" aria-hidden="true">
                                                                         <div class="modal-dialog modal-md" role="document">
@@ -588,7 +589,7 @@
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <span id="sp12">{{ $profil->telephone_personne_proche4 }}</span>
-                                                                        <a type="button" id="openModalLink12" class="btn default btn-outline el-link" title="Modifier"><i class="fa fa-edit"></i></a>
+                                                                        <a type="button" id="openModalLink12" class="btn default btn-outline el-link" title="Modifier"><?= (empty($profil->telephone_personne_proche4)) ? '<button class="btn btn-warning btn-block">editer</button>' : '<i class="fa fa-edit"></i>' ; ?></a>
                                                                     </div>
                                                                     <div class="modal fade" id="telephone_personne_proche4" role="dialog" aria-labelledby="image" aria-hidden="true">
                                                                         <div class="modal-dialog modal-md" role="document">
@@ -634,7 +635,7 @@
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <span id="sp13"><?= ($profil->handicape_moteur==1) ? "Oui" : "Non" ; ?></span>
-                                                                        <a type="button" id="openModalLink13" class="btn default btn-outline el-link" title="Modifier"><i class="fa fa-edit"></i></a>
+                                                                        <a type="button" id="openModalLink13" class="btn default btn-outline el-link" title="Modifier"><?= (empty($profil->handicape_moteur)) ? '<button class="btn btn-warning btn-block">editer</button>' : '<i class="fa fa-edit"></i>' ; ?></a>
                                                                     </div>
                                                                     <div class="modal fade" id="handicape_moteur" role="dialog" aria-labelledby="image" aria-hidden="true">
                                                                         <div class="modal-dialog modal-md" role="document">
@@ -687,7 +688,7 @@
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <span id="sp14"><?= ($profil->handicape_visuel==1) ? "Oui" : "Non" ; ?></span>
-                                                                        <a type="button" id="openModalLink14" class="btn default btn-outline el-link" title="Modifier"><i class="fa fa-edit"></i></a>
+                                                                        <a type="button" id="openModalLink14" class="btn default btn-outline el-link" title="Modifier"><?= (empty($profil->handicape_visuel)) ? '<button class="btn btn-warning btn-block">editer</button>' : '<i class="fa fa-edit"></i>' ; ?></a>
                                                                     </div>
                                                                     <div class="modal fade" id="handicape_visuel" role="dialog" aria-labelledby="image" aria-hidden="true">
                                                                         <div class="modal-dialog modal-md" role="document">
@@ -740,7 +741,7 @@
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <span id="sp15"><?= ($profil->handicape_des_mains==1) ? "Oui" : "Non" ; ?></span>
-                                                                        <a type="button" id="openModalLink15" class="btn default btn-outline el-link" title="Modifier"><i class="fa fa-edit"></i></a>
+                                                                        <a type="button" id="openModalLink15" class="btn default btn-outline el-link" title="Modifier"><?= (empty($profil->handicape_des_mains)) ? '<button class="btn btn-warning btn-block">editer</button>' : '<i class="fa fa-edit"></i>' ; ?></a>
                                                                     </div>
                                                                     <div class="modal fade" id="handicape_des_mains" role="dialog" aria-labelledby="image" aria-hidden="true">
                                                                         <div class="modal-dialog modal-md" role="document">
