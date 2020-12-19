@@ -14,7 +14,10 @@
                                 <img src="<?= (!empty($profil->photo)) ? asset('img/'.$profil->photo) : "https://www.jamf.com/jamf-nation/img/default-avatars/generic-user-purple.png" ; ?>" class="rounded-circle">
                             </div>
                             <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
+                                <?php if (empty($profil)) { ?>
                                 <a id="btn-contact" class="btn btn-success btn-block follow" href="{{ route('compte.modify',['compte_di'=>$compte_demandeur->id]) }}" >Modifier le compte</a>
+                                <?php } ?>
+                                <button style="margin-top: 15px" class="btn btn-warning btn-block">{{ (empty($profil->statut)) ? 'En attente de creation de profil' : (($profil->statut == 1) ? '(Validé)' : (($profil->statut == 0) ? '(En attente)' : '(Rejeté)')) }}</button>
                             </div>
                             <div class="row user-detail-row">
                                 <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">

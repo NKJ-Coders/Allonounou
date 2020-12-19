@@ -238,62 +238,247 @@ class RegisterController extends Controller
 
     public function storeDemandeur(Request $request)
     {
+        // echo json_encode($request->all());
 
-        $this->validate($request, [
-            'nom' => 'required|string|max:255',
-            'prenom' => 'required|string',
-            'telephone1' => 'required|integer|unique:users',
-            'telephone2' => 'integer',
-            'telephone3' => 'sometimes',
-            // 'age' => 'required|integer',
-            'situation_matrimoniale' => 'string',
-            // 'age_dernier_enfant' => ['integer'],
-            'metier' => 'required|string',
-            // 'date_arret_dernier_metier' => 'date',
-            'niveau_etude' => 'string',
-            'langue' => 'string',
-            'type_compte' => 'string',
-            'password' => 'required|string|min:8|confirmed',
-            'localisation' => 'required|string',
-        ]);
+        if (isset($request->nom) && isset($request->prenom) && isset($request->telephone1)) {
 
-        $data = $request->all();
+            $this->validate($request, [
+                'nom' => 'required|string|max:255',
+                'prenom' => 'required|string',
+                'telephone1' => 'required|integer|unique:users',
+                'type_compte' => 'string',
+            ]);
 
-        // find localisation_id
-        $localisation = Localisation::where('designation', $data['localisation'])->get();
+            $data = $request->all();
 
-        $compte = new Compte_demandeur();
-        $compte->nom = $data['nom'];
-        $compte->prenom = $data['prenom'];
-        $compte->telephone1 = $data['telephone1'];
-        $compte->telephone2 = $data['telephone2'];
-        $compte->telephone3 = (!empty($data['telephone3'])) ? $data['telephone3'] : NULL;
-        $compte->date_nais = $data['jour'] . ' ' . $data['mois'] . ' ' . $data['annee'];
-        $compte->situation_matrimoniale = $data['situation_matrimoniale'];
-        $compte->age_dernier_enfant = $data['jour_enfant'] . ' ' . $data['mois_enfant'] . ' ' . $data['annee_enfant'];
-        $compte->metier = $data['metier'];
-        $compte->date_arret_dernier_metier = $data['jour_metier'] . ' ' . $data['mois_metier'] . ' ' . $data['annee_metier'];;
-        $compte->niveau_etude = $data['niveau_etude'];
-        $compte->langue = $data['langue'];
-        $compte->localisation_id = $localisation[0]->id;
-        $compte->save();
+            $compte = new Compte_demandeur();
+            $compte->nom = $data['nom'];
+            $compte->prenom = $data['prenom'];
+            $compte->telephone1 = $data['telephone1'];
+            $compte->save();
 
-        $user = new User();
-        $user->id_compte = $compte->id;
-        $user->prenom = $compte->prenom;
-        $user->telephone1 = $compte->telephone1;
-        $user->type = $data['type_compte'];
-        $user->password = Hash::make($data['password']);
-        $user->save();
-        if ($user) {
-            $user->code = SendCode::sendCode($compte->telephone1);
+            $cookie_value = $compte->id;
+            setcookie('cookie_id', $cookie_value, time() + (3600), "/");
+            $id=$_COOKIE['cookie_id'] +1;
+
+            $user = new User();
+            $user->id_compte = $compte->id;
+            $user->prenom = $data['prenom'];
+            $user->telephone1 = $data['telephone1'];
+            $user->type = $data['type_compte'];
+            $user->password = Hash::make($data['password']);
             $user->save();
-            $code = $user->code;
-            $cookie_value = $code;
-            setcookie('cookie_name', $cookie_value, time() + (3600), "/");
-            $compte_di = $compte->id;
-            return redirect()->route('verify', ['compte_di' => $compte->id]);
+
+            // $compte_demandeur_id = $_COOKIE['cookie_id'];
+            // $compte_demandeur = Compte_demandeur::where('id', $compte_demandeur_id)->first();
+
+            // $array = array("nom"=> $compte_demandeur->nom,);
+            $ret = array("etat"=>$id);
+
+            echo json_encode($ret["etat"]);
+
         }
+        if (isset($request->telephone2) && isset($request->telephone3) && isset($request->situation_matrimoniale)) {
+
+            $this->validate($request, [
+                'telephone2' => 'integer',
+                'telephone3' => 'sometimes',
+                // 'age' => 'required|integer',
+                'situation_matrimoniale' => 'string',
+                // 'age_dernier_enfant' => ['integer'],
+            ]);
+
+            $data = $request->all();
+
+            $compte_demandeur_id = $_COOKIE['cookie_id'] ;
+            $compte_demandeur = Compte_demandeur::where('id', $compte_demandeur_id)->get();
+            $compte_demandeur[0]->update([
+                'telephone2' => $data['telephone2'],
+            ]);
+            $compte_demandeur[0]->update([
+                'telephone3' => (!empty($data['telephone3'])) ? $data['telephone3'] : NULL,
+            ]);
+            $compte_demandeur[0]->update([
+                'date_nais' => $data['jour'] . ' ' . $data['mois'] . ' ' . $data['annee'],
+            ]);
+            $compte_demandeur[0]->update([
+                'situation_matrimoniale' => $data['situation_matrimoniale'],
+            ]);
+            $compte_demandeur[0]->update([
+                'age_dernier_enfant' => $data['jour_enfant'] . ' ' . $data['mois_enfant'] . ' ' . $data['annee_enfant'],
+            ]);
+
+            // $compte_demandeur_id = $_COOKIE['cookie_id'];
+            // $compte_demandeur = Compte_demandeur::where('id', $compte_demandeur_id)->first();
+
+            // $array = array("nom"=> $compte_demandeur->nom,);
+            $ret = array("etat"=>$compte_demandeur_id);
+
+            echo json_encode($ret["etat"]);
+
+        }
+
+        if (isset($request->metier) && isset($request->niveau_etude) && isset($request->langue)) {
+
+            $this->validate($request, [
+                'metier' => 'required|string',
+                // 'date_arret_dernier_metier' => 'date',
+                'niveau_etude' => 'string',
+                'langue' => 'string',
+            ]);
+
+            $data = $request->all();
+
+            $compte_demandeur_id = $_COOKIE['cookie_id'];
+            $compte_demandeur = Compte_demandeur::where('id', $compte_demandeur_id)->get();
+
+            $compte_demandeur[0]->update([
+                'metier' => $data['metier'],
+            ]);
+            $compte_demandeur[0]->update([
+                'date_arret_dernier_metier' => $data['jour_metier'] . ' ' . $data['mois_metier'] . ' ' . $data['annee_metier'],
+            ]);
+            $compte_demandeur[0]->update([
+                'niveau_etude' => $data['niveau_etude'],
+            ]);
+            $compte_demandeur[0]->update([
+                'langue' => $data['langue'],
+            ]);
+
+            // $compte_demandeur_id = $_COOKIE['cookie_id'];
+            // $compte_demandeur = Compte_demandeur::where('id', $compte_demandeur_id)->first();
+
+            // $array = array("nom"=> $compte_demandeur->nom,);
+
+            // echo json_encode($array);
+            $ret = array("etat"=>$compte_demandeur_id);
+
+            echo json_encode($ret["etat"]);
+
+        }
+        if (isset($request->localisation)) {
+
+            $this->validate($request, [
+                'localisation' => 'required|string',
+            ]);
+
+            $data = $request->all();
+
+
+            // find localisation_id
+            $localisation = Localisation::where('designation', $data['localisation'])->get();
+
+            $compte_demandeur_id = $_COOKIE['cookie_id'];
+            $compte_demandeur = Compte_demandeur::where('id', $compte_demandeur_id)->get();
+
+            $compte_demandeur[0]->update([
+                'localisation_id' => $localisation[0]->id,
+            ]);
+
+            // $compte_demandeur_id = $_COOKIE['cookie_id'];
+            // $compte_demandeur = Compte_demandeur::where('id', $compte_demandeur_id)->first();
+
+            // $array = array("nom"=> $compte_demandeur->nom,);
+
+            // echo json_encode($array);
+            $ret = array("etat"=>$compte_demandeur_id);
+
+            echo json_encode($ret["etat"]);
+
+        }
+        if (isset($request->password) && isset($request->mask_pass)) {
+
+            $this->validate($request, [
+                'password' => 'required|string|min:8|confirmed',
+            ]);
+
+            $data = $request->all();
+
+            $compte_demandeur_id = $_COOKIE['cookie_id'];
+            $user = User::where('id_compte', $compte_demandeur_id)->get();
+            $compte_demandeur = Compte_demandeur::where('id', $compte_demandeur_id)->first();
+
+            $user[0]->update([
+                'password' => Hash::make($data['password']),
+            ]);
+
+            $user[0]->update([
+                'telephone1' => $compte_demandeur->telephone1,
+            ]);
+
+            $user[0]->update([
+                'code' => SendCode::sendCode($compte_demandeur->telephone1),
+            ]);
+
+            $user = User::where('id_compte', $compte_demandeur_id)->first();
+
+                // $user->code = SendCode::sendCode($compte->telephone1);
+                // $user->save();
+                $code = $user->code;
+                $cookie_value = $code;
+                setcookie('cookie_name', $cookie_value, time() + (3600), "/");
+
+                $compte_di = $compte_demandeur->id;
+                return redirect()->route('verify', ['compte_di' => $compte_demandeur->id]);
+
+
+        }
+
+        // $this->validate($request, [
+        //     'nom' => 'required|string|max:255',
+        //     'prenom' => 'required|string',
+        //     'telephone1' => 'required|integer|unique:users',
+        //     'telephone2' => 'integer',
+        //     'telephone3' => 'sometimes',
+        //     // 'age' => 'required|integer',
+        //     'situation_matrimoniale' => 'string',
+        //     // 'age_dernier_enfant' => ['integer'],
+        //     'metier' => 'required|string',
+        //     // 'date_arret_dernier_metier' => 'date',
+        //     'niveau_etude' => 'string',
+        //     'langue' => 'string',
+        //     'type_compte' => 'string',
+        //     'password' => 'required|string|min:8|confirmed',
+        //     'localisation' => 'required|string',
+        // ]);
+
+        // $data = $request->all();
+
+        // // find localisation_id
+        // $localisation = Localisation::where('designation', $data['localisation'])->get();
+
+        // $compte = new Compte_demandeur();
+        // $compte->nom = $data['nom'];
+        // $compte->prenom = $data['prenom'];
+        // $compte->telephone1 = $data['telephone1'];
+        // $compte->telephone2 = $data['telephone2'];
+        // $compte->telephone3 = (!empty($data['telephone3'])) ? $data['telephone3'] : NULL;
+        // $compte->date_nais = $data['jour'] . ' ' . $data['mois'] . ' ' . $data['annee'];
+        // $compte->situation_matrimoniale = $data['situation_matrimoniale'];
+        // $compte->age_dernier_enfant = $data['jour_enfant'] . ' ' . $data['mois_enfant'] . ' ' . $data['annee_enfant'];
+        // $compte->metier = $data['metier'];
+        // $compte->date_arret_dernier_metier = $data['jour_metier'] . ' ' . $data['mois_metier'] . ' ' . $data['annee_metier'];
+        // $compte->niveau_etude = $data['niveau_etude'];
+        // $compte->langue = $data['langue'];
+        // $compte->localisation_id = $localisation[0]->id;
+        // $compte->save();
+
+        // $user = new User();
+        // $user->id_compte = $compte->id;
+        // $user->prenom = $compte->prenom;
+        // $user->telephone1 = $compte->telephone1;
+        // $user->type = $data['type_compte'];
+        // $user->password = Hash::make($data['password']);
+        // $user->save();
+        // if ($user) {
+        //     $user->code = SendCode::sendCode($compte->telephone1);
+        //     $user->save();
+        //     $code = $user->code;
+        //     $cookie_value = $code;
+        //     setcookie('cookie_name', $cookie_value, time() + (3600), "/");
+        //     $compte_di = $compte->id;
+        //     return redirect()->route('verify', ['compte_di' => $compte->id]);
+        // }
 
         // if (Auth::guard('web')->attempt(['telephone1' => $data['telephone1'], 'password' => $data['password']], true)) {
         //     return redirect()->intended(route('login'));
