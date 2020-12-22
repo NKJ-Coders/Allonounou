@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\DB;
 
 class Annonce_recruteurController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('check.demandeur')->only('candidater');
+        $this->middleware('check.recruteur')->only('index', 'create', 'edit', 'destroy', 'store', 'update');
+    }
+
     // affichage du formulaire de publication
     public function create()
     {
@@ -127,6 +133,8 @@ class Annonce_recruteurController extends Controller
 
     public function candidater(Request $request)
     {
+        $this->authorize('candidater', Annone_recruteur::class);
+
         $compte = Compte_demandeur::find(Auth::user()->id_compte);
         $profil = Profil::where('compte_demandeur_id', $compte->id)->first();
         $hashAnonnce = $profil->annone_recruteurs()->where('annone_recruteur_id', $request->id_annonce)->exists();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Annone_recruteur;
 use App\Compte_demandeur;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -10,8 +11,15 @@ use Illuminate\Support\Facades\Auth;
 
 class OffreController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('check.demandeur');
+    }
+
     public function signaler(Request $request)
     {
+        $this->authorize('signaler', Annone_recruteur::class);
+
         $data = $request->validate([
             'titre' => 'required',
             'contenu' => 'required'
@@ -27,6 +35,8 @@ class OffreController extends Controller
 
     public function liker(Request $request)
     {
+        $this->authorize('liker', Annone_recruteur::class);
+
         if ($request->ajax()) {
             $compte = Compte_demandeur::find(Auth::user()->id_compte);
             $hashAnonnce = $compte->annone_recruteurs()->where('annone_recruteur_id', $request->annonce_recruteur_id)->exists();

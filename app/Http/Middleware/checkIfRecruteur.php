@@ -18,7 +18,11 @@ class checkIfRecruteur
     {
         if (Auth::check()) {
             if (Auth::user()->type != 'recruteur') {
-                return redirect()->route('login');
+                if ($request->ajax()) {
+                    return response('Unauthorized.', 401);
+                } else {
+                    abort(401);
+                }
             }
         } else {
             return redirect()->route('login');

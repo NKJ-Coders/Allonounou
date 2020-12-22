@@ -59,6 +59,12 @@
                                 <li class="nav-item active">
                                     <a class="nav-link" href="{{ route('home') }}">Accueil <span class="sr-only">(current)</span></a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('annonce-demande.list') }}">Voir demandes</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('annonce-recruteur.list') }}">Voir offres</a>
+                                </li>
                             @endif
                         @else
                             <li class="nav-item active">
@@ -166,6 +172,8 @@
                             @endif
                         @else
 
+
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->prenom }} <span class="caret"></span>
@@ -181,6 +189,14 @@
                                         @csrf
                                     </form>
                                 </div>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://wa.me/237698519457" title="Ecrivez nous sur whatsapp"><span class="text-success fa fa-whatsapp"></span></a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://m.me/kelvin.tankeu.3/" title="Ecrivez nous sur facebook"><span class="text-primary fa fa-facebook"></span></a>
                             </li>
 
                             @if (Auth::user()->type == 'demandeur')
@@ -495,6 +511,10 @@
                                 for (let propriete in result) {
                                     const donnee = result[propriete];
                                     // ajouter au modal dynamiquement
+                                    // if(propriete === 'id'){
+                                    //     console.log(donnee)
+                                    // }
+                                    // $('.toClear').html('<div class="form-group"><div style="display: flex; justify-content: left" class="toAdd"><div class="user-image-label"><a href="#" title=""><img src="" class="rounded-circle" alt=""></a></div><label for="yes" class="textInput"></label><a href="#" class="removeToSelection mx-4" style="font-size: 18px" id="" title="Supprimer de la liste"><span class="text-danger fa fa-trash"></span></a></div></div>');
                                 }
 
                             }

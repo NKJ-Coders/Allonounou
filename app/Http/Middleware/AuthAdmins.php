@@ -25,7 +25,7 @@ class AuthAdmins
         // }
         if (Auth::check()) {
             if (Auth::user()->type != 'super admin') {
-                return redirect()->route('login');
+                abort(401);
             }
         } else {
             return redirect()->route('login');

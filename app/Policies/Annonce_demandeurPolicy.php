@@ -41,7 +41,10 @@ class Annonce_demandeurPolicy
      */
     public function create(User $user)
     {
-        //
+        return in_array($user->type, [
+            'super admin',
+            'admin'
+        ]);
     }
 
     /**
