@@ -18,12 +18,15 @@ class CreateAnnoneRecruteursTable extends Migration
             $table->unsignedInteger('compte_recruteur_id')->nullable();
             $table->unsignedInteger('poste_id')->nullable();
             $table->unsignedInteger('localisation_id')->nullable();
-            $table->unsignedInteger('tache_id');
             $table->unsignedInteger('salaire')->nullable();
+            $table->unsignedBigInteger('nbre_enfant')->nullable();
+            $table->string('description')->nullable();
+            $table->string('type_maison', 60)->nullable();
+            $table->string('nbre_piece', 60)->nullable();
+            $table->string('taille_maison', 60)->nullable();
             $table->boolean('residente')->nullable();
             $table->boolean('urgent')->nullable();
-            $table->time('heure_debut')->nullable();
-            $table->time('heure_fin')->nullable();
+            $table->boolean('personnes_agees')->nullable();
             $table->timestamps();
             $table->date('date_cloture')->nullable();
             $table->boolean('statut')->default('1')->nullable();

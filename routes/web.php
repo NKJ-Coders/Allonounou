@@ -95,6 +95,12 @@ Route::get('demande/addList', 'demandeController@addList')->name('demande.addLis
 Route::get('demande/removeToList', 'demandeController@removeToList')->name('demande.removeToList');
 Route::get('demande/insert', 'demandeController@insert')->name('demande.insert');
 
+Route::get('/getTaches', 'OffreController@getTacheByIdPoste')->name('getTaches');
+Route::get('/getInputByForm', 'OffreController@getInputByForm')->name('getInputByForm');
+Route::get('/deleteSessionForm1', 'OffreController@deleteSessionForm1')->name('deleteSessionForm1');
+
+Route::get('annonce_recruteur/publier', 'OffreController@publier')->name('offre.publier');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

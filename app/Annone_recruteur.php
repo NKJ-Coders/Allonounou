@@ -9,9 +9,9 @@ class Annone_recruteur extends Model
 {
     protected $guarded = [];
 
-    public function scopeOnline($query)
+    public function scopeGetOnlineAnnonces($query)
     {
-        return $query->with('profils', 'compte_demandeurs')->where([['compte_recruteur_id', Auth::user()->id_compte], ['online', 1]])->paginate(1);
+        return $query->with('poste', 'compte_recruteur', 'localisation')->where([['compte_recruteur_id', Auth::user()->id_compte], ['online', 1]])->paginate(2);
     }
 
     public function getUrgentAttribute($attributes)
@@ -95,5 +95,27 @@ class Annone_recruteur extends Model
     {
 
         return $this->belongsToMany('App\User')->withTimestamps();
+    }
+
+    public function enfants()
+    {
+        return $this->hasMany('App\Enfant');
+    }
+
+    public function jours()
+    {
+        return $this->belongsToMany('App\Jour')->withPivot('heure_debut', 'heure_fin');
+    }
+
+    public function parseDate($value)
+    {
+        $date = date_parse($value);
+        $day = $date['day'];
+        $annee = $date['year'];
+        setlocale(LC_TIME, 'fr_FR', 'fra_FRA');
+        $month = strftime("%B", strtotime($value));
+        $mois = utf8_encode($month);
+        $date_format = (!empty($day) && !empty($annee)) ? $day . " " . $mois . " " . $annee : " ";
+        echo $date_format;
     }
 }

@@ -48,4 +48,9 @@ class Annonce_demandeur extends Model
 
         return $this->belongsToMany('App\Compte_recruteur', 'selectionner_profil');
     }
+
+    public function jours()
+    {
+        return $this->belongsToMany('App\Jour')->withPivot('heure_debut', 'heure_fin');
+    }
 }

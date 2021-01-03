@@ -65,9 +65,9 @@ class demandeController extends Controller
                 $profils = [];
                 foreach ($data as $key => $value) {
                     $profil = Profil::find($value);
-                    $profils['id'] = $profil->id;
-                    $profils['nom'] = $profil->compte_demandeur->nom;
-                    $profils['photo'] = $profil->photo;
+                    $profils['id'][$key] = $profil->id;
+                    $profils['nom'][$key] = $profil->compte_demandeur->nom;
+                    $profils['photo'][$key] = $profil->photo;
                 }
                 echo json_encode($profils);
             }
@@ -77,9 +77,9 @@ class demandeController extends Controller
             $profils = [];
             foreach ($data as $key => $value) {
                 $profil = Profil::find($value);
-                $profils['id'] = $profil->id;
-                $profils['nom'] = $profil->compte_demandeur->nom;
-                $profils['photo'] = $profil->photo;
+                $profils[$key]['id'] = $profil->id;
+                $profils[$key]['nom'] = $profil->compte_demandeur->nom;
+                $profils[$key]['photo'] = $profil->photo;
             }
             echo json_encode($profils);
         }

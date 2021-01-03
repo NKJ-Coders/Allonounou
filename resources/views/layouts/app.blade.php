@@ -25,6 +25,10 @@
     <script src="{{ asset('js/app.js') }}" defer></script> --}}
     <script src="{{ asset('js/ajax.js') }}" defer></script>
     <script src="{{ asset('js/myjs.js') }}" defer></script>
+    @if (Route::currentRouteName() == 'annonce-recruteur.create' || Route::currentRouteName() == 'offre.publier')
+        <script src="{{ asset('js/createAnnonceRecrut.js') }}" defer></script>
+        <link rel="stylesheet" href="{{ asset('css/createAnnonceRecrut.css') }}">
+    @endif
     <link rel="stylesheet" href="{{ asset('css/profils.css') }}" defer>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -378,7 +382,7 @@
                             var data = JSON.parse(res);
                             if(status === 'success'){
                                 for(var j=0; j<data.length; j++){
-                                    $('#search_zone').append('<option value="'+ data[j].designation +'" label="'+data[j].id+'">');
+                                    $('#search_zone').append('<option value="'+ data[j].designation +'" label="'+data[j].id+'" id="'+data[j].id+'">');
                                 }
                             }
                         }
@@ -410,13 +414,13 @@
                                 setTimeout(() => {
                                     liker.empty();
                                     liker.html('<i class="text-danger fa fa-heart"></i>');
-                                }, 1000);
+                                }, 500);
                             } else {
                                 // var liker = $(this);
                                 setTimeout(() => {
                                     liker.empty();
                                     liker.html('<i class="fa fa-heart"></i>');
-                                }, 1000);
+                                }, 500);
                             }
                         }
                     );
@@ -507,14 +511,12 @@
                             },
                             function(response, status) {
                                 var result = JSON.parse(response);
-                                // console.log(result);
-                                for (let propriete in result) {
-                                    const donnee = result[propriete];
+                                $('.toClear').empty();
+
+                                for (var i=0; i<result.length; i++) {
+                                    const donnee = result[i];
                                     // ajouter au modal dynamiquement
-                                    // if(propriete === 'id'){
-                                    //     console.log(donnee)
-                                    // }
-                                    // $('.toClear').html('<div class="form-group"><div style="display: flex; justify-content: left" class="toAdd"><div class="user-image-label"><a href="#" title=""><img src="" class="rounded-circle" alt=""></a></div><label for="yes" class="textInput"></label><a href="#" class="removeToSelection mx-4" style="font-size: 18px" id="" title="Supprimer de la liste"><span class="text-danger fa fa-trash"></span></a></div></div>');
+                                    $('.toClear').append('<div class="form-group"><div style="display: flex; justify-content: left" class="toAdd"><div class="user-image-label"><a href="#" title="'+ donnee.nom +'"><img src="/public/'+ donnee.photo +'" class="rounded-circle" alt="'+ donnee.nom +'"></a></div><label for="yes" class="textInput"></label><a href="#" class="removeToSelection mx-4" style="font-size: 18px" id="'+ donnee.id +'" title="Supprimer de la liste"><span class="text-danger fa fa-trash"></span></a></div></div>');
                                 }
 
                             }

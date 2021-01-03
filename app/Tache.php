@@ -8,22 +8,31 @@ class Tache extends Model
 {
     protected $guarded = [];
 
-    public function scopeGetAll($query) {
+    public function scopeGetAll($query)
+    {
         return $query->where('online', 1)->get();
     }
 
-    public function annonce_recruteurs() {
+    public function annonce_recruteurs()
+    {
 
         return $this->belongsToMany('App\Annone_recruteur')->withTimestamps();
     }
 
-    public function profils() {
+    public function profils()
+    {
 
         return $this->belongsToMany('App\Profil')->withTimestamps();
     }
 
-    public function experiences() {
+    public function experiences()
+    {
 
         return $this->belongsToMany('App\Experience')->withTimestamps();
+    }
+
+    public function postes()
+    {
+        return $this->belongsToMany('App\Poste');
     }
 }

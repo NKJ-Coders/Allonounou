@@ -4,12 +4,34 @@
     <h1 class="my-3">Liste des offres:</h1>
 
     @foreach($allAnnonces as $key => $allAnnonce)
+    <?php
+        $quartier = App\Localisation::find($allAnnonce->localisation->id_parent);
+        $arr = App\Localisation::find($quartier->id_parent);
+        $ville = App\Localisation::find($arr->id_parent);
+    ?>
         <div>
-            <p><span class="text-bold">Salut, Je recherche une </span>{{ $allAnnonce->poste->nom }} @if($allAnnonce->residente == 1) , résidente @endif . Dans la ville de {{ $allAnnonce->localisation->designation }}</p>
+            <p><span class="text-bold">Salut, Je recherche une </span>{{ $allAnnonce->poste->nom }} @if($allAnnonce->residente == 1) , résidente @endif . Dans la ville de {{ $ville->designation }}, plus précisement à {{ $quartier->designation }} - {{ $allAnnonce->localisation->designation }}</p>
             <p><span class="text-bold">Urgent: </span> {{ $allAnnonce->urgent ? 'Oui' : 'Non' }}</p>
-            <p><span class="text-bold">heure debut: </span>{{ $allAnnonce->heure_debut }}, <span class="text-bold">heure de fin: </span>{{ $allAnnonce->heure_fin }}</p>
-            <p><span class="text-bold">Salaire: </span>{{ $allAnnonce->salaire }}</p>
-            <p class="text-muted">Publié par: <span class="text-bold">{{ $allAnnonce->compte_recruteur->prenom }}</span>, le {{ $allAnnonce->created_at }}</p>
+            <p>
+                <span class="text-bold">Horaires de travail: </span>
+                <ul>
+                @foreach($allAnnonce->jours as $jour)
+                    <li>{{ $jour->nom }}: de {{ $jour->pivot->heure_debut }} à {{ $jour->pivot->heure_fin }}</li>
+                @endforeach
+                </ul>
+
+            </p>
+            <p>
+                <span class="text-bold">Elle aura comme tache(s): </span>
+                <ul>
+                    @foreach($allAnnonce->taches as $tache)
+                        <li>{{ $tache->nom }}</li>
+                    @endforeach
+                </ul>
+            </p>
+            <p><span class="text-bold">Salaire: </span>{{ number_format($allAnnonce->salaire,0,"."," ") }} FCFA</p>
+            <?php $timeStamp = explode(' ', $allAnnonce->created_at) ?>
+            <p class="text-muted">Publié par: <span class="text-bold">{{ $allAnnonce->compte_recruteur->prenom }}</span>, le {{ $allAnnonce->parseDate($timeStamp[0]) }} à {{ $timeStamp[1] }}</p>
             <div class="text-right" id="btnPostuler">
                 @can('liker', App\Annone_recruteur::class)
                     <?php
