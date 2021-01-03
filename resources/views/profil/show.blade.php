@@ -52,10 +52,10 @@
                                                 <div class="tab-content">
                                                     <div role="tabpanel" class="tab-pane fade show active" id="profile">
                                                             <div class="row">
-                                                                    <div class="col-md-6">
+                                                                    <div style="margin-top: 20px" class="col-md-6">
                                                                         <label>telephone</label>
                                                                     </div>
-                                                                    <div class="col-md-6">
+                                                                    <div style="margin-top: 20px" class="col-md-6">
                                                                         <span>{{ $compte_demandeur->telephone1 }}</span>
                                                                     </div>
                                                                 </div>
@@ -73,6 +73,78 @@
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <p>{{ $profil->date_nais }}</p>
+                                                                    </div>
+                                                                </div>
+                                                                <h5 >cni</h5>
+                                                                <div class="row el-element-overlay">
+                                                                    <div class="col-lg-3 col-md-6">
+                                                                        <div class="card">
+                                                                            <div class="el-card-item">
+                                                                                <div class="el-card-avatar el-overlay-1"><embed src="{{ asset('img/$profil->cni') }}" type="application/pdf" width="300" height="200" />
+
+                                                                                    {{-- <div class="el-overlay">
+                                                                                        <ul class="list-style-none el-info">
+                                                                                            <li class="el-item"><a class="btn default btn-outline el-link" href="../dsc/#toolbar=0" target="_blank" title="Visualiser"><i class="mdi mdi-magnify-plus"></i></a></li>
+                                                                                            <li class="el-item"><a id="modplaquette" title="Modifier" class="btn default btn-outline el-link"><i class="fa fa-window-restore"></i></a></li>
+                                                                                        </ul>
+                                                                                    </div> --}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <h5 >plan localisation</h5>
+                                                                <div class="row el-element-overlay">
+                                                                    <div class="col-lg-3 col-md-6">
+                                                                        <div class="card">
+                                                                            <div class="el-card-item">
+                                                                                <div class="el-card-avatar el-overlay-1"><embed src="{{ asset('img/$profil->plan_localisation') }}" type="application/pdf" width="300" height="200" />
+
+                                                                                    {{-- <div class="el-overlay">
+                                                                                        <ul class="list-style-none el-info">
+                                                                                            <li class="el-item"><a class="btn default btn-outline el-link" href="../dsc/#toolbar=0" target="_blank" title="Visualiser"><i class="mdi mdi-magnify-plus"></i></a></li>
+                                                                                            <li class="el-item"><a id="modplaquette" title="Modifier" class="btn default btn-outline el-link"><i class="fa fa-window-restore"></i></a></li>
+                                                                                        </ul>
+                                                                                    </div> --}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <h5 >certificat medical</h5>
+                                                                <div class="row el-element-overlay">
+                                                                    <div class="col-lg-3 col-md-6">
+                                                                        <div class="card">
+                                                                            <div class="el-card-item">
+                                                                                <div class="el-card-avatar el-overlay-1"><embed src="{{ asset('img/$profil->certificat_medical') }}" type="application/pdf" width="300" height="200" />
+
+                                                                                    {{-- <div class="el-overlay">
+                                                                                        <ul class="list-style-none el-info">
+                                                                                            <li class="el-item"><a class="btn default btn-outline el-link" href="../dsc/#toolbar=0" target="_blank" title="Visualiser"><i class="mdi mdi-magnify-plus"></i></a></li>
+                                                                                            <li class="el-item"><a id="modplaquette" title="Modifier" class="btn default btn-outline el-link"><i class="fa fa-window-restore"></i></a></li>
+                                                                                        </ul>
+                                                                                    </div> --}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <h5 >casier judiciere</h5>
+                                                                <div class="row el-element-overlay">
+                                                                    <div class="col-lg-3 col-md-6">
+                                                                        <div class="card">
+                                                                            <div class="el-card-item">
+                                                                                <div class="el-card-avatar el-overlay-1"><embed src="{{ asset('img/$profil->casier_judiciaire') }}" type="application/pdf" width="300" height="200" />
+
+                                                                                    {{-- <div class="el-overlay">
+                                                                                        <ul class="list-style-none el-info">
+                                                                                            <li class="el-item"><a class="btn default btn-outline el-link" href="../dsc/#toolbar=0" target="_blank" title="Visualiser"><i class="mdi mdi-magnify-plus"></i></a></li>
+                                                                                            <li class="el-item"><a id="modplaquette" title="Modifier" class="btn default btn-outline el-link"><i class="fa fa-window-restore"></i></a></li>
+                                                                                        </ul>
+                                                                                    </div> --}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="row">
@@ -262,10 +334,10 @@
                                                     </div>
                                                     <div role="tabpanel" class="tab-pane fade" id="buzz">
                                                             <div class="row">
-                                                                    <div class="col-md-6">
+                                                                    <div style="margin-top: 20px" class="col-md-6">
                                                                         <label>personne proche1</label>
                                                                     </div>
-                                                                    <div class="col-md-6">
+                                                                    <div style="margin-top: 20px" class="col-md-6">
                                                                         <span id="sp5">{{ $profil->personne_proche1 }}</span>
                                                                         <a type="button" id="openModalLink5" class="btn default btn-outline el-link" title="Modifier"><?= (empty($profil->personne_proche1)) ? '<button class="btn btn-warning btn-block">editer</button>' : '<i class="fa fa-edit"></i>' ; ?></a>
                                                                     </div>

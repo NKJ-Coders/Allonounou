@@ -26,12 +26,14 @@ Route::resource('annonce-recruteur', 'Annonce_recruteurController');
 Route::get('/verify/{compte_di?}', 'Auth\RegisterController@getVerify')->name('verify');
 
 Route::post('/verify', 'Auth\RegisterController@postVerify')->name('verify');
-Route::get('/verify/reset/{compte_di?}', 'Auth\RegisterController@reset')->name('reset');
+Route::get('/verify/reset', 'Auth\RegisterController@getReset')->name('code.reset');
 
 Route::put('/compte/update/{compte_di?}', 'CompteController@update')->name('update');
 Route::get('/compte/update', 'CompteController@getupdate')->name('update');
 Route::get('/compte/modify/{compte_di?}', 'CompteController@getmodify')->name('compte.modify');
+Route::get('/register/validation', 'Auth\RegisterController@getvalidation')->name('registration.validation');
 
+Route::get('/register/resend', 'Auth\RegisterController@resendcode')->name('registration.resend');
 
 Route::post('/profil/update', 'ProfilController@update')->name('profil.update');
 Route::get('/profil/update/{profil_di?}', 'ProfilController@getupdate')->name('profil.update');
