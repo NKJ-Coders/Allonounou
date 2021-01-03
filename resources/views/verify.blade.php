@@ -5,7 +5,11 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Please verify Code') }}</div>
+                <div class="card-header">{{ __('Please verify Code') }}
+                <a href="{{ route('home') }}"><button style="float: right ; margin-botton: 50px" type="button" class=" close_editor1 btn btn-md btn-outline-dark" id="ts-dark">
+                    Quitter
+                </button></a>
+            </div>
 
                 <div class="card-body">
                     @if (Session::has('message'))
@@ -13,7 +17,9 @@
                     @endif
                     <form method="POST" action="{{ route('verify') }}">
                         @csrf
-                        <input id="compte_di" type="hidden" value="{{ $compte_di }}" name="compte_di">
+                        {{-- <input id="compte_di" type="hidden" value="{{ $compte_di }}" name="compte_di"> --}}
+                        <label>{{ $_SESSION['code'] }}</label>
+                        <label>{{ $compte_di }}</label>
                         <div class="form-group row">
                             <label for="code" class="col-md-4 col-form-label text-md-right">{{ __('code') }}</label>
                             <div class="col-md-6">
@@ -28,6 +34,9 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
+                                <a href="{{ route('registration', ['type_compte' => 'demandeur']) }}"><button style="margin-right: 70px" type="button" class=" close_editor2 btn btn-xs btn-outline-dark btn-xl" id="ts-dark">
+                                    <span class="fa fa-chevron-left"></span> précedent
+                                </button></a>
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Verify') }}
                                 </button>
@@ -36,11 +45,12 @@
                     </form>
                 </div>
                 <div class="card-footer">
-                    <a href="{{ route('reset',['compte_di'=>$compte_di]) }}"> Resend code</a>
+                    <a href="{{ route('registration.resend') }}"> Resend code</a>
                     {{-- <a href="{{ route('reset',['telephone1'=>$telephone1]) }}"> Resend code</a> --}}
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 @endsection

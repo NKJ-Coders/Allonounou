@@ -19,6 +19,9 @@
     @endif
     <script src="{{ asset('js/intlTelInput.min.js') }}" defer></script>
     <script src="{{ asset('js/itl.js') }}" async></script>
+    <script src="{{ asset('js/phone1.js') }}" async></script>
+    <script src="{{ asset('js/phone2.js') }}" async></script>
+    <script src="{{ asset('js/phone3.js') }}" async></script>
     <script src="{{ asset('js/inputphone2.js') }}" async></script>
     <script src="{{ asset('js/inputphone3.js') }}" async></script>
 
@@ -33,7 +36,7 @@
     <link rel="stylesheet" href="{{ asset('css/intlTelInput.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/itl.css') }}">
     <link rel="stylesheet" href="{{ asset('css/demo.css') }}">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
 
 </head>
