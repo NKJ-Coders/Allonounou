@@ -194,6 +194,13 @@
                 }
             );
         });
+
+        // valider form recruteur
+        // $('#btnForm').click(function(){
+        //     if($('.check_terms').is(':checked')){
+        //         $('#form').submit();
+        //     }
+        // });
     });
 </script>
 </body>

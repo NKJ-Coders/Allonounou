@@ -57,7 +57,7 @@ class Annonce_recruteurController extends Controller
         }
         // dd($request->session()->all());
         $jours = Jour::all();
-        $postes = Poste::online();
+        $postes = Poste::where('online', 1)->get();
         $localisations = Localisation::where('id_parent', 0)->get();
         $taches = Tache::getAll();
         $type_maisons = ['Appartement', 'Duplex', 'Villa'];
