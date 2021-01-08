@@ -27,7 +27,7 @@
                 </ul>
             </p>
             <p><span class="text-bold">Salaire: </span>{{ number_format($myAnnonce->salaire,0,"."," ") }} FCFA</p>
-            <?php $timeStamp = explode(' ', $allAnnonce->created_at) ?>
+            <?php $timeStamp = explode(' ', $myAnnonce->created_at) ?>
             <p class="text-muted">Publié le {{ $myAnnonce->parseDate($timeStamp[0]) }} à {{ $timeStamp[1] }}</p>
             <div class="text-right">
                 <a href="{{ route('annonce-recruteur.edit', ['annonce_recruteur' => $myAnnonce->id]) }}">Modifier</a>

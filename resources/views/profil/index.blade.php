@@ -23,7 +23,7 @@
                     <?php //$getProfil = App\Profil::where('compte_demandeur_id', $compte->id)->first(); ?>
                     <tr>
                         <th scope="row">{{ $key+1 }}</th>
-                        <td><img src="{{ asset($profil->photo) }}" alt=""></a></td>
+                        <td><img src="{{ asset($profil->photo) }}" alt="{{ $profil->compte_demandeur->nom }}"></a></td>
                         <td>{{ $profil->compte_demandeur->nom }}</a></td>
                         <td>{{ $profil->compte_demandeur->telephone1 }}</td>
                         <td>{{ $profil->compte_demandeur->telephone2 }}</td>

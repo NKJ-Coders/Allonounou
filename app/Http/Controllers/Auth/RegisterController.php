@@ -151,7 +151,7 @@ class RegisterController extends Controller
 
         $localisations = Localisation::where('id_parent', 0)->get();
 
-        return view('auth.register', compact('test','type_compte', 'tab_mois', 'metiers', 'localisations'));
+        return view('auth.register', compact('test', 'type_compte', 'tab_mois', 'metiers', 'localisations'));
     }
 
 
@@ -207,8 +207,8 @@ class RegisterController extends Controller
             $metiers = ['Femme de menage', 'Nounou'];
 
             $localisations = Localisation::where('id_parent', 0)->get();
-            $type_compte="demandeur";
-            return view('auth.register',compact('check','type_compte', 'tab_mois', 'metiers', 'localisations'));
+            $type_compte = "demandeur";
+            return view('auth.register', compact('check', 'type_compte', 'tab_mois', 'metiers', 'localisations'));
         } else {
             return back()->withMessage('Verify code is not correct Please. try again');
         }
@@ -282,7 +282,7 @@ class RegisterController extends Controller
             $_SESSION['nom'] = $data['nom'];
             $_SESSION['prenom'] = $data['prenom'];
             $_SESSION['telephone1'] = $data['telephone1'];
-            $ret = array("etat"=>$_SESSION['prenom']);
+            $ret = array("etat" => $_SESSION['prenom']);
 
             $_SESSION['code'] = SendCode::sendCode($_SESSION['telephone1']);
             $cookie_value = SendCode::sendCode($_SESSION['telephone1']);
@@ -291,7 +291,6 @@ class RegisterController extends Controller
 
 
             echo json_encode($ret["etat"]);
-
         }
         if (isset($request->telephone2) && isset($request->telephone3) && isset($request->situation_matrimoniale)) {
 
@@ -317,10 +316,9 @@ class RegisterController extends Controller
             $_SESSION['age_dernier_enfant'] = $data['age_dernier_enfant'];
             $_SESSION['type_compte'] = $data['type_compte'];
 
-            $ret = array("etat"=>$_SESSION['date_nais']);
+            $ret = array("etat" => $_SESSION['date_nais']);
 
             echo json_encode($ret["etat"]);
-
         }
 
         if (isset($request->metier) && isset($request->niveau_etude) && isset($request->langue)) {
@@ -343,10 +341,9 @@ class RegisterController extends Controller
             $_SESSION['niveau_etude'] = $data['niveau_etude'];
             $_SESSION['langue'] = $data['langue'];
 
-            $ret = array("etat"=>$_SESSION['langue']);
+            $ret = array("etat" => $_SESSION['langue']);
 
             echo json_encode($ret["etat"]);
-
         }
         if (isset($request->localisation)) {
 
@@ -378,10 +375,9 @@ class RegisterController extends Controller
             $localisation = Localisation::where('id', $id_parent5)->first();
             $_SESSION['pays'] = $localisation->designation;
 
-            $ret = array("etat"=>$_SESSION['localisation_id']);
+            $ret = array("etat" => $_SESSION['localisation_id']);
 
             echo json_encode($ret["etat"]);
-
         }
         if (isset($request->password) && isset($request->mask_pass)) {
 
@@ -395,7 +391,6 @@ class RegisterController extends Controller
             $_SESSION['password'] = Hash::make($data['password']);
 
             return redirect()->route('registration.validation');
-
         }
 
         // $this->validate($request, [
@@ -420,8 +415,19 @@ class RegisterController extends Controller
 
         // // find localisation_id
         // $localisation = Localisation::where('designation', $data['localisation'])->get();
-        if(isset($request->insert)){
+        if (isset($request->insert)) {
             session_start();
+
+            // calcul de l'age en fonction de l'annee en cours
+            $date = now();
+            $currentDateTime = explode(' ', $date);
+            $currentDate = explode('-', $currentDateTime[0]);
+            $currentDate = (int) $currentDate[0];
+
+            $anneeNais = explode(' ', $_SESSION['date_nais']);
+            $anneeNais = (int) $anneeNais[2];
+            $age = $currentDate - $anneeNais;
+
             $compte = new Compte_demandeur();
             $compte->nom = $_SESSION['nom'];
             $compte->prenom = $_SESSION['prenom'];
@@ -429,6 +435,7 @@ class RegisterController extends Controller
             $compte->telephone2 = $_SESSION['telephone2'];
             $compte->telephone3 = $_SESSION['telephone3'];
             $compte->date_nais = $_SESSION['date_nais'];
+            $compte->age = $age;
             $compte->situation_matrimoniale = $_SESSION['situation_matrimoniale'];
             $compte->age_dernier_enfant = $_SESSION['age_dernier_enfant'];
             $compte->metier = $_SESSION['metier'];

@@ -30,6 +30,9 @@
         <script src="{{ asset('js/createAnnonceRecrut.js') }}" defer></script>
         <link rel="stylesheet" href="{{ asset('css/createAnnonceRecrut.css') }}">
     @endif
+    @if(Route::currentRouteName() == 'annonce-recruteur.index')
+        <script src="{{ asset('js/indexAnnonce.js') }}" defer></script>
+    @endif
     <link rel="stylesheet" href="{{ asset('css/profils.css') }}" defer>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -41,6 +44,7 @@
     <link rel="stylesheet" href="{{ asset('css/customInput.css') }}">
 </head>
 <body>
+    @include('include/abonnementModal')
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -118,7 +122,7 @@
 
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="">{{ __('Interviews programmés') }}</a>
+                                    <a class="nav-link" href="" data-toggle="modal" data-target="#abonnementModal">{{ __('S\'abonner') }}</a>
                                 </li>
 
                                 <li class="nav-item dropdown">
@@ -558,6 +562,47 @@
                     );
 
                 });
+
+                // custom input type=range
+                $('.range').next().text('--'); // Valeur par défaut
+                $('.range').on('input', function() {
+                    var $set = $(this).val();
+                    if($set == 18){
+                        $(this).next().text('18 ans');
+                    } else {
+                        $(this).next().text('de 18 à '+$set+' ans');
+                    }
+                });
+
+                // recherche selon plusieurs criteres
+                $('#actualiser').on('click', function(event) {
+                    event.preventDefault();
+                    var poste = $('#poste').val(),
+                    localisation = $('#localisation').val(),
+                    age = $('input[name="age"]').val();
+
+                    $.get("/search",
+                        {
+                            poste: poste,
+                            localisation: (localisation !== '') ? localisation : '',
+                            age: age
+                        },
+                        function(res, status){
+                            var result = JSON.parse(res);
+                            console.log(result);
+                            if(result.length > 0) {
+                                for (let i = 0; i < result.length; i++) {
+                                    const data = result[i];
+                                    $('.template').html('<p><span class="text-bold">Salut, Je suis une </span>'+ data.nom_poste +'. Dans la ville de '+ data.nom_localisation +'</p><p class="text-muted">Publié par: <span class="text-bold">'+ data.prenom +'</span>, le '+ data.created_at +'</p>');
+                                    $('.template').append('<div class="text-center" id="btnPostuler"><a href="" id="'+ data.id +'" class="addToSelection mx-3" style="text-decoration: none">Ajouter à la sélection</a><a href="#" class="mx-3" data-toggle="modal" data-target="#signalerDemandeModal'+ data.id +'">Signaler</a></div>')
+                                }
+                            } else {
+                                $('.template').html('<p>Aucune annonce trouvée !</p>');
+                            }
+                        }
+                    );
+                });
+
             });
         </script>
     @endif

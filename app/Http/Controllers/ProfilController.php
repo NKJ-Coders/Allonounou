@@ -37,40 +37,103 @@ class ProfilController extends Controller
     public function store(Request $request)
     {
         $data_profil = Profil::where('compte_demandeur_id', $request->compte_demandeur_id)->get();
+        $compte = Compte_demandeur::find($request->compte_demandeur_id);
 
-        if (empty($data_profil[0])) {
-            $profil = Profil::create($this->validator());
-
-            $annonce_demandeur = new Annonce_demandeur;
-            $annonce_demandeur->profil_id = $profil->id;
-            $annonce_demandeur->online = 0;
-            $annonce_demandeur->poste_id = $request->poste_id;
-            $annonce_demandeur->save();
-            // upload files
-            $this->storeImage($profil, $profil->id);
-
-            $profil->update([
-                'user_id' => Auth::id(),
+        if (isset($request->form1)) {
+            $data_request = request()->validate([
+                'cni' => 'required',
+                'plan_localisation' => 'required',
+                'certificat_medical' => 'required',
+                'casier_judiciaire' => 'required',
+                'compte_demandeur_id' => 'required'
             ]);
-
-            return redirect()->back()->with('confirmMsg', 'Profil crée avec succès!');
-        } else {
-            // dd($data_profil[0]);
-            $data_profil[0]->update($this->validator());
-            // dd($data);
-            // upload files
-            $this->storeImage($data_profil[0], $data_profil[0]->id);
-
-            $data_profil[0]->update([
-                'user_id' => Auth::id(),
-            ]);
-
-
+            if (empty($data_profil[0])) {
+                $profil = Profil::create(['compte_demandeur_id' => $request->compte_demandeur_id]);
+                // upload files
+                $this->storeImage($profil, $profil->id);
+                $compte->update(['statut' => 1]);
+            } else {
+                //  upload files
+                $this->storeImage($data_profil[0], $data_profil[0]->id);
+                $compte->update(['statut' => 1]);
+            }
             return redirect()->back()->with('confirmMsg', 'Profil crée avec succès!');
         }
 
-        // return view('compte-demandeur.index')->with('confirmMsg', 'Profil crée avec succès!');
+        if (isset($request->form2)) {
+            $data_request = request()->validate([
+                'nom_pere' => 'string',
+                'nom_mere' => 'required',
+                'lieu_nais' => 'required',
+                'nbre_enfant' => 'required|integer',
+                'compte_demandeur_id' => 'required'
+            ]);
+            if (empty($data_profil[0])) {
+                $profil = Profil::create($data_request);
 
+                // on cree son annonce avec online=0
+                $annonce_demandeur = new Annonce_demandeur;
+                $annonce_demandeur->profil_id = $profil->id;
+                $annonce_demandeur->online = 0;
+                $annonce_demandeur->poste_id = $request->poste_id;
+                $annonce_demandeur->save();
+
+                $compte->update(['statut' => 1]);
+            } else {
+                $data_profil[0]->update($data_request);
+
+                // verifie si annonce existe deja
+                $data_annonce = Annonce_demandeur::where('profil_id', $data_profil[0]->id)->first();
+                if (empty($data_annonce)) {
+                    // on cree son annonce avec online=0
+                    $annonce_demandeur = new Annonce_demandeur;
+                    $annonce_demandeur->profil_id = $data_profil[0]->id;
+                    $annonce_demandeur->online = 0;
+                    $annonce_demandeur->poste_id = $request->poste_id;
+                    $annonce_demandeur->save();
+                } else {
+                    $data_annonce->update(['poste_id' => $request->poste_id]);
+                }
+
+                $compte->update(['statut' => 1]);
+            }
+            return redirect()->back()->with('confirmMsg', 'Profil crée avec succès!');
+        }
+
+        if (isset($request->form3)) {
+            $data_request = request()->validate([
+                'personne_proche1' => 'required',
+                'personne_proche2' => 'sometimes',
+                'telephone_personne_proche1' => 'required|min:9|max:9',
+                'telephone_personne_proche2' => 'sometimes|min:9|max:9',
+                'compte_demandeur_id' => 'required'
+            ]);
+            if (empty($data_profil[0])) {
+                $profil = Profil::create($data_request);
+                $compte->update(['statut' => 1]);
+            } else {
+                $data_profil[0]->update($data_request);
+                $compte->update(['statut' => 1]);
+            }
+            return redirect()->back()->with('confirmMsg', 'Profil crée avec succès!');
+        }
+
+        if (isset($request->form4)) {
+            $data_request = request()->validate([
+                'handicape_moteur' => 'required|integer',
+                'handicape_visuel' => 'required|integer',
+                'handicape_des_mains' => 'required|integer',
+                'compte_demandeur_id' => 'required'
+            ]);
+            if (empty($data_profil[0])) {
+                $profil = Profil::create($data_request);
+                $compte->update(['statut' => 1]);
+            } else {
+                $data_profil[0]->update($data_request);
+                $compte->update(['statut' => 1]);
+            }
+            return redirect()->back()->with('confirmMsg', 'Profil crée avec succès!');
+        }
     }
 
     public function show($user)
@@ -93,34 +156,6 @@ class ProfilController extends Controller
         return redirect()->back();
     }
 
-    // function de validation du formulaire
-    private function validator()
-    {
-        return request()->validate([
-            'cni' => 'required',
-            // 'photo' => 'required|image|max:5000',
-            'plan_localisation' => 'required',
-            'certificat_medical' => 'required',
-            'casier_judiciaire' => 'required',
-            'nom_pere' => 'string',
-            'nom_mere' => 'required',
-            'date_nais' => 'required',
-            'lieu_nais' => 'required',
-            'nbre_enfant' => 'required|integer',
-            'personne_proche1' => 'required',
-            'personne_proche2' => 'string',
-            'personne_proche3' => 'string',
-            'personne_proche4' => 'string',
-            'telephone_personne_proche1' => 'required|min:9|max:9',
-            'telephone_personne_proche2' => 'min:9|max:9',
-            'telephone_personne_proche3' => 'min:9|max:9',
-            'telephone_personne_proche4' => 'min:9|max:9',
-            'handicape_moteur' => 'required|integer',
-            'handicape_visuel' => 'required|integer',
-            'handicape_des_mains' => 'required|integer',
-            'compte_demandeur_id' => 'required|integer'
-        ]);
-    }
     public function getupdate($profil_di)
     {
         $profil = Profil::where('id', $profil_di)->get();

@@ -56,7 +56,7 @@ Route::get('/profil/modify/{profil_di?}', 'ProfilController@getmodify')->name('p
 
 
 Route::get('/profil/create/{compte}', 'ProfilController@create')->name('profil.create');
-Route::post('/profil', 'ProfilController@store');
+Route::post('/profil', 'ProfilController@store')->name('profil.store');
 Route::get('/profil/show/{user}', 'ProfilController@show')->name('profil.show');
 Route::get('/profil/index', 'ProfilController@index')->name('profil.index');
 Route::get('/profil/statut/{profil}/{statut}', 'ProfilController@changeStatut')->name('profil.statut');
@@ -102,6 +102,8 @@ Route::get('/getInputByForm', 'OffreController@getInputByForm')->name('getInputB
 Route::get('/deleteSessionForm1', 'OffreController@deleteSessionForm1')->name('deleteSessionForm1');
 
 Route::get('annonce_recruteur/publier', 'OffreController@publier')->name('offre.publier');
+
+Route::get('/search', 'SearchController@searchAnnonceByAll');
 
 Auth::routes();
 

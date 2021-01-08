@@ -82,7 +82,7 @@
                 <div id="form2">
                     <div class="row">
                         <div class="form-group col-12 col-xs-8 col-md-8">
-                            <label for="">Sélectionner une/plusieurs tâches: <a href="" class="btn btn-danger mx-4" data-toggle="modal" data-target="#selectJourModal"><span class="fa fa-plus"></span></a></label>
+                            <label for="">Définissez les horaires de travail: <a href="" class="btn btn-danger mx-4" data-toggle="modal" data-target="#selectJourModal"><span class="fa fa-plus"></span></a></label>
                             @include('include/modalSelectJour')
                         </div>
                     </div>

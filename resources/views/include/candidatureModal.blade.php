@@ -12,7 +12,7 @@
                 <form action="" method="POST">
                     @csrf
 
-                    <?php if(!empty($myAnnonce->profils)) { ?>
+                    <?php if(count($myAnnonce->profils) > 0) { ?>
                         @foreach($myAnnonce->profils as $key => $profil)
                             {{-- @if(!empty($profil)) --}}
                                 <div class="form-group">
@@ -32,15 +32,16 @@
                                 <br>
 
                                 <div class="text-center">
+                                    <?php $check_abonment = App\Abonnement::where('compte_recruteur_id', Auth::user()->id_compte)->first(); ?>
                                     {{-- <button class="btn btn-secondary" type="button" data-dismiss="modal">Fermer</button> --}}
-                                    <button class="btn btn-primary btn-lg btn-block" type="submit">Programmer une interview</button>
+                                    <button class="btn btn-primary btn-lg btn-block" type="submit" id="interview">Programmer une interview</button>
                                 </div>
                             {{-- @else
 
                             @endif --}}
                         @endforeach
                     <?php } else { ?>
-                        <p>Vous n'avez aucune candidature pour ce post</p>
+                        <div class="text-center">Vous n'avez aucune candidature pour ce post</div>
                     <?php } ?>
 
                 </form>

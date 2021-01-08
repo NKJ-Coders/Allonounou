@@ -22,30 +22,30 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($comptes as $key => $compte)
-                    <?php $getProfile = App\Profil::where('compte_demandeur_id', $compte->id)->first(); ?>
+                <?php $getProfile = App\Compte_demandeur::where('statut', 1)->first(); ?>
+                @if (empty($getProfile))
+                    @foreach ($comptes as $key => $compte)
+                        <tr>
 
+                            <th scope="row">{{ $key+1 }}</th>
+                            <td>{{ $compte->nom }}</a></td>
+                            <td>{{ $compte->telephone1 }}</td>
+                            <td>{{ $compte->telephone2 }}</td>
+                            <td>{{ $compte->metier }}</td>
+                            <td>{{ $compte->age }} ans</td>
+                            <td>
+                                <div class="row flex-contain">
+                                    <a href="{{ route('profil.create', ['compte' => $compte->id]) }}" class="btn btn-warning">Creer profil</a>
+                                    {{-- <a href="{{ route('profil.create', ['compte' => $compte->id]) }}" class="btn btn-warning">Ajouter une photo de profil</a> --}}
 
-                    <tr>
-                        @if (empty($getProfile))
-                        <th scope="row">{{ $key+1 }}</th>
-                        <td>{{ $compte->nom }}</a></td>
-                        <td>{{ $compte->telephone1 }}</td>
-                        <td>{{ $compte->telephone2 }}</td>
-                        <td>{{ $compte->metier }}</td>
-                        <td>{{ $compte->age }}</td>
-                        <td>
-                            <div class="row flex-contain">
-                                <a href="{{ route('profil.create', ['compte' => $compte->id]) }}" class="btn btn-warning">Creer profil</a>
-                                {{-- <a href="{{ route('profil.create', ['compte' => $compte->id]) }}" class="btn btn-warning">Ajouter une photo de profil</a> --}}
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                @else
+                    <tr><td colspan="7"><div class="text-center">Aucune demande de profil</div></td></tr>
+                @endif
 
-                            </div>
-                        </td>
-                        @else
-                        <td>Aucune demande de profil</td>
-                        @endif
-                    </tr>
-                @endforeach
             </tbody>
         </table>
     </div>

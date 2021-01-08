@@ -24,17 +24,12 @@ class CreateProfilsTable extends Migration
             $table->string('casier_judiciaire', 150)->nullable();
             $table->string('nom_pere', 100)->nullable();
             $table->string('nom_mere', 100)->nullable();
-            $table->date('date_nais')->nullable();
             $table->string('lieu_nais', 100)->nullable();
             $table->unsignedBigInteger('nbre_enfant')->nullable();
             $table->string('personne_proche1')->nullable();
             $table->string('personne_proche2')->nullable();
-            $table->string('personne_proche3')->nullable();
-            $table->string('personne_proche4')->nullable();
             $table->unsignedBigInteger('telephone_personne_proche1')->nullable();
             $table->unsignedBigInteger('telephone_personne_proche2')->nullable();
-            $table->unsignedBigInteger('telephone_personne_proche3')->nullable();
-            $table->unsignedBigInteger('telephone_personne_proche4')->nullable();
             $table->boolean('handicape_moteur')->nullable();
             $table->boolean('handicape_visuel')->nullable();
             $table->boolean('handicape_des_mains')->nullable();
