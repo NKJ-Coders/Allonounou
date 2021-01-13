@@ -75,11 +75,27 @@ class ProfilController extends Controller
 
     public function show($user)
     {
+
+        $tab_mois = [
+            'Janvier',
+            'Février',
+            'Mars',
+            'Avril',
+            'Mai',
+            'Juin',
+            'Juillet',
+            'Aout',
+            'Septembre',
+            'Octobre',
+            'Novembre',
+            'Décembre'
+        ];
+        $metiers = ['Femme de menage', 'Nounou'];
         $users = User::where('id', $user)->get();
         $profil = Profil::where('compte_demandeur_id', $users[0]->id_compte)->get();
         $profil = (empty($profil[0])) ? null : $profil[0];
         $compte_demandeur = Compte_demandeur::findOrFail($users[0]->id_compte);
-        return view('compte-demandeur.show', compact('profil', 'compte_demandeur'));
+        return view('compte-demandeur.show', compact('profil', 'compte_demandeur','metiers','tab_mois'));
     }
 
     public function edit(Profil $profil)
