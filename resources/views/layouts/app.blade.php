@@ -268,7 +268,9 @@
                             data: {"photo": response, "id": compte_demandeur_id, _token:_token},
                             dataType: "json",
                             success: function(data) {
-                                var crop_image = '<img src="{{ asset('+ data.path +') }}" />';
+                                console.log(data);
+                                var crop_image = '<img src="'+ data.path +'"  alt="mon profil"/>';
+                                $('#uploaded_image').empty();
                                 $('#uploaded_image').html(crop_image);
                                 var confirm = '<span class="fa fa-check"></span> ' + data.confirmMsg;
                                 // var crop_image = '<p>'+data.id+'</p>';
@@ -465,6 +467,25 @@
                         }
                     );
                 });
+
+                // filtrer les offres
+                $('#search_poste').on('keyup', function() {
+                    var text = $(this).val();
+
+                    $.get("/search/offres",
+                        {
+                          text: text
+                        },
+                        function(response, statut){
+                            var data = JSON.parse(response);
+                            console.log(data)
+                            for (let i = 0; i < data.length; i++) {
+                                const result = data[i];
+                                // $('.template_offre').html('<p><span class="text-bold">Salut, Je recherche une </span>{{ $allAnnonce->poste->nom }} @if($allAnnonce->residente == 1) , résidente @endif . Dans la ville de {{ $ville->designation }}, plus précisement à {{ $quartier->designation }} - {{ $allAnnonce->localisation->designation }}</p>');
+                            }
+                        }
+                    );
+                });
             });
         </script>
     @endif
@@ -521,7 +542,8 @@
                                 for (var i=0; i<result.length; i++) {
                                     const donnee = result[i];
                                     // ajouter au modal dynamiquement
-                                    $('.toClear').append('<div class="form-group"><div style="display: flex; justify-content: left" class="toAdd"><div class="user-image-label"><a href="#" title="'+ donnee.nom +'"><img src="/public/'+ donnee.photo +'" class="rounded-circle" alt="'+ donnee.nom +'"></a></div><label for="yes" class="textInput"></label><a href="#" class="removeToSelection mx-4" style="font-size: 18px" id="'+ donnee.id +'" title="Supprimer de la liste"><span class="text-danger fa fa-trash"></span></a></div></div>');
+                                    $('.toClear').append('<div class="form-group"><div style="display: flex; justify-content: left" class="toAdd"><div class="user-image-label"><a href="#" title="'+ donnee.nom +'"><img src="/'+ donnee.photo +'" class="rounded-circle" alt="'+ donnee.nom +'"></a></div><label for="yes" class="textInput"></label><a href="#" class="removeToSelection mx-4" style="font-size: 18px" id="'+ donnee.id +'" title="Supprimer de la liste"><span class="text-danger fa fa-trash"></span></a></div></div>');
+                                    $('.toClear').append('<div class="text-center"><button class="btn btn-success btn-lg btn-block" id="insert"><i class="fa fa-plus"></i> </button></div>');
                                 }
 
                             }
@@ -542,7 +564,8 @@
                             },
                             function(response, status) {
                                 // var result = JSON.parse(response);
-                                console.log('ok');
+                                // console.log('ok');
+                                $('a[id="'+ id_profil +'"]').parent().remove();
                             }
                         );
 
@@ -581,7 +604,7 @@
                     localisation = $('#localisation').val(),
                     age = $('input[name="age"]').val();
 
-                    $.get("/search",
+                    $.get("/search/annonces",
                         {
                             poste: poste,
                             localisation: (localisation !== '') ? localisation : '',

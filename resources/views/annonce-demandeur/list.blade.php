@@ -8,7 +8,7 @@
         <div class="row">
             <div class="form-group col-md-4">
                 <select class="custom-select" name="poste" id="poste">
-                    <option value="tous">Toutes les postes</option>
+                    <option value="tous">Tous les postes</option>
                     @foreach($postes as $poste)
                         <option value="{{ $poste->id }}">{{ $poste->nom }}</option>
                     @endforeach

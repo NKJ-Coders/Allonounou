@@ -201,7 +201,7 @@ class Annonce_recruteurController extends Controller
     {
         $annonce = Annone_recruteur::findOrFail($annonce);
         // dd($annonce);
-        $annonce->update(['online' => 0]);
+        $annonce->update(['online' => -1]);
 
         return back();
     }
@@ -263,5 +263,30 @@ class Annonce_recruteurController extends Controller
         $profil = Profil::where('user_id', Auth::id())->get();
 
         return view('compte-demandeur.mesCandidatures', compact('profil'));
+    }
+
+    public function listOffreByAdmin()
+    {
+        $offres = Annone_recruteur::paginate(10);
+        return view('annonce-recruteur.listByAdmin', compact('offres'));
+    }
+
+    public function changeStatus(Request $request, Annone_recruteur $offre, $statut)
+    {
+        if ($statut == 1) {
+            $offre->update(['online' => 1]);
+            $request->session()->flash('onlineMSg', 'Annonce publiée avec success!');
+            return back();
+        }
+        if ($statut == 0) {
+            $offre->update(['online' => 0]);
+            $request->session()->flash('offlineMsg', 'Annonce dépubliée avec success!');
+            return back();
+        }
+        if ($statut == -1) {
+            $offre->update(['online' => -1]);
+            $request->session()->flash('rejetMsg', 'Annonce rejetée avec success!');
+            return back();
+        }
     }
 }

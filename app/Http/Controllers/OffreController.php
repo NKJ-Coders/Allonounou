@@ -218,7 +218,9 @@ class OffreController extends Controller
     public function publier(Request $request)
     {
         $poste = Poste::find($request->session()->get('id_poste'));
-        $zone = Localisation::find($request->session()->get('id_localisation'));
+
+        $id_localisation = $request->session()->get('id_localisation');
+        $zone = Localisation::where('id', $id_localisation)->first();
         $quartier = Localisation::where('id', $zone->id_parent)->first();
         $arr = Localisation::where('id', $quartier->id_parent)->first();
         $ville = Localisation::where('id', $arr->id_parent)->first();

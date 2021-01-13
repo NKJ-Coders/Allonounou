@@ -103,7 +103,15 @@ Route::get('/deleteSessionForm1', 'OffreController@deleteSessionForm1')->name('d
 
 Route::get('annonce_recruteur/publier', 'OffreController@publier')->name('offre.publier');
 
-Route::get('/search', 'SearchController@searchAnnonceByAll');
+Route::get('/search/annonces', 'SearchController@searchAnnonceByAll');
+Route::get('/search/offres', 'SearchController@searchOffre');
+
+Route::get('/annonce_recruteur/list', 'Annonce_recruteurController@listOffreByAdmin')->name('listOffreByAdmin');
+Route::get('/annonce_recruteur/status/{offre}/{statut}', 'Annonce_recruteurController@changeStatus')->name('changeStatus');
+
+Route::get('/annonce_demandeur/list', 'Annonce_demandeurController@listAnnonceByAdmin')->name('listAnnonceByAdmin');
+Route::get('/annonce_demandeur/status/{annonce}/{statut}', 'Annonce_demandeurController@changeStatus')->name('changeStatus');
+
 
 Auth::routes();
 

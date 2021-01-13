@@ -546,6 +546,10 @@ $(document).ready(function () {
             }
         }
     });
+
+    $('#salaire').on('keyup', function () {
+        $('#checkPrix').empty();
+    });
 });
 
 var button = document.querySelector('#final');

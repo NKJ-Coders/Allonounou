@@ -53,6 +53,7 @@ class ProfilController extends Controller
                 $this->storeImage($profil, $profil->id);
                 $compte->update(['statut' => 1]);
             } else {
+                $data_profil[0]->update(['compte_demandeur_id' => $request->compte_demandeur_id]);
                 //  upload files
                 $this->storeImage($data_profil[0], $data_profil[0]->id);
                 $compte->update(['statut' => 1]);
@@ -152,6 +153,8 @@ class ProfilController extends Controller
     public function destroy(Profil $profil)
     {
         $profil->update(['online' => -1]);
+        $annonce_demandeur = Annonce_demandeur::where('profil_id', $profil->id)->first();
+        $annonce_demandeur->update(['online' => 0]);
 
         return redirect()->back();
     }

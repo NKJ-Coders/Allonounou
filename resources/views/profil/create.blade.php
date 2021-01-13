@@ -25,7 +25,12 @@
                             </div>
 
                             <div class="col-md-4" style="padding: 75px; background-color: #333">
-                                <div class="uploaded_image" align="center"></div>
+                                <?php $profil = App\Profil::where('compte_demandeur_id', $compte->id)->first(); ?>
+                                <div id="uploaded_image" align="center">
+                                    @if(!empty($profil))
+                                    <img src="/{{ $profil->photo }}" alt="">
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -23,7 +23,7 @@
                     <?php //$getProfil = App\Profil::where('compte_demandeur_id', $compte->id)->first(); ?>
                     <tr>
                         <th scope="row">{{ $key+1 }}</th>
-                        <td><img src="{{ asset($profil->photo) }}" alt="{{ $profil->compte_demandeur->nom }}"></a></td>
+                        <td><img style="height: 40%" src="{{ asset($profil->photo) }}" alt="{{ $profil->compte_demandeur->nom }}"></a></td>
                         <td>{{ $profil->compte_demandeur->nom }}</a></td>
                         <td>{{ $profil->compte_demandeur->telephone1 }}</td>
                         <td>{{ $profil->compte_demandeur->telephone2 }}</td>
@@ -32,6 +32,7 @@
                         <td>{{ ($profil->statut == 1) ? '(Validé)' : (($profil->statut == 0) ? '(En attente)' : '(Rejeté)') }}</td>
                         <td>
                             <div class="row flex-contain">
+                                <a href="{{ route('profil.create', ['compte' => $profil->compte_demandeur->id]) }}" class="btn btn-warning">Completer le profil</a>
                                 <a href="{{ route('profil.update', ['profil_di' => $profil->id]) }}" title="Modifier" class="btn btn-small btn-success"><i class="icon-edit"></i></a>
                                 {{-- <a href="{{ route('profil.create', ['compte' => $compte->id]) }}" class="btn btn-warning">Ajouter une photo de profil</a> --}}
                                 <a href="{{ route('profil.delete', ['id' => $profil->id]) }}" class="btn btn-small btn-danger" title="Supprimer"><i class="icon-trash"></i> </a>
