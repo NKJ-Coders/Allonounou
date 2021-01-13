@@ -11,7 +11,7 @@ class Annone_recruteur extends Model
 
     public function scopeGetOnlineAnnonces($query)
     {
-        return $query->with('poste', 'compte_recruteur', 'localisation')->where([['compte_recruteur_id', Auth::user()->id_compte], ['online', 1]])->paginate(2);
+        return $query->with('poste', 'compte_recruteur', 'localisation')->where([['compte_recruteur_id', Auth::user()->id_compte], ['online', '<>', -1]])->paginate(2);
     }
 
     public function getUrgentAttribute($attributes)

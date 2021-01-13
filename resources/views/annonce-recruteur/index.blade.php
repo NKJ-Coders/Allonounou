@@ -30,7 +30,12 @@
             <?php $timeStamp = explode(' ', $myAnnonce->created_at) ?>
             <p class="text-muted">Publié le {{ $myAnnonce->parseDate($timeStamp[0]) }} à {{ $timeStamp[1] }}</p>
             <div class="text-right">
-                <a href="{{ route('annonce-recruteur.edit', ['annonce_recruteur' => $myAnnonce->id]) }}">Modifier</a>
+                <?php if($myAnnonce->online == 0) : ?>
+                    <a href="{{ route('changeStatus', ['myAnnonce' => $myAnnonce->id, 'statut' => 1]) }}">Publier</a>
+                <?php endif; ?>
+                <?php if($myAnnonce->online == 1) : ?>
+                    <a href="{{ route('changeStatus', ['myAnnonce' => $myAnnonce->id, 'statut' => 0]) }}">Dépublier</a>
+                <?php endif; ?>
                 <form action="{{ route('annonce-recruteur.destroy', ['annonce_recruteur' => $myAnnonce->id]) }}" method="POST" style="display: inline">
                     @csrf
                     @method('DELETE')

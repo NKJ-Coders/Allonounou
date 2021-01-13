@@ -63,92 +63,164 @@ $(document).ready(function () {
 
     $('#step2').click(function (e) {
         e.preventDefault();
-        // $('.dayInput').each(function (i) {
-        //     var id = $(this).attr('id');
-        //     if ( $(this).is(':checked') ) {
-        //         $('#form2').show();
-        //     } else {
         var lundi, mardi, mercredi, jeudi, vendredi, samedi, dimanche;
         var heure_debut_lundi, heure_fin_lundi, heure_debut_mardi, heure_fin_mardi, heure_debut_mercredi, heure_fin_mercredi, heure_debut_jeudi, heure_fin_jeudi;
         var heure_debut_vendredi, heure_fin_vendredi, heure_debut_samedi, heure_fin_samedi, heure_debut_dimanche, heure_fin_dimanche;
         $('.dayInput').each(function (i) {
             if ($(this).is(':checked')) {
-                nom = $(this).attr('id');
-                if (nom === 'Lundi') {
-                    lundi = $(this).val();
-                    heure_debut_lundi = $('.heure-debut-' + nom).val();
-                    heure_fin_lundi = $('.heure-fin-' + nom).val();
-                }
-                if (nom === 'Mardi') {
-                    mardi = $(this).val();
-                    heure_debut_mardi = $('.heure-debut-' + nom).val();
-                    heure_fin_mardi = $('.heure-fin-' + nom).val();
-                }
-                if (nom === 'Mercredi') {
-                    mercredi = $(this).val();
-                    heure_debut_mercredi = $('.heure-debut-' + nom).val();
-                    heure_fin_mercredi = $('.heure-fin-' + nom).val();
-                }
-                if (nom === 'Jeudi') {
-                    jeudi = $(this).val();
-                    heure_debut_jeudi = $('.heure-debut-' + nom).val();
-                    heure_fin_jeudi = $('.heure-fin-' + nom).val();
-                }
-                if (nom === 'Vendredi') {
-                    vendredi = $(this).val();
-                    heure_debut_vendredi = $('.heure-debut-' + nom).val();
-                    heure_fin_vendredi = $('.heure-fin-' + nom).val();
-                }
-                if (nom === 'Samedi') {
-                    samedi = $(this).val();
-                    heure_debut_samedi = $('.heure-debut-' + nom).val();
-                    heure_fin_samedi = $('.heure-fin-' + nom).val();
-                }
-                if (nom === 'Dimanche') {
-                    dimanche = $(this).val();
-                    heure_debut_dimanche = $('.heure-debut-' + nom).val();
-                    heure_fin_dimanche = $('.heure-fin-' + nom).val();
-                }
+                var nom = $(this).attr('id');
+                if ($('.heure-debut-' + nom).val() !== '' && $('.heure-fin-' + nom).val() !== '') {
+                    if (nom === 'Lundi') {
+                        lundi = $(this).val();
+                        heure_debut_lundi = $('.heure-debut-' + nom).val();
+                        heure_fin_lundi = $('.heure-fin-' + nom).val();
+                    }
+                    if (nom === 'Mardi') {
+                        mardi = $(this).val();
+                        heure_debut_mardi = $('.heure-debut-' + nom).val();
+                        heure_fin_mardi = $('.heure-fin-' + nom).val();
+                    }
+                    if (nom === 'Mercredi') {
+                        mercredi = $(this).val();
+                        heure_debut_mercredi = $('.heure-debut-' + nom).val();
+                        heure_fin_mercredi = $('.heure-fin-' + nom).val();
+                    }
+                    if (nom === 'Jeudi') {
+                        jeudi = $(this).val();
+                        heure_debut_jeudi = $('.heure-debut-' + nom).val();
+                        heure_fin_jeudi = $('.heure-fin-' + nom).val();
+                    }
+                    if (nom === 'Vendredi') {
+                        vendredi = $(this).val();
+                        heure_debut_vendredi = $('.heure-debut-' + nom).val();
+                        heure_fin_vendredi = $('.heure-fin-' + nom).val();
+                    }
+                    if (nom === 'Samedi') {
+                        samedi = $(this).val();
+                        heure_debut_samedi = $('.heure-debut-' + nom).val();
+                        heure_fin_samedi = $('.heure-fin-' + nom).val();
+                    }
+                    if (nom === 'Dimanche') {
+                        dimanche = $(this).val();
+                        heure_debut_dimanche = $('.heure-debut-' + nom).val();
+                        heure_fin_dimanche = $('.heure-fin-' + nom).val();
+                    }
 
+                    $.get("/getInputByForm",
+                        {
+                            lundi: (lundi != '') ? lundi : '',
+                            mardi: (mardi != '') ? mardi : '',
+                            mercredi: (mercredi != '') ? mercredi : '',
+                            jeudi: (jeudi != '') ? jeudi : '',
+                            vendredi: (vendredi != '') ? vendredi : '',
+                            samedi: (samedi != '') ? samedi : '',
+                            dimanche: (dimanche != '') ? dimanche : '',
+                            heure_debut_lundi: heure_debut_lundi,
+                            heure_fin_lundi: heure_fin_lundi,
+                            heure_debut_mardi: heure_debut_mardi,
+                            heure_fin_mardi: heure_fin_mardi,
+                            heure_debut_mercredi: heure_debut_mercredi,
+                            heure_fin_mercredi: heure_fin_mercredi,
+                            heure_debut_jeudi: heure_debut_jeudi,
+                            heure_fin_jeudi: heure_fin_jeudi,
+                            heure_debut_vendredi: heure_debut_vendredi,
+                            heure_fin_vendredi: heure_fin_vendredi,
+                            heure_debut_samedi: heure_debut_samedi,
+                            heure_fin_samedi: heure_fin_samedi,
+                            heure_debut_dimanche: heure_debut_dimanche,
+                            heure_fin_dimanche: heure_fin_dimanche,
+                            form2: 'form2',
+                        },
+                        function (res, status) {
+                            if (status === 'success') {
+                                $('#form2').hide();
+                                $('#form3').fadeIn();
+                            }
+                        }
+                    );
+                }
             }
-        });
-
-        $.get("/getInputByForm",
-            {
-                lundi: (lundi != '') ? lundi : '',
-                mardi: (mardi != '') ? mardi : '',
-                mercredi: (mercredi != '') ? mercredi : '',
-                jeudi: (jeudi != '') ? jeudi : '',
-                vendredi: (vendredi != '') ? vendredi : '',
-                samedi: (samedi != '') ? samedi : '',
-                dimanche: (dimanche != '') ? dimanche : '',
-                heure_debut_lundi: heure_debut_lundi,
-                heure_fin_lundi: heure_fin_lundi,
-                heure_debut_mardi: heure_debut_mardi,
-                heure_fin_mardi: heure_fin_mardi,
-                heure_debut_mercredi: heure_debut_mercredi,
-                heure_fin_mercredi: heure_fin_mercredi,
-                heure_debut_jeudi: heure_debut_jeudi,
-                heure_fin_jeudi: heure_fin_jeudi,
-                heure_debut_vendredi: heure_debut_vendredi,
-                heure_fin_vendredi: heure_fin_vendredi,
-                heure_debut_samedi: heure_debut_samedi,
-                heure_fin_samedi: heure_fin_samedi,
-                heure_debut_dimanche: heure_debut_dimanche,
-                heure_fin_dimanche: heure_fin_dimanche,
-                form2: 'form2',
-            },
-            function (res, status) {
-                if (status === 'success') {
-                    $('#form2').hide();
-                    $('#form3').fadeIn();
-                }
-            }
-        );
-
+        // var lundi, mardi, mercredi, jeudi, vendredi, samedi, dimanche;
+        // var heure_debut_lundi, heure_fin_lundi, heure_debut_mardi, heure_fin_mardi, heure_debut_mercredi, heure_fin_mercredi, heure_debut_jeudi, heure_fin_jeudi;
+        // var heure_debut_vendredi, heure_fin_vendredi, heure_debut_samedi, heure_fin_samedi, heure_debut_dimanche, heure_fin_dimanche;
+        // $('.dayInput').each(function (i) {
+        //     if ($(this).is(':checked')) {
+        //         nom = $(this).attr('id');
+                // if (nom === 'Lundi') {
+                //     lundi = $(this).val();
+                //     heure_debut_lundi = $('.heure-debut-' + nom).val();
+                //     heure_fin_lundi = $('.heure-fin-' + nom).val();
+                // }
+                // if (nom === 'Mardi') {
+                //     mardi = $(this).val();
+                //     heure_debut_mardi = $('.heure-debut-' + nom).val();
+                //     heure_fin_mardi = $('.heure-fin-' + nom).val();
+                // }
+                // if (nom === 'Mercredi') {
+                //     mercredi = $(this).val();
+                //     heure_debut_mercredi = $('.heure-debut-' + nom).val();
+                //     heure_fin_mercredi = $('.heure-fin-' + nom).val();
+                // }
+                // if (nom === 'Jeudi') {
+                //     jeudi = $(this).val();
+                //     heure_debut_jeudi = $('.heure-debut-' + nom).val();
+                //     heure_fin_jeudi = $('.heure-fin-' + nom).val();
+                // }
+                // if (nom === 'Vendredi') {
+                //     vendredi = $(this).val();
+                //     heure_debut_vendredi = $('.heure-debut-' + nom).val();
+                //     heure_fin_vendredi = $('.heure-fin-' + nom).val();
+                // }
+                // if (nom === 'Samedi') {
+                //     samedi = $(this).val();
+                //     heure_debut_samedi = $('.heure-debut-' + nom).val();
+                //     heure_fin_samedi = $('.heure-fin-' + nom).val();
+                // }
+                // if (nom === 'Dimanche') {
+                //     dimanche = $(this).val();
+                //     heure_debut_dimanche = $('.heure-debut-' + nom).val();
+                //     heure_fin_dimanche = $('.heure-fin-' + nom).val();
+                // }
 
         //     }
         // });
+
+        // $.get("/getInputByForm",
+        //     {
+        //         lundi: (lundi != '') ? lundi : '',
+        //         mardi: (mardi != '') ? mardi : '',
+        //         mercredi: (mercredi != '') ? mercredi : '',
+        //         jeudi: (jeudi != '') ? jeudi : '',
+        //         vendredi: (vendredi != '') ? vendredi : '',
+        //         samedi: (samedi != '') ? samedi : '',
+        //         dimanche: (dimanche != '') ? dimanche : '',
+        //         heure_debut_lundi: heure_debut_lundi,
+        //         heure_fin_lundi: heure_fin_lundi,
+        //         heure_debut_mardi: heure_debut_mardi,
+        //         heure_fin_mardi: heure_fin_mardi,
+        //         heure_debut_mercredi: heure_debut_mercredi,
+        //         heure_fin_mercredi: heure_fin_mercredi,
+        //         heure_debut_jeudi: heure_debut_jeudi,
+        //         heure_fin_jeudi: heure_fin_jeudi,
+        //         heure_debut_vendredi: heure_debut_vendredi,
+        //         heure_fin_vendredi: heure_fin_vendredi,
+        //         heure_debut_samedi: heure_debut_samedi,
+        //         heure_fin_samedi: heure_fin_samedi,
+        //         heure_debut_dimanche: heure_debut_dimanche,
+        //         heure_fin_dimanche: heure_fin_dimanche,
+        //         form2: 'form2',
+        //     },
+        //     function (res, status) {
+        //         if (status === 'success') {
+        //             $('#form2').hide();
+        //             $('#form3').fadeIn();
+        //         }
+        //     }
+        // );
+
+
+        //     }
+        });
     });
 
     $('#step3').click(function (e) {
@@ -473,6 +545,10 @@ $(document).ready(function () {
                 $('.setAge').append('<div class="form-group col-xs-6 col-md-6"><label for="">Age de l\'enfant '+ (i+1) +'</label><input type="text" placeholder="Ex: 4 ans" class="age_enfant form-control"></div>');
             }
         }
+    });
+
+    $('#salaire').on('keyup', function () {
+        $('#checkPrix').empty();
     });
 });
 

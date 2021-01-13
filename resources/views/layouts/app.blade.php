@@ -30,6 +30,9 @@
         <script src="{{ asset('js/createAnnonceRecrut.js') }}" defer></script>
         <link rel="stylesheet" href="{{ asset('css/createAnnonceRecrut.css') }}">
     @endif
+    @if(Route::currentRouteName() == 'annonce-recruteur.index')
+        <script src="{{ asset('js/indexAnnonce.js') }}" defer></script>
+    @endif
     <link rel="stylesheet" href="{{ asset('css/profils.css') }}" defer>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -55,6 +58,7 @@
 
 </head>
 <body>
+    @include('include/abonnementModal')
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -132,7 +136,7 @@
 
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="">{{ __('Interviews programmés') }}</a>
+                                    <a class="nav-link" href="" data-toggle="modal" data-target="#abonnementModal">{{ __('S\'abonner') }}</a>
                                 </li>
 
                                 <li class="nav-item dropdown">
@@ -278,7 +282,9 @@
                             data: {"photo": response, "id": compte_demandeur_id, _token:_token},
                             dataType: "json",
                             success: function(data) {
-                                var crop_image = '<img src="{{ asset('+ data.path +') }}" />';
+                                console.log(data);
+                                var crop_image = '<img src="'+ data.path +'"  alt="mon profil"/>';
+                                $('#uploaded_image').empty();
                                 $('#uploaded_image').html(crop_image);
                                 var confirm = '<span class="fa fa-check"></span> ' + data.confirmMsg;
                                 // var crop_image = '<p>'+data.id+'</p>';
@@ -475,6 +481,25 @@
                         }
                     );
                 });
+
+                // filtrer les offres
+                $('#search_poste').on('keyup', function() {
+                    var text = $(this).val();
+
+                    $.get("/search/offres",
+                        {
+                          text: text
+                        },
+                        function(response, statut){
+                            var data = JSON.parse(response);
+                            console.log(data)
+                            for (let i = 0; i < data.length; i++) {
+                                const result = data[i];
+                                // $('.template_offre').html('<p><span class="text-bold">Salut, Je recherche une </span>{{ $allAnnonce->poste->nom }} @if($allAnnonce->residente == 1) , résidente @endif . Dans la ville de {{ $ville->designation }}, plus précisement à {{ $quartier->designation }} - {{ $allAnnonce->localisation->designation }}</p>');
+                            }
+                        }
+                    );
+                });
             });
         </script>
     @endif
@@ -531,7 +556,8 @@
                                 for (var i=0; i<result.length; i++) {
                                     const donnee = result[i];
                                     // ajouter au modal dynamiquement
-                                    $('.toClear').append('<div class="form-group"><div style="display: flex; justify-content: left" class="toAdd"><div class="user-image-label"><a href="#" title="'+ donnee.nom +'"><img src="/public/'+ donnee.photo +'" class="rounded-circle" alt="'+ donnee.nom +'"></a></div><label for="yes" class="textInput"></label><a href="#" class="removeToSelection mx-4" style="font-size: 18px" id="'+ donnee.id +'" title="Supprimer de la liste"><span class="text-danger fa fa-trash"></span></a></div></div>');
+                                    $('.toClear').append('<div class="form-group"><div style="display: flex; justify-content: left" class="toAdd"><div class="user-image-label"><a href="#" title="'+ donnee.nom +'"><img src="/'+ donnee.photo +'" class="rounded-circle" alt="'+ donnee.nom +'"></a></div><label for="yes" class="textInput"></label><a href="#" class="removeToSelection mx-4" style="font-size: 18px" id="'+ donnee.id +'" title="Supprimer de la liste"><span class="text-danger fa fa-trash"></span></a></div></div>');
+                                    $('.toClear').append('<div class="text-center"><button class="btn btn-success btn-lg btn-block" id="insert"><i class="fa fa-plus"></i> </button></div>');
                                 }
 
                             }
@@ -552,7 +578,8 @@
                             },
                             function(response, status) {
                                 // var result = JSON.parse(response);
-                                console.log('ok');
+                                // console.log('ok');
+                                $('a[id="'+ id_profil +'"]').parent().remove();
                             }
                         );
 
@@ -572,6 +599,47 @@
                     );
 
                 });
+
+                // custom input type=range
+                $('.range').next().text('--'); // Valeur par défaut
+                $('.range').on('input', function() {
+                    var $set = $(this).val();
+                    if($set == 18){
+                        $(this).next().text('18 ans');
+                    } else {
+                        $(this).next().text('de 18 à '+$set+' ans');
+                    }
+                });
+
+                // recherche selon plusieurs criteres
+                $('#actualiser').on('click', function(event) {
+                    event.preventDefault();
+                    var poste = $('#poste').val(),
+                    localisation = $('#localisation').val(),
+                    age = $('input[name="age"]').val();
+
+                    $.get("/search/annonces",
+                        {
+                            poste: poste,
+                            localisation: (localisation !== '') ? localisation : '',
+                            age: age
+                        },
+                        function(res, status){
+                            var result = JSON.parse(res);
+                            console.log(result);
+                            if(result.length > 0) {
+                                for (let i = 0; i < result.length; i++) {
+                                    const data = result[i];
+                                    $('.template').html('<p><span class="text-bold">Salut, Je suis une </span>'+ data.nom_poste +'. Dans la ville de '+ data.nom_localisation +'</p><p class="text-muted">Publié par: <span class="text-bold">'+ data.prenom +'</span>, le '+ data.created_at +'</p>');
+                                    $('.template').append('<div class="text-center" id="btnPostuler"><a href="" id="'+ data.id +'" class="addToSelection mx-3" style="text-decoration: none">Ajouter à la sélection</a><a href="#" class="mx-3" data-toggle="modal" data-target="#signalerDemandeModal'+ data.id +'">Signaler</a></div>')
+                                }
+                            } else {
+                                $('.template').html('<p>Aucune annonce trouvée !</p>');
+                            }
+                        }
+                    );
+                });
+
             });
         </script>
     @endif

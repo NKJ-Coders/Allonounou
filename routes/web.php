@@ -56,7 +56,7 @@ Route::get('/profil/modify/{profil_di?}', 'ProfilController@getmodify')->name('p
 
 
 Route::get('/profil/create/{compte}', 'ProfilController@create')->name('profil.create');
-Route::post('/profil', 'ProfilController@store');
+Route::post('/profil', 'ProfilController@store')->name('profil.store');
 Route::get('/profil/show/{user}', 'ProfilController@show')->name('profil.show');
 Route::get('/profil/index', 'ProfilController@index')->name('profil.index');
 Route::get('/profil/statut/{profil}/{statut}', 'ProfilController@changeStatut')->name('profil.statut');
@@ -102,6 +102,16 @@ Route::get('/getInputByForm', 'OffreController@getInputByForm')->name('getInputB
 Route::get('/deleteSessionForm1', 'OffreController@deleteSessionForm1')->name('deleteSessionForm1');
 
 Route::get('annonce_recruteur/publier', 'OffreController@publier')->name('offre.publier');
+
+Route::get('/search/annonces', 'SearchController@searchAnnonceByAll');
+Route::get('/search/offres', 'SearchController@searchOffre');
+
+Route::get('/annonce_recruteur/list', 'Annonce_recruteurController@listOffreByAdmin')->name('listOffreByAdmin');
+Route::get('/annonce_recruteur/status/{offre}/{statut}', 'Annonce_recruteurController@changeStatus')->name('changeStatus');
+
+Route::get('/annonce_demandeur/list', 'Annonce_demandeurController@listAnnonceByAdmin')->name('listAnnonceByAdmin');
+Route::get('/annonce_demandeur/status/{annonce}/{statut}', 'Annonce_demandeurController@changeStatus')->name('changeStatus');
+
 
 Auth::routes();
 

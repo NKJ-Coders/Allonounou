@@ -92,12 +92,19 @@
                     </li>
                     <!-- compte -->
                     <li class="dropdown {{ request()->is('compte/list') ? 'active' : '' }}"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i><span>Gestion des comptes</span> <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="icons.html">Administrateurs</a></li>
-                        <li><a href="{{ route('compte_demandeur') }}">Demandes de profil</a></li>
-                        <li><a href="{{ route('profil.index') }}">Liste des profils</a></li>
-                        <li><a href="pricing.html">Recruteur</a></li>
-                    </ul>
+                        <ul class="dropdown-menu">
+                            <li><a href="icons.html">Administrateurs</a></li>
+                            <li><a href="{{ route('compte_demandeur') }}">Demandes de profil</a></li>
+                            <li><a href="{{ route('profil.index') }}">Liste des profils</a></li>
+                            <li><a href="pricing.html">Recruteur</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class=" icon-share"></i><span>Gestion des Annonces</span> <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ route('listOffreByAdmin') }}">Offres d'emploi</a></li>
+                            <li><a href="{{ route('listAnnonceByAdmin') }}">Demandes d'emploi</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>

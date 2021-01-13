@@ -12,7 +12,7 @@ class ImageCropController extends Controller
     public function store(Request $request)
     {
         if ($request->ajax()) {
-            $profil = Profil::first('compte_demandeur_id', $request->id);
+            $profil = Profil::where('compte_demandeur_id', $request->id)->first();
             $compte = Compte_demandeur::find($request->id);
 
             // verifie si profil existe deja
@@ -34,8 +34,11 @@ class ImageCropController extends Controller
                 $profil->photo = 'crop_image/' . $photo_name;
                 $profil->save();
 
+                $compte->update(['statut' => 1]);
+
                 // return response()->json(['path' => 'crop_image/' . $photo_name]);
-                return response()->json(['path' => $profil->photo, 'confirmMsg' => 'Image insérée avec success!']);
+                $photo_url = '/' . $profil->photo;
+                return response()->json(['path' => $photo_url, 'confirmMsg' => 'Image insérée avec success!']);
             } else { //sinon on update
                 $photo = $request->photo;
                 $photo_array_1 = explode(';', $photo);
@@ -43,7 +46,8 @@ class ImageCropController extends Controller
                 $data = base64_decode($photo_array_2[1]);
                 $photo_name = time() . '.jpg';
                 $data_photo = explode(".", $photo_name);
-                $data_photo = str_replace($data_photo[0], $compte->nom, $data_photo[0]);
+                $replace_name = $compte->nom . '_' . $compte->id;
+                $data_photo = str_replace($data_photo[0], $replace_name, $data_photo[0]);
                 $photo_name = $data_photo . ".jpg";
 
                 // si fichier existe deja dans le dossier on suppr
@@ -55,12 +59,17 @@ class ImageCropController extends Controller
                 }
                 $upload_path = public_path('crop_image/' . $photo_name);
                 file_put_contents($upload_path, $data);
-
+                $nom_photo = 'crop_image/' . $photo_name;
                 // update
-                $profil->update(['compte_demandeur_id' => $request->id, 'photo' => 'crop_image/' . $photo_name]);
+                $profil->compte_demandeur_id = $request->id;
+                $profil->photo = $nom_photo;
+                $profil->save();
+
+                $compte->update(['statut' => 1]);
 
                 // return response()->json(['path' => 'crop_image/' . $photo_name]);
-                return response()->json(['path' => $profil->photo, 'confirmMsg' => 'Image mise à jour avec success!']);
+                $photo_url = '/' . $profil->photo;
+                return response()->json(['path' => $photo_url, 'confirmMsg' => 'Image mise à jour avec success!']);
             }
         }
     }

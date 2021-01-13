@@ -1,6 +1,21 @@
-@extends('layouts.app');
+@extends('layouts.app')
 
 @section('content')
+
+    <div class="text-center">
+        <div class="form-group col-md-4">
+            <div id="custom-search-input">
+                <div class="input-group col-md-12">
+                    <input type="text" class="form-control input-lg" id="search_poste" placeholder="Entrez un poste" />
+                    <span class="input-group-btn">
+                        <a class="btn btn-info btn-lg">
+                            <i class="fa fa-search"></i>
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
     <h1 class="my-3">Liste des offres:</h1>
 
     @foreach($allAnnonces as $key => $allAnnonce)
@@ -9,7 +24,7 @@
         $arr = App\Localisation::find($quartier->id_parent);
         $ville = App\Localisation::find($arr->id_parent);
     ?>
-        <div>
+        <div class="template_offre">
             <p><span class="text-bold">Salut, Je recherche une </span>{{ $allAnnonce->poste->nom }} @if($allAnnonce->residente == 1) , résidente @endif . Dans la ville de {{ $ville->designation }}, plus précisement à {{ $quartier->designation }} - {{ $allAnnonce->localisation->designation }}</p>
             <p><span class="text-bold">Urgent: </span> {{ $allAnnonce->urgent ? 'Oui' : 'Non' }}</p>
             <p>

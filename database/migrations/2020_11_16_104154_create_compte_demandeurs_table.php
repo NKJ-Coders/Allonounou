@@ -22,13 +22,14 @@ class CreateCompteDemandeursTable extends Migration
             $table->unsignedBigInteger('telephone2')->nullable();
             $table->unsignedBigInteger('telephone3')->nullable();
             $table->string('date_nais')->nullable();
+            $table->unsignedBigInteger('age')->nullable();
             $table->string('situation_matrimoniale')->nullable();
             $table->string('age_dernier_enfant')->nullable();
             $table->string('metier')->nullable();
             $table->string('date_arret_dernier_metier')->nullable();
             $table->string('niveau_etude')->nullable();
             $table->string('langue')->nullable();
-            $table->boolean('statut')->default('1')->nullable();
+            $table->boolean('statut')->default('0')->nullable();
             $table->boolean('online')->default('1')->nullable();
             $table->timestamps();
         });
