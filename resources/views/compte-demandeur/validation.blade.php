@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container emp-profile">
+<div id='val' class="container emp-profile">
     <form method="POST" action="{{ route('registration.demandeur') }}" enctype="multipart/form-data">
         @csrf
         <div class="row">

@@ -39,6 +39,20 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/croppie.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/customInput.css') }}">
+
+    {{-- input --}}
+    <link rel="stylesheet" href="{{ asset('css/intlTelInput.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/itl.css') }}">
+
+    <script src="{{ asset('js/intlTelInput.min.js') }}" defer></script>
+    <script src="{{ asset('js/phone1.js') }}" async></script>
+    <script src="{{ asset('js/phone2.js') }}" async></script>
+    <script src="{{ asset('js/phone3.js') }}" async></script>
+
+    <!-- CSRF Token -->
+    <title>{{ config('app.name', 'Laravel') }}</title>
+    <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
+
 </head>
 <body>
     <div id="app">
@@ -569,3 +583,4 @@
 <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js'></script>
 <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap-grid.min.css'
     media="screen" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
